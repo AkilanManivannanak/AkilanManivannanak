@@ -17,38 +17,55 @@ My focus is **measurable performance + reliability**, not “just notebooks.”
 ### Languages
 <p>
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
 </p>
 
-### ML / DL
+### Libraries & Frameworks
 <p>
+  <img src="https://img.shields.io/badge/LLM-000000?style=for-the-badge&logo=openai&logoColor=white" />
+  <img src="https://img.shields.io/badge/RAG-FF6F00?style=for-the-badge&logo=databricks&logoColor=white" />
+  <img src="https://img.shields.io/badge/GenAI-4285F4?style=for-the-badge&logo=googlegemini&logoColor=white" />
+  <img src="https://img.shields.io/badge/Llama%203-0467DF?style=for-the-badge&logo=meta&logoColor=white" />
+  <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logoColor=white" />
+  <img src="https://img.shields.io/badge/ChromaDB-000000?style=for-the-badge&logoColor=white" />
+  <img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logoColor=white" />
+  <img src="https://img.shields.io/badge/SentenceTransformers-FFCC00?style=for-the-badge&logoColor=black" />
+
+</p>
+
+<p>
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
   <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" />
   <img src="https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white" />
   <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" />
-  <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" />
-  <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" />
-</p>
-
-### Computer Vision
-<p>
+  <img src="https://img.shields.io/badge/SciPy-0C55A5?style=for-the-badge&logo=scipy&logoColor=white" />
   <img src="https://img.shields.io/badge/OpenCV-27338e?style=for-the-badge&logo=opencv&logoColor=white" />
 </p>
 
-### Serving / MLOps-ish Engineering
 <p>
+  <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" />
+  <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" />
+  <img src="https://img.shields.io/badge/Matplotlib-111111?style=for-the-badge&logoColor=white" />
+  <img src="https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white" />
+  <img src="https://img.shields.io/badge/🤗%20Hugging%20Face-FDEE21?style=for-the-badge&logoColor=black" />
+</p>
+
+<p>
+  <img src="https://img.shields.io/badge/MLflow-1F77B4?style=for-the-badge&logoColor=white" />
+  <img src="https://img.shields.io/badge/Weights%20%26%20Biases-FFBE00?style=for-the-badge&logo=weightsandbiases&logoColor=black" />
+  <img src="https://img.shields.io/badge/Vector%20DB-DeepLake-7B2CBF?style=for-the-badge&logoColor=white" />
   <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" />
   <img src="https://img.shields.io/badge/Docker-0DB7ED?style=for-the-badge&logo=docker&logoColor=white" />
   <img src="https://img.shields.io/badge/pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white" />
   <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
   <img src="https://img.shields.io/badge/GitHub-121011?style=for-the-badge&logo=github&logoColor=white" />
+  
 </p>
 
-### LLM / RAG (used in projects)
+### Currently exploring 
 <p>
-  <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logoColor=white" />
-  <img src="https://img.shields.io/badge/ChromaDB-000000?style=for-the-badge&logoColor=white" />
-  <img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logoColor=white" />
-  <img src="https://img.shields.io/badge/SentenceTransformers-FFCC00?style=for-the-badge&logoColor=black" />
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/Monaco%20Editor-1F74C7?style=for-the-badge&logo=visualstudiocode&logoColor=white" />
+  <img src="https://img.shields.io/badge/Piston-6A0DAD?style=for-the-badge&logoColor=white" />
 </p>
 
 ---
@@ -60,7 +77,7 @@ A production-style ML system demonstrating an end-to-end workflow: **data ingest
 - **Highlights:** multi-horizon forecasting endpoints, tested API surface, reproducible structure, and a RAG assistant that answers only from retrieved context.
 - **Stack:** Python, TensorFlow/Keras, FastAPI, Docker, LangChain + Chroma, sentence-transformers, Ollama
 - **Repo:** https://github.com/AkilanManivannanak/stock-forecasting-aapl-LSTM-RAG  
-> Note: This repo is framed as an engineering/evaluation project (not trading advice).
+
 
 ---
 
