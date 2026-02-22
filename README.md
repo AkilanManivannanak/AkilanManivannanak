@@ -58,6 +58,7 @@ My focus is **measurable performance + reliability**, not “just notebooks.”
   <img src="https://img.shields.io/badge/pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white" />
   <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
   <img src="https://img.shields.io/badge/GitHub-121011?style=for-the-badge&logo=github&logoColor=white" />
+  ![MLOps](https://img.shields.io/badge/MLOps-000000?style=for-the-badge&logo=pre-commit&logoColor=white)
   
 </p>
 
