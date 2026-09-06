@@ -178,14 +178,21 @@ def block_stats(user, repos, contrib, stars, total, prs):
 
 
 def block_activity(repos):
+    """Recent pushes. Falls back to language and size rather than repeating a
+    'no description' line six times down the profile."""
     recent = sorted((r for r in repos if r.get("pushed_at")),
                     key=lambda r: r["pushed_at"], reverse=True)[:6]
-    lines = []
+    rows = []
     for r in recent:
         when = datetime.strptime(r["pushed_at"], "%Y-%m-%dT%H:%M:%SZ")
-        desc = (r.get("description") or "").strip() or "no description set"
-        lines.append(f"- **[{r['name']}]({r['html_url']})** · {when:%d %b %Y} · {desc}")
-    return "\n".join(lines) if lines else "_No recent pushes._"
+        desc = (r.get("description") or "").strip()
+        if not desc:
+            bits = [b for b in (r.get("language"), f"{r.get('size', 0):,} KB") if b]
+            desc = " · ".join(bits) if bits else "—"
+        rows.append(f"| [{r['name']}]({r['html_url']}) | {when:%d %b %Y} | {desc} |")
+    if not rows:
+        return "_No recent pushes._"
+    return "\n".join(["| Repository | Pushed | |", "|---|---|---|"] + rows)
 
 
 def plural(n, word):

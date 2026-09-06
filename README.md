@@ -5,14 +5,6 @@
   <img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/hero-light.svg" alt="Akilan Manivannan — camera-only BEV perception. Six camera frustums sweeping an occupancy grid around an ego vehicle." width="100%" />
 </picture>
 
-<a href="https://akilanmanivannanak.github.io/AkilanManivannanak/">
-  <img src="https://img.shields.io/badge/▶%20OPEN%20THE%20PERCEPTION%20DECK-orbit%20a%20live%20BEV%20scene-e0873a?style=for-the-badge&labelColor=07090c" alt="Open the interactive 3D perception deck" />
-</a>
-
-<sub>Six camera frustums, a live occupancy field, three trajectory modes. Switch tabs for the repository graph.</sub>
-
-<br/><br/>
-
 <a href="https://www.linkedin.com/in/akilan-manivannan-a178212a7"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
 <a href="https://akilanmanivannan.com"><img src="https://img.shields.io/badge/Portfolio-14171c?style=flat-square&logo=safari&logoColor=white" alt="Portfolio" /></a>
 <a href="mailto:ak.akilan.smart22@gmail.com"><img src="https://img.shields.io/badge/Email-b4531a?style=flat-square&logo=gmail&logoColor=white" alt="Email" /></a>
@@ -30,6 +22,36 @@
 MS Artificial Intelligence at LIU Brooklyn, graduating January 2027. Brooklyn, NY.
 I build camera-only bird's-eye-view perception and the test rigs that break it.
 Open to perception and applied-ML internships.
+
+<br/>
+
+## ⬢ Perception deck
+
+Three scenes, recorded from the live page. Everything below is running in a browser, not
+rendered offline: [open the deck](https://akilanmanivannanak.github.io/AkilanManivannanak/) to drive it yourself.
+
+**Camera-only BEV, with fault injection.** W A S D drives the ego vehicle. Break a camera
+and its sector of the occupancy grid dies, the trust score drops, and the picture-in-picture
+shows what that lens actually sees.
+
+<img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/deck-bev.gif" alt="Driving the ego vehicle through a bird's-eye-view occupancy grid, injecting an occlusion fault into two cameras and watching the trust score fall" width="100%" />
+
+**Every repository, three ways.** Clustered by domain, laid out on a timeline by last push,
+or ranked by stars. The nodes morph between layouts; the amber struts are the shared BEV
+encoder feeding three separate systems.
+
+<img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/deck-repos.gif" alt="Repository graph morphing between cluster, timeline and star-ranked layouts" width="100%" />
+
+**A year of commits as a surface.** 53 weeks across, 7 days deep, height and colour by
+count. Hover any column for the date, click it to open that day.
+
+<img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/deck-commits.gif" alt="Contribution history rendered as a field of 3D columns" width="100%" />
+
+<div align="center">
+<a href="https://akilanmanivannanak.github.io/AkilanManivannanak/">
+  <img src="https://img.shields.io/badge/▶%20DRIVE%20IT%20YOURSELF-akilanmanivannanak.github.io-e0873a?style=for-the-badge&labelColor=07090c" alt="Open the interactive perception deck" />
+</a>
+</div>
 
 <br/>
 
@@ -88,19 +110,21 @@ consumers, which is why the AV cluster is the part of this portfolio that compou
 | Repos carrying a description | 2 / 35 |
 | Primary languages | Python (19), Jupyter Notebook (2), HTML (2), Makefile (1), Vue (1) |
 
-<sub>Recomputed 06 Sep 2026, 04:40 UTC from the GitHub API.</sub>
+<sub>Recomputed 06 Sep 2026, 05:02 UTC from the GitHub API.</sub>
 <!-- STATS:END -->
 
 <details>
 <summary><sub>RECENT PUSHES</sub></summary>
 
 <!-- ACTIVITY:START -->
-- **[AkilanManivannanak](https://github.com/AkilanManivannanak/AkilanManivannanak)** · 06 Sep 2026 · no description set
-- **[Esophageal-Cancer-Detection](https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection)** · 06 Sep 2026 · no description set
-- **[opendrivefm](https://github.com/AkilanManivannanak/opendrivefm)** · 31 Aug 2026 · no description set
-- **[two-stage-recommender-als-ranker-api](https://github.com/AkilanManivannanak/two-stage-recommender-als-ranker-api)** · 16 Jun 2026 · no description set
-- **[costsim-ai](https://github.com/AkilanManivannanak/costsim-ai)** · 14 Jun 2026 · no description set
-- **[guardian-drive](https://github.com/AkilanManivannanak/guardian-drive)** · 13 Jun 2026 · no description set
+| Repository | Pushed | |
+|---|---|---|
+| [AkilanManivannanak](https://github.com/AkilanManivannanak/AkilanManivannanak) | 06 Sep 2026 | Python · 51 KB |
+| [Esophageal-Cancer-Detection](https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection) | 06 Sep 2026 | Jupyter Notebook · 3,384 KB |
+| [opendrivefm](https://github.com/AkilanManivannanak/opendrivefm) | 31 Aug 2026 | Makefile · 5,360 KB |
+| [two-stage-recommender-als-ranker-api](https://github.com/AkilanManivannanak/two-stage-recommender-als-ranker-api) | 16 Jun 2026 | HTML · 67,727 KB |
+| [costsim-ai](https://github.com/AkilanManivannanak/costsim-ai) | 14 Jun 2026 | 0 KB |
+| [guardian-drive](https://github.com/AkilanManivannanak/guardian-drive) | 13 Jun 2026 | Python · 93,948 KB |
 <!-- ACTIVITY:END -->
 
 </details>
