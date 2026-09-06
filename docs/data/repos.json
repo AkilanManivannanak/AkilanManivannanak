@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-06T05:09:51+00:00",
+ "generated": "2026-09-06T09:39:09+00:00",
  "count": 35,
  "repos": [
   {
@@ -171,6 +171,18 @@
    "url": "https://github.com/AkilanManivannanak/stock-forecasting-aapl-LSTM-RAG"
   },
   {
+   "name": "AkilanManivannanak",
+   "domain": "archive",
+   "size": 2.52,
+   "stars": 0,
+   "kb": 2250,
+   "lang": "Python",
+   "fork": false,
+   "pushed": "2026-09-06",
+   "note": "no description set",
+   "url": "https://github.com/AkilanManivannanak/AkilanManivannanak"
+  },
+  {
    "name": "Sign-Language-Regonization-using-CNN-Algorithm-with-Meachine-Learning-Techniques-Paper",
    "domain": "archive",
    "size": 2.44,
@@ -301,18 +313,6 @@
    "pushed": "2026-06-05",
    "note": "SafeTruck-AV2 trucking stack \u00b7 ADE 18.78 m",
    "url": "https://github.com/AkilanManivannanak/autonomy-vision"
-  },
-  {
-   "name": "AkilanManivannanak",
-   "domain": "archive",
-   "size": 0.97,
-   "stars": 0,
-   "kb": 51,
-   "lang": "Python",
-   "fork": false,
-   "pushed": "2026-09-06",
-   "note": "no description set",
-   "url": "https://github.com/AkilanManivannanak/AkilanManivannanak"
   },
   {
    "name": "Alcohol_prediction",
