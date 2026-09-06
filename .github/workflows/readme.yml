@@ -4,10 +4,8 @@ on:
   schedule:
     - cron: "40 5 * * *"        # daily, 05:40 UTC
   workflow_dispatch:
-  push:
-    paths:
-      - "scripts/update_readme.py"
-      - ".github/workflows/readme.yml"
+  # No push trigger on purpose: this job commits to main, so running it on every
+  # push made local clones go stale between a push and the next one.
 
 permissions:
   contents: write
