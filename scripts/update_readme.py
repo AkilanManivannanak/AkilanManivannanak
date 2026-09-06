@@ -61,29 +61,52 @@ def all_repos():
     return repos
 
 
-def contributions_last_year():
-    """Rolling 365 days, matching the number GitHub itself renders."""
+CAL_FRAGMENT = """
+fragment Cal on ContributionsCollection {
+  contributionCalendar { totalContributions weeks { contributionDays { date contributionCount } } }
+  totalCommitContributions
+  totalPullRequestContributions
+  totalIssueContributions
+  totalPullRequestReviewContributions
+}"""
+
+
+def contribution_windows():
+    """Rolling 365 days plus the two previous calendar years, for the deck's year picker."""
     if not TOKEN:
         return None
-    to = datetime.now(timezone.utc)
-    frm = to - timedelta(days=365)
-    q = """
-    query($login:String!,$from:DateTime!,$to:DateTime!){
-      user(login:$login){
-        contributionsCollection(from:$from,to:$to){
-          contributionCalendar{
-            totalContributions
-            weeks{ contributionDays{ date contributionCount } }
-          }
-          totalCommitContributions
-          totalPullRequestContributions
-          totalIssueContributions
-          totalPullRequestReviewContributions
-        }
-      }
-    }"""
-    data = gql(q, {"login": USER, "from": frm.isoformat(), "to": to.isoformat()})
-    return data.get("data", {}).get("user", {}).get("contributionsCollection")
+    now = datetime.now(timezone.utc)
+    wins = [("w0", "last 365 days", now - timedelta(days=365), now)]
+    for i in (1, 2):
+        y = now.year - i
+        wins.append((f"w{i}", str(y),
+                     datetime(y, 1, 1, tzinfo=timezone.utc),
+                     datetime(y, 12, 31, 23, 59, 59, tzinfo=timezone.utc)))
+
+    decl = ", ".join(f"$f{i}:DateTime!, $t{i}:DateTime!" for i in range(len(wins)))
+    sel = "\n".join(f"    {k}: contributionsCollection(from:$f{i},to:$t{i}) {{ ...Cal }}"
+                     for i, (k, _, _, _) in enumerate(wins))
+    q = f"query($login:String!, {decl}) {{ user(login:$login) {{\n{sel}\n  }} }}{CAL_FRAGMENT}"
+    variables = {"login": USER}
+    for i, (_, _, frm, to) in enumerate(wins):
+        variables[f"f{i}"] = frm.isoformat()
+        variables[f"t{i}"] = to.isoformat()
+    data = gql(q, variables)
+    user = (data.get("data") or {}).get("user") or {}
+    if not user:
+        return None
+    out = []
+    for i, (k, label, _, _) in enumerate(wins):
+        c = user.get(k)
+        if c:
+            out.append((label, c))
+    return out
+
+
+def contributions_last_year():
+    """The rolling-365-day window, kept as the primary figure for the README."""
+    wins = contribution_windows()
+    return wins[0][1] if wins else None
 
 
 def pull_requests():
@@ -274,27 +297,35 @@ def write_deck_data(repos, contrib):
         {"generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
          "count": len(nodes), "repos": nodes}, indent=1) + "\n")
 
-    if contrib:
-        days = []
-        for wk in contrib["contributionCalendar"]["weeks"]:
-            for d in wk["contributionDays"]:
-                days.append({"d": d["date"], "c": d["contributionCount"]})
-        streak = best = 0
-        for d in days:
-            streak = streak + 1 if d["c"] > 0 else 0
-            best = max(best, streak)
-        busiest = max(days, key=lambda d: d["c"]) if days else {"d": "", "c": 0}
-        (data_dir / "contributions.json").write_text(json.dumps({
-            "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            "total": contrib["contributionCalendar"]["totalContributions"],
-            "commits": contrib.get("totalCommitContributions", 0),
-            "prs": contrib.get("totalPullRequestContributions", 0),
-            "issues": contrib.get("totalIssueContributions", 0),
-            "reviews": contrib.get("totalPullRequestReviewContributions", 0),
-            "longestStreak": best,
-            "busiest": busiest,
-            "days": days,
-        }, indent=None) + "\n")
+    windows = contribution_windows()
+    if windows:
+        def summarise(label, c):
+            days = []
+            for wk in c["contributionCalendar"]["weeks"]:
+                for d in wk["contributionDays"]:
+                    days.append({"d": d["date"], "c": d["contributionCount"]})
+            streak = best = 0
+            for d in days:
+                streak = streak + 1 if d["c"] > 0 else 0
+                best = max(best, streak)
+            busiest = max(days, key=lambda d: d["c"]) if days else {"d": "", "c": 0}
+            return {
+                "label": label,
+                "total": c["contributionCalendar"]["totalContributions"],
+                "commits": c.get("totalCommitContributions", 0),
+                "prs": c.get("totalPullRequestContributions", 0),
+                "issues": c.get("totalIssueContributions", 0),
+                "reviews": c.get("totalPullRequestReviewContributions", 0),
+                "longestStreak": best,
+                "busiest": busiest,
+                "days": days,
+            }
+
+        years = [summarise(label, c) for label, c in windows]
+        payload = dict(years[0])
+        payload["generated"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        payload["years"] = years
+        (data_dir / "contributions.json").write_text(json.dumps(payload, indent=None) + "\n")
     print(f"  deck data written to docs/data/")
 
 
