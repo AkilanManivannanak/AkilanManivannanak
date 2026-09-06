@@ -110,21 +110,123 @@ consumers, which is why the AV cluster is the part of this portfolio that compou
 | Repos carrying a description | 2 / 35 |
 | Primary languages | Python (19), Jupyter Notebook (2), HTML (2), Makefile (1), Vue (1) |
 
-<sub>Recomputed 06 Sep 2026, 05:02 UTC from the GitHub API.</sub>
+<sub>Recomputed 06 Sep 2026, 05:07 UTC from the GitHub API.</sub>
 <!-- STATS:END -->
 
 <details>
-<summary><sub>RECENT PUSHES</sub></summary>
+<summary><sub>RECENT PUSHES</sub> &nbsp;<sub>— expand any row</sub></summary>
 
 <!-- ACTIVITY:START -->
-| Repository | Pushed | |
-|---|---|---|
-| [AkilanManivannanak](https://github.com/AkilanManivannanak/AkilanManivannanak) | 06 Sep 2026 | Python · 51 KB |
-| [Esophageal-Cancer-Detection](https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection) | 06 Sep 2026 | Jupyter Notebook · 3,384 KB |
-| [opendrivefm](https://github.com/AkilanManivannanak/opendrivefm) | 31 Aug 2026 | Makefile · 5,360 KB |
-| [two-stage-recommender-als-ranker-api](https://github.com/AkilanManivannanak/two-stage-recommender-als-ranker-api) | 16 Jun 2026 | HTML · 67,727 KB |
-| [costsim-ai](https://github.com/AkilanManivannanak/costsim-ai) | 14 Jun 2026 | 0 KB |
-| [guardian-drive](https://github.com/AkilanManivannanak/guardian-drive) | 13 Jun 2026 | Python · 93,948 KB |
+<details>
+<summary><b>AkilanManivannanak</b> &nbsp;·&nbsp; 06 Sep 2026 &nbsp;·&nbsp; Python</summary>
+
+| | |
+|---|---|
+| stars | 0 |
+| size | 51 KB |
+| domain | Coursework, forks, meta |
+| description | **not set** — run `scripts/set_descriptions.sh` |
+
+[Open the repository ↗](https://github.com/AkilanManivannanak/AkilanManivannanak) &nbsp;·&nbsp; [Focus it in the 3D graph ↗](https://akilanmanivannanak.github.io/AkilanManivannanak/?repo=AkilanManivannanak)
+
+</details>
+<details>
+<summary><b>Esophageal-Cancer-Detection</b> &nbsp;·&nbsp; 06 Sep 2026 &nbsp;·&nbsp; Jupyter Notebook</summary>
+
+| | |
+|---|---|
+| stars | 0 |
+| size | 3,384 KB |
+| domain | Healthcare & biomedical |
+| description | **not set** — run `scripts/set_descriptions.sh` |
+| what it is | EfficientNet-B3 · 95.44% |
+
+[Open the repository ↗](https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection) &nbsp;·&nbsp; [Focus it in the 3D graph ↗](https://akilanmanivannanak.github.io/AkilanManivannanak/?repo=Esophageal-Cancer-Detection)
+
+</details>
+<details>
+<summary><b>opendrivefm</b> &nbsp;·&nbsp; 31 Aug 2026 &nbsp;·&nbsp; Makefile</summary>
+
+| | |
+|---|---|
+| stars | 11 |
+| size | 5,360 KB |
+| domain | Autonomous driving & BEV |
+| description | **not set** — run `scripts/set_descriptions.sh` |
+| what it is | BEV occupancy + fault harness · AUROC 0.764 |
+
+[Open the repository ↗](https://github.com/AkilanManivannanak/opendrivefm) &nbsp;·&nbsp; [Focus it in the 3D graph ↗](https://akilanmanivannanak.github.io/AkilanManivannanak/?repo=opendrivefm)
+
+</details>
+<details>
+<summary><b>two-stage-recommender-als-ranker-api</b> &nbsp;·&nbsp; 16 Jun 2026 &nbsp;·&nbsp; HTML</summary>
+
+| | |
+|---|---|
+| stars | 0 |
+| size | 67,727 KB |
+| domain | Retrieval & ranking |
+| description | **not set** — run `scripts/set_descriptions.sh` |
+| what it is | CineWave · NDCG@10 0.1409 |
+
+[Open the repository ↗](https://github.com/AkilanManivannanak/two-stage-recommender-als-ranker-api) &nbsp;·&nbsp; [Focus it in the 3D graph ↗](https://akilanmanivannanak.github.io/AkilanManivannanak/?repo=two-stage-recommender-als-ranker-api)
+
+</details>
+<details>
+<summary><b>costsim-ai</b> &nbsp;·&nbsp; 14 Jun 2026 &nbsp;·&nbsp; —</summary>
+
+| | |
+|---|---|
+| stars | 0 |
+| size | 0 KB |
+| domain | Agentic AI · LLM · RAG |
+| description | **not set** — run `scripts/set_descriptions.sh` |
+
+[Open the repository ↗](https://github.com/AkilanManivannanak/costsim-ai) &nbsp;·&nbsp; [Focus it in the 3D graph ↗](https://akilanmanivannanak.github.io/AkilanManivannanak/?repo=costsim-ai)
+
+</details>
+<details>
+<summary><b>guardian-drive</b> &nbsp;·&nbsp; 13 Jun 2026 &nbsp;·&nbsp; Python</summary>
+
+| | |
+|---|---|
+| stars | 0 |
+| size | 93,948 KB |
+| domain | Autonomous driving & BEV |
+| description | **not set** — run `scripts/set_descriptions.sh` |
+| what it is | 8 hazard detectors fused with BEV |
+
+[Open the repository ↗](https://github.com/AkilanManivannanak/guardian-drive) &nbsp;·&nbsp; [Focus it in the 3D graph ↗](https://akilanmanivannanak.github.io/AkilanManivannanak/?repo=guardian-drive)
+
+</details>
+<details>
+<summary><b>Self-Driving-cars-Specialization</b> &nbsp;·&nbsp; 09 Jun 2026 &nbsp;·&nbsp; Python</summary>
+
+| | |
+|---|---|
+| stars | 0 |
+| size | 2,441 KB |
+| domain | Autonomous driving & BEV |
+| description | **not set** — run `scripts/set_descriptions.sh` |
+
+[Open the repository ↗](https://github.com/AkilanManivannanak/Self-Driving-cars-Specialization) &nbsp;·&nbsp; [Focus it in the 3D graph ↗](https://akilanmanivannanak.github.io/AkilanManivannanak/?repo=Self-Driving-cars-Specialization)
+
+</details>
+<details>
+<summary><b>Initialize-this-repository</b> &nbsp;·&nbsp; 09 Jun 2026 &nbsp;·&nbsp; —</summary>
+
+| | |
+|---|---|
+| stars | 0 |
+| size | 387 KB |
+| domain | Coursework, forks, meta |
+| description | **not set** — run `scripts/set_descriptions.sh` |
+
+[Open the repository ↗](https://github.com/AkilanManivannanak/Initialize-this-repository) &nbsp;·&nbsp; [Focus it in the 3D graph ↗](https://akilanmanivannanak.github.io/AkilanManivannanak/?repo=Initialize-this-repository)
+
+</details>
+
+<sub>Each row opens the repository, or drops you into the <a href="https://akilanmanivannanak.github.io/AkilanManivannanak/?scene=repos">3D graph</a> with that node selected.</sub>
 <!-- ACTIVITY:END -->
 
 </details>
@@ -139,8 +241,9 @@ _Generated once the workflow runs with `PROFILE_TOKEN` set: the contributions ca
 <!-- CONTRIBGRAPH:END -->
 
 <sub>Drawn by <code>scripts/update_readme.py</code> from the GitHub API, not by a third-party
-service. The interactive version, with a year picker and per-day detail, is in the
-<a href="https://akilanmanivannanak.github.io/AkilanManivannanak/">perception deck</a>.</sub>
+service. Every month links into the
+<a href="https://akilanmanivannanak.github.io/AkilanManivannanak/?scene=commits">3D surface</a>
+with that month lit up and the rest dimmed.</sub>
 
 </details>
 

@@ -23,6 +23,8 @@ TOKEN = os.environ.get("GITHUB_TOKEN", "")
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "output"
 
+DECK = f"https://{USER.lower()}.github.io/{USER}/"
+
 API = "https://api.github.com"
 GRAPHQL = "https://api.github.com/graphql"
 HEAD = {
@@ -177,22 +179,46 @@ def block_stats(user, repos, contrib, stars, total, prs):
     return "\n".join(out)
 
 
+DOMAIN_LABELS = {
+    "av": "Autonomous driving & BEV", "agentic": "Agentic AI · LLM · RAG",
+    "rank": "Retrieval & ranking", "health": "Healthcare & biomedical",
+    "signal": "Speech · vision · signal", "archive": "Coursework, forks, meta",
+}
+
+
 def block_activity(repos):
-    """Recent pushes. Falls back to language and size rather than repeating a
-    'no description' line six times down the profile."""
+    """Recent pushes, each row expandable, each one deep-linking into the deck so
+    the repository is focused and opened in the 3D graph."""
     recent = sorted((r for r in repos if r.get("pushed_at")),
-                    key=lambda r: r["pushed_at"], reverse=True)[:6]
-    rows = []
+                    key=lambda r: r["pushed_at"], reverse=True)[:8]
+    if not recent:
+        return "_No recent pushes._"
+    out = []
     for r in recent:
         when = datetime.strptime(r["pushed_at"], "%Y-%m-%dT%H:%M:%SZ")
         desc = (r.get("description") or "").strip()
-        if not desc:
-            bits = [b for b in (r.get("language"), f"{r.get('size', 0):,} KB") if b]
-            desc = " · ".join(bits) if bits else "—"
-        rows.append(f"| [{r['name']}]({r['html_url']}) | {when:%d %b %Y} | {desc} |")
-    if not rows:
-        return "_No recent pushes._"
-    return "\n".join(["| Repository | Pushed | |", "|---|---|---|"] + rows)
+        lang = r.get("language") or "—"
+        kb = r.get("size") or 0
+        note = NOTES.get(r["name"]) or desc
+        summary = f"<b>{r['name']}</b> &nbsp;·&nbsp; {when:%d %b %Y} &nbsp;·&nbsp; {lang}"
+        body = [
+            "", "| | |", "|---|---|",
+            f"| stars | {r.get('stargazers_count') or 0} |",
+            f"| size | {kb:,} KB |",
+            f"| domain | {DOMAIN_LABELS.get(classify(r), '—')} |",
+            f"| description | {desc if desc else '**not set** — run `scripts/set_descriptions.sh`'} |",
+        ]
+        if note and note != desc:
+            body.append(f"| what it is | {note} |")
+        body += ["",
+                 f"[Open the repository ↗]({r['html_url']}) &nbsp;·&nbsp; "
+                 f"[Focus it in the 3D graph ↗]({DECK}?repo={r['name']})", ""]
+        out.append("<details>\n<summary>" + summary + "</summary>\n" +
+                   "\n".join(body) + "\n</details>")
+    out.append("")
+    out.append(f"<sub>Each row opens the repository, or drops you into the "
+               f"<a href=\"{DECK}?scene=repos\">3D graph</a> with that node selected.</sub>")
+    return "\n".join(out)
 
 
 def plural(n, word):
@@ -414,15 +440,46 @@ def write_deck_data(repos, contrib):
     print(f"  deck data written to docs/data/")
 
 
+def block_contrib_months(days):
+    """One row per month, each linking into the deck with that month lit up."""
+    if not days:
+        return ""
+    buckets = {}
+    for d in days:
+        buckets.setdefault(d["d"][:7], []).append(d)
+    rows = ["", "| Month | Contributions | Busiest day | Active days | |",
+            "|---|---|---|---|---|"]
+    for month in sorted(buckets, reverse=True):
+        ds = buckets[month]
+        total = sum(x["c"] for x in ds)
+        best = max(ds, key=lambda x: x["c"])
+        active = sum(1 for x in ds if x["c"] > 0)
+        label = datetime.strptime(month, "%Y-%m").strftime("%b %Y")
+        rows.append(f"| {label} | {total} | {best['c']} on {best['d'][-2:]} | "
+                    f"{active} / {len(ds)} | [open ↗]({DECK}?date={month}) |")
+    rows.append("")
+    return "\n".join(rows)
+
+
 def block_contrib_graph(has_data):
     if not has_data:
         return ("_Generated once the workflow runs with `PROFILE_TOKEN` set: the contributions "
                 "calendar is only readable through authenticated GraphQL._")
     base = f"https://raw.githubusercontent.com/{USER}/{USER}/main/assets"
-    return ('<picture>\n'
-            f'  <source media="(prefers-color-scheme: dark)" srcset="{base}/contrib-iso-dark.svg" />\n'
-            f'  <img src="{base}/contrib-iso-light.svg" alt="Isometric view of the last year of contributions" width="100%" />\n'
-            '</picture>')
+    pic = ('<picture>\n'
+           f'  <source media="(prefers-color-scheme: dark)" srcset="{base}/contrib-iso-dark.svg" />\n'
+           f'  <img src="{base}/contrib-iso-light.svg" alt="Isometric view of the last year of contributions" width="100%" />\n'
+           '</picture>')
+    months = ""
+    data_file = ROOT / "docs" / "data" / "contributions.json"
+    if data_file.exists():
+        try:
+            months = ("\n\n<details>\n<summary><sub>MONTH BY MONTH</sub></summary>\n" +
+                      block_contrib_months(json.loads(data_file.read_text()).get("days", [])) +
+                      "\n</details>")
+        except (ValueError, OSError):
+            months = ""
+    return pic + months
 
 
 def splice(text, marker, body):

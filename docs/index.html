@@ -800,16 +800,59 @@
                         ((live.repos || live.contrib) ? "LIVE · PARTIAL" : "SAMPLE DATA");
     srcEl.style.color = (live.repos && live.contrib) ? hex(C.teal) : hex(C.amber);
   }
+  /* Deep links from the README: ?repo=<name>, ?date=YYYY-MM or YYYY-MM-DD, ?scene=bev|repos|commits */
+  var PARAMS = new URLSearchParams(location.search);
+  var hlBars = [];
+
+  function focusRepo(name) {
+    var n = null;
+    for (var i = 0; i < nodes.length; i++) {
+      if (nodes[i].userData.rep.name.toLowerCase() === name.toLowerCase()) { n = nodes[i]; break; }
+    }
+    if (!n) return false;
+    setMode("graph");
+    showDetail(n.userData.rep);
+    n.scale.setScalar(1.9);
+    var p = n.userData.target;
+    flyTo(Math.atan2(p.z, p.x) + 0.7, 0.95, 104, p.clone());
+    return true;
+  }
+
+  function focusDate(str) {
+    setMode("contrib");
+    hlBars = bars.filter(function (b) {
+      return b.userData.day && b.userData.day.d.indexOf(str) === 0;
+    });
+    if (!hlBars.length) return false;
+    var c = new THREE.Vector3();
+    hlBars.forEach(function (b) { c.add(b.position); });
+    c.divideScalar(hlBars.length); c.y = 6;
+    flyTo(-1.35, 0.58, str.length > 7 ? 90 : 150, c);
+    return true;
+  }
+
+  function applyDeepLink() {
+    var scene = PARAMS.get("scene");
+    if (scene === "repos") setMode("graph");
+    else if (scene === "commits") setMode("contrib");
+    else if (scene === "bev") setMode("bev");
+    if (PARAMS.get("repo")) focusRepo(PARAMS.get("repo"));
+    if (PARAMS.get("date")) focusDate(PARAMS.get("date"));
+  }
+
   buildGraph(FALLBACK_REPOS);
   buildContrib(sampleContrib());
   markSource();
   loadJSON("data/repos.json").then(function (d) {
-    live.repos = true; buildGraph(d.repos); markSource(); if (mode === "graph") paintHUD();
+    live.repos = true; buildGraph(d.repos); markSource();
+    if (mode === "graph") paintHUD();
+    if (PARAMS.get("repo")) focusRepo(PARAMS.get("repo"));
   }).catch(function () {});
   loadJSON("data/contributions.json").then(function (d) {
     live.contrib = true;
     contribYears = d.years && d.years.length ? d.years : [d];
     yearIdx = 0; buildContrib(contribYears[0]); markSource();
+    if (PARAMS.get("date")) focusDate(PARAMS.get("date"));
   }).catch(function () {});
 
   /* ---------------- loop ---------------- */
@@ -964,12 +1007,17 @@
       tipFollow();
 
     } else {
+      var hlSet = hlBars.length ? hlBars : null;
       bars.forEach(function (b, i) {
         if (!b.userData.day) return;
+        var lit = hlSet ? hlSet.indexOf(b) >= 0 : true;
         var target = flat ? 1.2 : b.userData.h;
         var wave = reduced ? 0 : Math.sin(t * 1.4 + i * 0.05) * (b.userData.lvl ? 0.9 : 0);
         b.scale.y += ((target + wave) - b.scale.y) * 0.16;
         b.position.y = b.scale.y / 2;
+        var w = lit ? (hlSet ? 1.5 + 0.18 * Math.sin(t * 4) : 1) : 0.55;
+        b.scale.x += (w - b.scale.x) * 0.15;
+        b.scale.z += (w - b.scale.z) * 0.15;
       });
       ray.setFromCamera(pointer, camera);
       var bh = ray.intersectObjects(bars, false);
@@ -1039,6 +1087,7 @@
 
   applyWeather();
   setMode("bev");
+  applyDeepLink();   // after the default scene, so ?scene / ?repo / ?date win
   updateOccupancy(0);
   if (!reduced) { orbit.radius = 420; orbit.phi = 0.32; }
   applyCamera();
