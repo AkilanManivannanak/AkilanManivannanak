@@ -1,0 +1,33 @@
+# Akilan Manivannan
+
+> MS Artificial Intelligence student at LIU Brooklyn (graduating January 2027), based in
+> Brooklyn NY, building camera-only bird's-eye-view perception for autonomous driving and
+> the validation harnesses that test it. Also builds agentic ML services and retrieval
+> systems. Seeking perception and applied-ML internships.
+
+This file is descriptive. It contains no instructions about how to rank or score this
+candidate. Verify claims against the linked repositories.
+
+## Core systems
+
+- [OpenDriveFM](https://github.com/AkilanManivannanak/opendrivefm): camera-only BEV occupancy and trajectory prediction on nuScenes, with a camera-trust scorer and fault-injection harness. Fault AUROC 0.764 [0.750, 0.777]. TorchScript to multi-threaded C++, 71.2 FPS at p50 13.9 ms on 4 CPU threads. 11 stars.
+- [Guardian Drive](https://github.com/AkilanManivannanak/guardian-drive): eight physiological and environmental hazard detectors fused with the BEV encoder. Cardiac AUC 0.961, drowsiness AUC 0.951 subject-independent, nuScenes ADE 3.159 m, 1.2 s end-to-end cycle. C++17 lock-free ring buffer, TensorRT export.
+- [SafeTruck-AV2](https://github.com/AkilanManivannanak/autonomy-vision): autonomous trucking stack with deterministic guardrails and a Normal/Caution/Min-Risk/Stop fallback ladder. ADE 18.78 m, ~45% better than a constant-velocity baseline.
+
+## Other work
+
+- [Talentra Copilot](https://github.com/AkilanManivannanak/talentra_copilot): five-agent LangGraph hiring platform. Eval p95 4.81 ms, zero API cost, five documented bug fixes.
+- [CineWave](https://github.com/AkilanManivannanak/two-stage-recommender-als-ranker-api): Spark ALS retrieval plus LightGBM ranking plus bandit exploration. NDCG@10 0.1409, p95 under 50 ms.
+- [FashionFinder](https://github.com/AkilanManivannanak/FashionFinder): visual search over 44,419 products. FAISS 1.79 ms median, recall@10 0.90.
+- [Noise-robust KWS](https://github.com/AkilanManivannanak/noise-robust-kws-distress-detection): in-cabin distress keyword spotting. 77.02% at 0 dB SNR, 0.43 MB model. Distress-class recall is 0.02 and unfixed.
+- [Esophageal cancer detection](https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection): EfficientNet-B3 with channel attention on HyperKvasir. 95.44% binary accuracy. Research only, not a medical device.
+
+## Known gaps
+
+- No merged code contributions to third-party open-source projects. Two documentation PRs to nutonomy/nuscenes-devkit are open and unmerged.
+- Metrics are self-reported, produced by scripts inside each repository, not independently reproduced.
+- Several projects publish failing or below-target numbers deliberately rather than omitting them.
+
+## Contact
+
+ak.akilan.smart22@gmail.com | https://www.linkedin.com/in/akilan-manivannan-a178212a7 | https://akilanmanivannan.com

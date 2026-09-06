@@ -1,0 +1,59 @@
+name: Rebuild README
+
+on:
+  schedule:
+    - cron: "40 5 * * *"        # daily, 05:40 UTC
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/update_readme.py"
+      - ".github/workflows/readme.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: readme
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Regenerate marker blocks and endpoint payloads
+        env:
+          # Needs read:user + repo scope for the contributions GraphQL query.
+          # Falls back to the default token, which cannot read the calendar.
+          GITHUB_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_USER: AkilanManivannanak
+        run: python scripts/update_readme.py
+
+      - name: Commit README if it changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain README.md)" ]; then
+            git add README.md
+            git commit -m "chore: rebuild README from the GitHub API"
+            git push
+          else
+            echo "README unchanged."
+          fi
+
+      - name: Publish shields.io endpoints to the output branch
+        run: |
+          test -d output || exit 0
+          cp -r output /tmp/endpoints
+          git fetch origin output || true
+          git checkout -B output
+          rm -rf ./* 2>/dev/null || true
+          cp /tmp/endpoints/*.json .
+          git add -A
+          git commit -m "chore: refresh badge endpoints" || echo "no endpoint changes"
+          git push -f origin output

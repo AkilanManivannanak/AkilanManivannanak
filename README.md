@@ -1,128 +1,169 @@
-# Akilan Manivannan
-**AI Engineer | Applied ML | LLM/RAG Systems | Production-minded (Evaluation + Reproducibility)**
+<div align="center">
 
-I build **engineering-first AI/ML projects**: reproducible training pipelines, baseline-driven evaluation, real-time inference demos, and API-delivered ML systems.  
-My focus is **measurable performance + reliability**, not “just notebooks.”
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/hero-dark.svg" />
+  <img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/hero-light.svg" alt="Akilan Manivannan — camera-only BEV perception. Six camera frustums sweeping an occupancy grid around an ego vehicle." width="100%" />
+</picture>
 
----
+<a href="https://akilanmanivannanak.github.io/AkilanManivannanak/">
+  <img src="https://img.shields.io/badge/▶%20OPEN%20THE%20PERCEPTION%20DECK-orbit%20a%20live%20BEV%20scene-e0873a?style=for-the-badge&labelColor=07090c" alt="Open the interactive 3D perception deck" />
+</a>
 
-## 🌐 Socials
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/akilan-manivannan-a178212a7/)
-[![Email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:ak.akilan.smart22@gmail.com)
+<sub>Six camera frustums, a live occupancy field, three trajectory modes. Switch tabs for the repository graph.</sub>
 
----
+<br/><br/>
 
-## 💻 Languages & Tools
+<a href="https://www.linkedin.com/in/akilan-manivannan-a178212a7"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+<a href="https://akilanmanivannan.com"><img src="https://img.shields.io/badge/Portfolio-14171c?style=flat-square&logo=safari&logoColor=white" alt="Portfolio" /></a>
+<a href="mailto:ak.akilan.smart22@gmail.com"><img src="https://img.shields.io/badge/Email-b4531a?style=flat-square&logo=gmail&logoColor=white" alt="Email" /></a>
+<img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FAkilanManivannanak%2FAkilanManivannanak%2Foutput%2Fcontrib-endpoint.json&style=flat-square" alt="Contributions in the last year" />
+<img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FAkilanManivannanak%2FAkilanManivannanak%2Foutput%2Frepos-endpoint.json&style=flat-square" alt="Public repositories" />
+<img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FAkilanManivannanak%2FAkilanManivannanak%2Foutput%2Fstars-endpoint.json&style=flat-square" alt="Stars" />
 
-### Languages
-<p>
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-</p>
+</div>
 
-### Libraries & Frameworks
-<p>
-  <img src="https://img.shields.io/badge/LLM-000000?style=for-the-badge&logo=openai&logoColor=white" />
-  <img src="https://img.shields.io/badge/RAG-FF6F00?style=for-the-badge&logo=databricks&logoColor=white" />
-  <img src="https://img.shields.io/badge/GenAI-4285F4?style=for-the-badge&logo=googlegemini&logoColor=white" />
-  <img src="https://img.shields.io/badge/Llama%203-0467DF?style=for-the-badge&logo=meta&logoColor=white" />
-  <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logoColor=white" />
-  <img src="https://img.shields.io/badge/ChromaDB-000000?style=for-the-badge&logoColor=white" />
-  <img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logoColor=white" />
-  <img src="https://img.shields.io/badge/SentenceTransformers-FFCC00?style=for-the-badge&logoColor=black" />
+<br/>
 
-</p>
+> Every figure on this page is emitted by a script inside the repository it describes.
+> Where a harness later contradicted one, the ledger below keeps both numbers.
 
-<p>
-  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
-  <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" />
-  <img src="https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white" />
-  <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" />
-  <img src="https://img.shields.io/badge/SciPy-0C55A5?style=for-the-badge&logo=scipy&logoColor=white" />
-  <img src="https://img.shields.io/badge/OpenCV-27338e?style=for-the-badge&logo=opencv&logoColor=white" />
-</p>
+MS Artificial Intelligence at LIU Brooklyn, graduating January 2027. Brooklyn, NY.
+I build camera-only bird's-eye-view perception and the test rigs that break it.
+Open to perception and applied-ML internships.
 
-<p>
-  <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" />
-  <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" />
-  <img src="https://img.shields.io/badge/Matplotlib-111111?style=for-the-badge&logoColor=white" />
-  <img src="https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white" />
-  <img src="https://img.shields.io/badge/🤗%20Hugging%20Face-FDEE21?style=for-the-badge&logoColor=black" />
-</p>
+<br/>
 
-<p>
-  <img src="https://img.shields.io/badge/MLflow-1F77B4?style=for-the-badge&logoColor=white" />
-  <img src="https://img.shields.io/badge/Weights%20%26%20Biases-FFBE00?style=for-the-badge&logo=weightsandbiases&logoColor=black" />
-  <img src="https://img.shields.io/badge/Vector%20DB-DeepLake-7B2CBF?style=for-the-badge&logoColor=white" />
-  <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" />
-  <img src="https://img.shields.io/badge/Docker-0DB7ED?style=for-the-badge&logo=docker&logoColor=white" />
-  <img src="https://img.shields.io/badge/pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white" />
-  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
-  <img src="https://img.shields.io/badge/GitHub-121011?style=for-the-badge&logo=github&logoColor=white" />
-  <img src="https://img.shields.io/badge/MLOps-000000?style=for-the-badge&logo=pre-commit&logoColor=white" />
-  <img src="https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" />
-  <img src="https://img.shields.io/badge/AWS_Cloud-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white" />
-  
-</p>
+## ⬢ Systems
 
-### Currently exploring 
-<p>
-  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
-  <img src="https://img.shields.io/badge/Monaco%20Editor-1F74C7?style=for-the-badge&logo=visualstudiocode&logoColor=white" />
-  <img src="https://img.shields.io/badge/Piston-6A0DAD?style=for-the-badge&logoColor=white" />
-</p>
+Four fields per system, same four every time: what it does, what it runs on, the number it
+ships at, and the number it fails at. The last column is the one most portfolios omit.
 
----
+| System | Role | Ships at | Fails at |
+|---|---|---|---|
+| **[opendrivefm](https://github.com/AkilanManivannanak/opendrivefm)** <br/><sub>nuScenes · TorchScript · C++</sub> | Camera-only BEV occupancy + trajectory, with a camera-trust scorer and a fault-injection harness wrapped around it | `AUROC 0.764` [0.750, 0.777] <br/> `71.2 FPS · p50 13.9 ms` | Pooled metrics still hide a per-camera spread. Worst-camera AUROC trails the pooled figure. |
+| **[guardian-drive](https://github.com/AkilanManivannanak/guardian-drive)** <br/><sub>BEVFormer · DDPM · C++17 · TensorRT</sub> | Eight physiological and environmental hazard detectors fused with the BEV stack, arbitrated by a rule-based safety FSM | `cardiac AUC 0.961` <br/> `drowsiness AUC 0.951` <sub>subject-independent</sub> | No CARLA server, no nuPlan closed-loop, no VLA steering, no real OBD-II. Needed hardware I did not have. |
+| **[autonomy-vision](https://github.com/AkilanManivannanak/autonomy-vision)** <br/><sub>FastAPI · React · Metal</sub> | Trucking stack: forecasting with uncertainty, deterministic guardrails, Normal → Caution → Min-Risk → Stop | `ADE 18.78 m` <br/> <sub>~45% better than constant-velocity</sub> | Scene classification is hand-written rules, not a learned model. The RL planner is a study, not a planner. |
+| **[talentra_copilot](https://github.com/AkilanManivannanak/talentra_copilot)** <br/><sub>LangGraph · FastAPI · Prometheus</sub> | Five agents — screener, ranker, interviewer, bias auditor, copilot — with a rule-based fallback at every layer | `p95 4.81 ms` <sub>vs a 1.5 s SLO</sub> <br/> `$0.000 / request` | Top-1 accuracy of 1.0 is measured on a fixture, not on a real candidate pool. |
+| **[noise-robust-kws](https://github.com/AkilanManivannanak/noise-robust-kws-distress-detection)** <br/><sub>MFCC · CNN · Apple MPS</sub> | In-cabin distress keyword spotting under real noise, sized for the edge | `77.02% @ 0 dB SNR` <br/> `0.43 MB · p95 2.18 ms` | **Distress-class recall is 0.02.** Class imbalance. Weighted-loss fix in progress. |
+| **[two-stage-recommender](https://github.com/AkilanManivannanak/two-stage-recommender-als-ranker-api)** <br/><sub>Spark ALS · LightGBM · bandits</sub> | ALS retrieval → LightGBM ranker → REINFORCE + LinUCB exploration, with 27 policy gates and sub-30 s rollback | `NDCG@10 0.1409` <sub>+253% over ALS</sub> <br/> `p95 < 50 ms` | Offline evaluation only. Doubly-robust IPS is not a live A/B test. |
 
-## ⭐ Featured Projects
+<br/>
 
-### 1) Stock Forecasting System (AAPL) — LSTM + Baselines + FastAPI + Grounded RAG Copilot
-A production-style ML system demonstrating an end-to-end workflow: **data ingestion → training → baseline-first evaluation → artifacts/reports → FastAPI serving → grounded RAG Q/A over project docs**.
-- **Highlights:** multi-horizon forecasting endpoints, tested API surface, reproducible structure, and a RAG assistant that answers only from retrieved context.
-- **Stack:** Python, TensorFlow/Keras, FastAPI, Docker, LangChain + Chroma, sentence-transformers, Ollama
-- **Repo:** https://github.com/AkilanManivannanak/stock-forecasting-aapl-LSTM-RAG  
+## ⬢ Regression ledger
 
+Every entry is a number I published, then disproved with my own tooling. Both values stay
+on the record. This table is the actual argument for hiring me.
 
----
+| Caught in | Metric | Published | After the fix | Root cause |
+|---|---|---|---|---|
+| opendrivefm | Trust-scorer AUROC | `0.434` <sub>CI [0.419, 0.449]</sub> | **`0.764`** <sub>CI [0.750, 0.777]</sub> | Scorer was **inverted**. Confidence interval sat entirely below chance: trust rose as a camera degraded. |
+| opendrivefm | Occlusion detection | `0.487` | **`0.689`** | No spatial pooling. Grid-4 pooling recovered the signal that global averaging destroyed. |
+| opendrivefm | Checkpoint loading | *silently passing* | **hard failure** | Weights failed to load without raising. Every downstream metric had been measured on an untrained graph. |
+| opendrivefm | Frame handoff | FIFO queue | **11.5× lower e2e latency** | Queue was serving stale frames under load. Replaced with a seqlock latest-frame buffer. |
+| talentra_copilot | v1 → v6 | 5 defects | **all 5 fixed, CI-gated** | Accuracy and latency gates now block promotion, so the same class of regression cannot ship again. |
 
-### 2) ASL Alphabet Recognition (A–Z) — Real-Time Webcam CNN
-A real-time CV system that classifies **ASL fingerspelling letters A–Z** from webcam frames with live overlay predictions.
-- **Metrics:** ~99.9% Test Accuracy, ~0.999 Macro-F1 (held-out test)
-- **Stack:** TensorFlow/Keras, OpenCV, NumPy
-- **Repo:** https://github.com/AkilanManivannanak/ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN
+<br/>
 
----
+## ⬢ Dependency map
 
-### 3) Multi-Disease Health Risk Prediction (17 Conditions) — Tabular ML + Imaging CNN
-A multi-disease screening + decision-support prototype combining **Random Forest for tabular clinical datasets** and **CNN-based imaging pipelines** for X-ray classification.
-- **Reported Results:** 87.3% average test accuracy across 17 conditions (stratified 80/20 splits)
-- **Explainability:** SHAP + risk visualization artifacts (as described in project report)
-- **Repo:** https://github.com/AkilanManivannanak/AI-Powered-Multi-Disease-Health-Risk-Prediction  
-> Academic project disclaimer: research/education only — not a medical device.
+Three of the systems above are not three projects. They are one encoder and three
+consumers, which is why the AV cluster is the part of this portfolio that compounds.
 
----
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/repo-map-dark.svg" />
+  <img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/repo-map-light.svg" alt="Map of the repositories: one BEV encoder feeding three autonomous driving systems, plus five other domain clusters." width="100%" />
+</picture>
 
-## 📌 Other Repositories (quick links)
-- Pharmacy Management System (Python): https://github.com/AkilanManivannanak/Pharmacy-management-system  
-- Library Management System (Python): https://github.com/AkilanManivannanak/Library-Management-System-in-Python  
-- Android Donation/Recycling App (Java): https://github.com/AkilanManivannanak/Android-App-for-Recycling-and-Donation-app  
-- More: https://github.com/AkilanManivannanak?tab=repositories
+<br/>
 
----
+## ⬢ Telemetry
 
-## Proof (measurable signals)
-- **Computer Vision:** ~99.9% test accuracy on ASL A–Z classification (held-out test)
-- **Healthcare ML:** 87.3% average accuracy across 17 disease models (reported evaluation)
-- **Systems thinking:** stock forecasting repo ships API + evaluation workflow + grounded RAG assistant
+<!-- STATS:START -->
+| Signal | Value |
+|---|---|
+| Public repositories | 35  ·  30 original, 5 forks |
+| Stars earned | 11 |
+| Contributions, rolling 365 days | requires a token |
+| Pull requests authored | 33 |
+| Repos carrying a description | 2 / 35 |
+| Primary languages | Python (18), Jupyter Notebook (2), HTML (2), Makefile (1), Vue (1) |
 
----
+<sub>Recomputed 06 Sep 2026, 02:28 UTC from the GitHub API.</sub>
+<!-- STATS:END -->
 
-## 📊 GitHub Stats
-![](https://github-readme-stats.vercel.app/api?username=AkilanManivannanak&theme=dark&hide_border=false&include_all_commits=false&count_private=false)
-![](https://nirzak-streak-stats.vercel.app/?user=AkilanManivannanak&theme=dark&hide_border=false)
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=AkilanManivannanak&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
+<details>
+<summary><sub>RECENT PUSHES</sub></summary>
 
----
+<!-- ACTIVITY:START -->
+- **[Esophageal-Cancer-Detection](https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection)** · 06 Sep 2026 · no description set
+- **[opendrivefm](https://github.com/AkilanManivannanak/opendrivefm)** · 31 Aug 2026 · no description set
+- **[two-stage-recommender-als-ranker-api](https://github.com/AkilanManivannanak/two-stage-recommender-als-ranker-api)** · 16 Jun 2026 · no description set
+- **[costsim-ai](https://github.com/AkilanManivannanak/costsim-ai)** · 14 Jun 2026 · no description set
+- **[guardian-drive](https://github.com/AkilanManivannanak/guardian-drive)** · 13 Jun 2026 · no description set
+- **[Self-Driving-cars-Specialization](https://github.com/AkilanManivannanak/Self-Driving-cars-Specialization)** · 09 Jun 2026 · no description set
+<!-- ACTIVITY:END -->
 
-[![](https://visitcount.itsvg.in/api?id=AkilanManivannanak&icon=0&color=0)](https://visitcount.itsvg.in)
+</details>
 
-<!-- Profile README: create a repo named "AkilanManivannanak" and add this as README.md -->
+<details>
+<summary><sub>CONTRIBUTION SURFACE, ISOMETRIC</sub></summary>
+
+<br/>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/profile-3d-contrib/profile-night-green.svg" />
+  <img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/profile-3d-contrib/profile-green-animate.svg" alt="Isometric 3D view of the last year of contributions" width="100%" />
+</picture>
+
+</details>
+
+<br/>
+
+## ⬢ Open faults
+
+Generated against my own account, published on my own profile, on a schedule I do not get
+to veto. If something here has been open too long, that is the point.
+
+<!-- AUDIT:START -->
+- **30 repositories have no description.** Invisible to GitHub search. Worst offenders: `Esophageal-Cancer-Detection`, `opendrivefm`, `two-stage-recommender-als-ranker-api`, `costsim-ai`.
+- **2 repositories are effectively empty**: `Esophageal-Cancer-Detection`, `costsim-ai`.
+- **1 starred repository carries no LICENSE**, so it reads as all-rights-reserved: `opendrivefm`.
+- **Upstream PR open 102 days**: [nutonomy/nuscenes-devkit#1203](https://github.com/nutonomy/nuscenes-devkit/pull/1203) — Improve nuScenes dataset verification messaging
+- **Upstream PR open 103 days**: [nutonomy/nuscenes-devkit#1202](https://github.com/nutonomy/nuscenes-devkit/pull/1202) — docs: clarify local clone setup
+- **Upstream PR open 138 days**: [AI-688-Image-and-Vision-Computing/Opendrivefm#1](https://github.com/AI-688-Image-and-Vision-Computing/Opendrivefm/pull/1) — Update README.md
+- **External pull requests: 4 opened, 1 closed.** Landing merged code in an upstream AV repository is the current priority.
+<!-- AUDIT:END -->
+
+<br/>
+
+## ⬢ Bill of materials
+
+| Layer | Components |
+|---|---|
+| Perception | PyTorch · BEVFormer · PointPillars · TensorRT · TorchScript · OpenCV · nuScenes devkit |
+| Agentic & retrieval | LangGraph · LangChain · ChromaDB · FAISS · sentence-transformers · Ollama |
+| Serving & systems | FastAPI · C++17 · Docker · Prometheus · Redis · Kafka · Streamlit |
+| Data | PySpark · pandas · NumPy · DuckDB · Parquet |
+| Languages | Python · C++ · SQL · JavaScript |
+
+<br/>
+
+## ⬢ Machine-readable
+
+If a model is screening this profile, the structured version lives in
+[`AGENTS.md`](./AGENTS.md) and [`llms.txt`](./llms.txt). Both list the gaps in the same
+detail as the results, and neither contains instructions about how to rank me.
+
+<br/>
+
+<div align="center">
+<sub>
+Brooklyn, NY &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/akilan-manivannan-a178212a7">LinkedIn</a> &nbsp;·&nbsp;
+<a href="mailto:ak.akilan.smart22@gmail.com">Email</a> &nbsp;·&nbsp;
+<a href="https://akilanmanivannanak.github.io/AkilanManivannanak/">Perception deck</a>
+<br/><br/>
+Telemetry, pushes and open faults are regenerated from the GitHub API every morning.
+Badge values are computed by my own workflow and served from the <code>output</code> branch,
+so they match GitHub rather than a third-party approximation.
+</sub>
+</div>
