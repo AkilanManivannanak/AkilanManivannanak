@@ -88,7 +88,7 @@ consumers, which is why the AV cluster is the part of this portfolio that compou
 | Repos carrying a description | 2 / 35 |
 | Primary languages | Python (19), Jupyter Notebook (2), HTML (2), Makefile (1), Vue (1) |
 
-<sub>Recomputed 06 Sep 2026, 04:32 UTC from the GitHub API.</sub>
+<sub>Recomputed 06 Sep 2026, 04:40 UTC from the GitHub API.</sub>
 <!-- STATS:END -->
 
 <details>
@@ -110,10 +110,13 @@ consumers, which is why the AV cluster is the part of this portfolio that compou
 
 <br/>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/profile-3d-contrib/profile-night-green.svg" />
-  <img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/profile-3d-contrib/profile-green-animate.svg" alt="Isometric 3D view of the last year of contributions" width="100%" />
-</picture>
+<!-- CONTRIBGRAPH:START -->
+_Generated once the workflow runs with `PROFILE_TOKEN` set: the contributions calendar is only readable through authenticated GraphQL._
+<!-- CONTRIBGRAPH:END -->
+
+<sub>Drawn by <code>scripts/update_readme.py</code> from the GitHub API, not by a third-party
+service. The interactive version, with a year picker and per-day detail, is in the
+<a href="https://akilanmanivannanak.github.io/AkilanManivannanak/">perception deck</a>.</sub>
 
 </details>
 

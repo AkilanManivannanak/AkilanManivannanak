@@ -227,6 +227,79 @@ def block_audit(repos, prs):
     return "\n".join(findings) if findings else "_Nothing outstanding._"
 
 
+# ----------------------------------------------------------------- isometric SVG
+
+ISO_THEMES = {
+    "dark":  {"bg":"#07090c", "rule":"#1d2a34", "txt":"#f2efe9", "mute":"#6f7b86",
+              "levels":[("#141c23","#0f161c","#0c1218"),
+                        ("#6b4a26","#553a1e","#3f2c16"),
+                        ("#a06429","#7f4f21","#5f3b19"),
+                        ("#e0873a","#b26b2e","#855022"),
+                        ("#f5b877","#c4935f","#936e47")]},
+    "light": {"bg":"#f5f3ef", "rule":"#ddd8ce", "txt":"#14171c", "mute":"#7d838b",
+              "levels":[("#e6e2d9","#d8d4cb","#cac6bd"),
+                        ("#e8c9a4","#cfb28f","#b69c7d"),
+                        ("#d79a5a","#b98249","#9b6c3c"),
+                        ("#b4531a","#933f13","#72300e"),
+                        ("#8c3d10","#71300c","#562509")]},
+}
+
+
+def iso_contrib_svg(days, total, theme):
+    """Isometric contribution surface, drawn from our own data. No third-party service."""
+    t = ISO_THEMES[theme]
+    hw, hh, unit = 7.4, 4.3, 1.05
+    maxc = max([d["c"] for d in days] or [1]) or 1
+    offset = datetime.strptime(days[0]["d"], "%Y-%m-%d").weekday()
+    offset = (offset + 1) % 7  # Sunday-first, matching GitHub
+
+    cells = []
+    for idx, day in enumerate(days):
+        n = idx + offset
+        w, dow = divmod(n, 7)
+        c = day["c"]
+        lvl = 0 if c == 0 else min(4, 1 + int((c / maxc) * 3.999))
+        h = 2.0 if c == 0 else 2.0 + (c / maxc) * 46 * unit
+        cells.append((w, dow, h, lvl, day["d"], c))
+
+    minx = min((w - d) * hw for w, d, _, _, _, _ in cells)
+    maxx = max((w - d) * hw for w, d, _, _, _, _ in cells)
+    maxy = max((w + d) * hh for w, d, _, _, _, _ in cells)
+    maxh = max(h for _, _, h, _, _, _ in cells)
+    padx, pady, top = 26, 58, 26
+    W = int(maxx - minx + hw * 2 + padx * 2)
+    H = int(maxy + hh * 2 + maxh + pady + top)
+    ox = -minx + padx + hw
+    oy = top + maxh
+
+    body = []
+    # painter's order: far cells first
+    for w, d, h, lvl, date, c in sorted(cells, key=lambda x: (x[0] + x[1])):
+        top_c, left_c, right_c = t["levels"][lvl]
+        x = ox + (w - d) * hw
+        y = oy + (w + d) * hh - h
+        body.append(
+            f'<g><title>{c} on {date}</title>'
+            f'<path fill="{top_c}" d="M{x:.1f} {y:.1f}l{hw:.1f} {hh:.1f}l{-hw:.1f} {hh:.1f}l{-hw:.1f} {-hh:.1f}Z"/>'
+            f'<path fill="{left_c}" d="M{x - hw:.1f} {y + hh:.1f}l{hw:.1f} {hh:.1f}v{h:.1f}l{-hw:.1f} {-hh:.1f}Z"/>'
+            f'<path fill="{right_c}" d="M{x + hw:.1f} {y + hh:.1f}l{-hw:.1f} {hh:.1f}v{h:.1f}l{hw:.1f} {-hh:.1f}Z"/>'
+            f'</g>')
+
+    mono = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
+    head = (f'<text x="{padx}" y="30" fill="{t["txt"]}" '
+            f'font-family="Archivo, Helvetica, Arial, sans-serif" font-weight="600" font-size="17">'
+            f'{total:,} contributions</text>'
+            f'<text x="{padx}" y="48" fill="{t["mute"]}" font-family="{mono}" font-size="10.5" '
+            f'letter-spacing="1.4">{days[0]["d"]} — {days[-1]["d"]} · SELF-COMPUTED FROM THE GITHUB API</text>')
+    foot = (f'<line x1="{padx}" y1="{H - 30}" x2="{W - padx}" y2="{H - 30}" stroke="{t["rule"]}"/>'
+            f'<text x="{padx}" y="{H - 12}" fill="{t["mute"]}" font-family="{mono}" font-size="10" '
+            f'letter-spacing="1.2">HOVER A COLUMN FOR THE DATE · FULL 3D VERSION IN THE PERCEPTION DECK</text>')
+
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
+            f'role="img" aria-label="Isometric view of {total} contributions over the last year.">'
+            f'<rect width="{W}" height="{H}" fill="{t["bg"]}"/>{head}{"".join(body)}{foot}</svg>')
+
+
 # ----------------------------------------------------------------- deck data
 
 DOMAIN_MAP = {
@@ -322,11 +395,27 @@ def write_deck_data(repos, contrib):
             }
 
         years = [summarise(label, c) for label, c in windows]
+        assets = ROOT / "assets"
+        assets.mkdir(exist_ok=True)
+        for theme in ("dark", "light"):
+            (assets / f"contrib-iso-{theme}.svg").write_text(
+                iso_contrib_svg(years[0]["days"], years[0]["total"], theme))
         payload = dict(years[0])
         payload["generated"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         payload["years"] = years
         (data_dir / "contributions.json").write_text(json.dumps(payload, indent=None) + "\n")
     print(f"  deck data written to docs/data/")
+
+
+def block_contrib_graph(has_data):
+    if not has_data:
+        return ("_Generated once the workflow runs with `PROFILE_TOKEN` set: the contributions "
+                "calendar is only readable through authenticated GraphQL._")
+    base = f"https://raw.githubusercontent.com/{USER}/{USER}/main/assets"
+    return ('<picture>\n'
+            f'  <source media="(prefers-color-scheme: dark)" srcset="{base}/contrib-iso-dark.svg" />\n'
+            f'  <img src="{base}/contrib-iso-light.svg" alt="Isometric view of the last year of contributions" width="100%" />\n'
+            '</picture>')
 
 
 def splice(text, marker, body):
@@ -350,6 +439,8 @@ def main():
     text = splice(text, "STATS", block_stats(user, repos, contrib, stars, total, prs))
     text = splice(text, "ACTIVITY", block_activity(repos))
     text = splice(text, "AUDIT", block_audit(repos, prs))
+    text = splice(text, "CONTRIBGRAPH",
+                  block_contrib_graph((ROOT / "assets" / "contrib-iso-dark.svg").exists()))
     readme_path.write_text(text)
 
     print(f"Updated README for {USER}: {len(repos)} repos, {stars} stars, "
