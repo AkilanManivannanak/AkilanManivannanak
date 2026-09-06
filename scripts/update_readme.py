@@ -71,7 +71,10 @@ def contributions_last_year():
     query($login:String!,$from:DateTime!,$to:DateTime!){
       user(login:$login){
         contributionsCollection(from:$from,to:$to){
-          contributionCalendar{ totalContributions }
+          contributionCalendar{
+            totalContributions
+            weeks{ contributionDays{ date contributionCount } }
+          }
           totalCommitContributions
           totalPullRequestContributions
           totalIssueContributions
@@ -184,7 +187,7 @@ def block_audit(repos, prs):
                  and (r.get("stargazers_count") or 0) > 0]
     if nolicense:
         findings.append(f"- **{len(nolicense)} starred {'repository carries' if len(nolicense) == 1 else 'repositories carry'} no LICENSE**, "
-                        f"so {'it reads' if len(nolicense) == 1 else 'they read'} as all-rights-reserved: "
+                        f"so they read as all-rights-reserved: "
                         f"{', '.join('`' + r['name'] + '`' for r in nolicense[:3])}.")
 
     now = datetime.now(timezone.utc)
@@ -201,6 +204,100 @@ def block_audit(repos, prs):
     return "\n".join(findings) if findings else "_Nothing outstanding._"
 
 
+# ----------------------------------------------------------------- deck data
+
+DOMAIN_MAP = {
+    "opendrivefm": "av", "guardian-drive": "av", "autonomy-vision": "av",
+    "Self-Driving-cars-Specialization": "av", "Traffic-Sense-Ideathon": "av",
+    "nuscenes-devkit": "av", "Opendrivefm-1": "av", "vehicle-command": "av",
+    "light-show": "av",
+    "talentra_copilot": "agentic", "neurapilot": "agentic", "phamilyops": "agentic",
+    "attentive-flow": "agentic", "stock-forecasting-aapl-LSTM-RAG": "agentic",
+    "costsim-ai": "agentic",
+    "two-stage-recommender-als-ranker-api": "rank", "FashionFinder": "rank",
+    "Esophageal-Cancer-Detection": "health",
+    "AI-Powered-Multi-Disease-Health-Risk-Prediction": "health",
+    "Heart_disease_linear-regression": "health", "Alcohol_prediction": "health",
+    "noise-robust-kws-distress-detection": "signal",
+    "ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN": "signal",
+    "Image-Classification-using-CNN": "signal",
+}
+
+NOTES = {
+    "opendrivefm": "BEV occupancy + fault harness \u00b7 AUROC 0.764",
+    "guardian-drive": "8 hazard detectors fused with BEV",
+    "autonomy-vision": "SafeTruck-AV2 trucking stack \u00b7 ADE 18.78 m",
+    "talentra_copilot": "5-agent hiring intelligence \u00b7 p95 4.81 ms",
+    "neurapilot": "Agentic RAG tutor",
+    "phamilyops": "17 AI modules, live deploy",
+    "two-stage-recommender-als-ranker-api": "CineWave \u00b7 NDCG@10 0.1409",
+    "FashionFinder": "44,419 items \u00b7 FAISS 1.79 ms",
+    "noise-robust-kws-distress-detection": "77.02% at 0 dB SNR \u00b7 recall 0.02",
+    "Esophageal-Cancer-Detection": "EfficientNet-B3 \u00b7 95.44%",
+}
+
+
+def classify(repo):
+    name = repo["name"]
+    if name in DOMAIN_MAP:
+        return DOMAIN_MAP[name]
+    if repo.get("fork"):
+        return "av" if "drive" in name.lower() or "scenes" in name.lower() else "archive"
+    return "archive"
+
+
+def write_deck_data(repos, contrib):
+    """Emit the JSON the Pages deck reads, so the 3D scenes track the live account."""
+    data_dir = ROOT / "docs" / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+
+    nodes = []
+    for r in repos:
+        stars = r.get("stargazers_count") or 0
+        kb = r.get("size") or 0
+        weight = 0.7 + min(2.4, (kb ** 0.5) / 26.0) + min(1.2, stars * 0.18)
+        nodes.append({
+            "name": r["name"],
+            "domain": classify(r),
+            "size": round(weight, 2),
+            "stars": stars,
+            "kb": kb,
+            "lang": r.get("language") or "",
+            "fork": bool(r.get("fork")),
+            "pushed": (r.get("pushed_at") or "")[:10],
+            "note": NOTES.get(r["name"]) or (r.get("description") or "").strip()
+                    or ("fork" if r.get("fork") else "no description set"),
+            "url": r.get("html_url", ""),
+        })
+    nodes.sort(key=lambda n: -n["size"])
+    (data_dir / "repos.json").write_text(json.dumps(
+        {"generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+         "count": len(nodes), "repos": nodes}, indent=1) + "\n")
+
+    if contrib:
+        days = []
+        for wk in contrib["contributionCalendar"]["weeks"]:
+            for d in wk["contributionDays"]:
+                days.append({"d": d["date"], "c": d["contributionCount"]})
+        streak = best = 0
+        for d in days:
+            streak = streak + 1 if d["c"] > 0 else 0
+            best = max(best, streak)
+        busiest = max(days, key=lambda d: d["c"]) if days else {"d": "", "c": 0}
+        (data_dir / "contributions.json").write_text(json.dumps({
+            "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "total": contrib["contributionCalendar"]["totalContributions"],
+            "commits": contrib.get("totalCommitContributions", 0),
+            "prs": contrib.get("totalPullRequestContributions", 0),
+            "issues": contrib.get("totalIssueContributions", 0),
+            "reviews": contrib.get("totalPullRequestReviewContributions", 0),
+            "longestStreak": best,
+            "busiest": busiest,
+            "days": days,
+        }, indent=None) + "\n")
+    print(f"  deck data written to docs/data/")
+
+
 def splice(text, marker, body):
     pat = re.compile(rf"(<!-- {marker}:START -->)(.*?)(<!-- {marker}:END -->)", re.S)
     if not pat.search(text):
@@ -215,6 +312,7 @@ def main():
     contrib = contributions_last_year()
     prs = pull_requests()
     stars, total = write_endpoints(user, repos, contrib, prs)
+    write_deck_data(repos, contrib)
 
     readme_path = ROOT / "README.md"
     text = readme_path.read_text()

@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Interactive BEV perception scene and repository graph for Akilan Manivannan.">
+<meta name="description" content="Interactive BEV perception scene, repository graph and contribution surface for Akilan Manivannan.">
 <title>Akilan Perception Deck</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
 <style>
   :root {
-    --void:#07090c; --panel:rgba(13,17,22,.82); --edge:#1d2a34;
+    --void:#07090c; --panel:rgba(13,17,22,.86); --edge:#1d2a34;
     --ink:#f2efe9; --mute:#8b939c; --faint:#5c666f;
-    --amber:#e0873a; --teal:#3fb8a6; --sky:#5aa9e6; --crit:#e2574c;
+    --amber:#e0873a; --teal:#3fb8a6; --sky:#5aa9e6; --crit:#e2574c; --violet:#b98bd6;
   }
   * { box-sizing:border-box; }
   body { background:var(--void); color:var(--ink); margin:0; overflow:hidden;
@@ -19,55 +19,76 @@
   canvas { display:block; }
 
   .hud { position:fixed; background:var(--panel); border:1px solid var(--edge);
-         backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+         backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px); }
 
-  #panel { top:18px; left:18px; width:290px; padding:16px 16px 14px; }
+  #panel { top:16px; left:16px; width:306px; padding:15px 15px 13px;
+           max-height:calc(100vh - 32px); overflow-y:auto; }
   .eyebrow { font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.18em;
-             color:var(--amber); margin:0 0 8px; }
-  h1 { font-family:Archivo,sans-serif; font-weight:700; font-size:19px; letter-spacing:-.02em;
-       margin:0 0 4px; }
-  .role { color:var(--mute); font-size:12.5px; margin:0 0 14px; line-height:1.45; }
+             color:var(--amber); margin:0 0 7px; display:flex; justify-content:space-between; }
+  .eyebrow .src { color:var(--faint); letter-spacing:.08em; }
+  h1 { font-family:Archivo,sans-serif; font-weight:700; font-size:18px; letter-spacing:-.02em; margin:0 0 3px; }
+  .role { color:var(--mute); font-size:12px; margin:0 0 13px; line-height:1.45; }
 
-  .tabs { display:flex; gap:1px; background:var(--edge); border:1px solid var(--edge); margin-bottom:14px; }
+  .tabs { display:flex; gap:1px; background:var(--edge); border:1px solid var(--edge); margin-bottom:13px; }
   .tab { flex:1; background:#0d1116; border:0; color:var(--mute); cursor:pointer;
-         font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em;
-         padding:9px 4px; text-transform:uppercase; transition:color .15s, background .15s; }
+         font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.08em;
+         padding:9px 3px; text-transform:uppercase; transition:color .15s, background .15s; }
   .tab:hover { color:var(--ink); }
   .tab[aria-selected="true"] { background:#16110b; color:var(--amber); }
-  .tab:focus-visible { outline:2px solid var(--amber); outline-offset:-2px; }
+  .tab kbd { display:block; font-size:8px; color:var(--faint); margin-top:2px; font-family:inherit; }
 
-  .readout { display:grid; grid-template-columns:1fr auto; gap:5px 10px;
+  .sect { border-top:1px solid var(--edge); margin-top:12px; padding-top:11px; }
+  .sect h2 { font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.16em;
+             color:var(--faint); text-transform:uppercase; margin:0 0 9px; font-weight:400; }
+
+  .readout { display:grid; grid-template-columns:1fr auto; gap:4px 10px;
              font-family:"IBM Plex Mono",monospace; font-size:11px; font-variant-numeric:tabular-nums; }
   .readout dt { color:var(--faint); }
   .readout dd { margin:0; color:var(--teal); text-align:right; }
+  .readout dd.warn { color:var(--amber); }
+  .readout dd.bad  { color:var(--crit); }
 
-  .legend { margin-top:14px; padding-top:12px; border-top:1px solid var(--edge);
-            display:flex; flex-direction:column; gap:6px;
-            font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--mute); }
-  .key { display:flex; align-items:center; gap:8px; }
-  .dot { width:9px; height:9px; flex:none; border-radius:2px; }
+  .chips { display:flex; flex-wrap:wrap; gap:5px; }
+  .chip { font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.04em;
+          background:#0d1116; border:1px solid var(--edge); color:var(--mute);
+          padding:5px 8px; cursor:pointer; transition:all .13s; }
+  .chip:hover { color:var(--ink); border-color:var(--mute); }
+  .chip[aria-pressed="true"] { border-color:var(--amber); color:var(--amber); background:#16110b; }
+  .chip.faulted { border-color:var(--crit); color:var(--crit); background:#1a0f0e; }
+  .chip .sw { display:inline-block; width:7px; height:7px; border-radius:2px; margin-right:6px; vertical-align:middle; }
+  .chip:focus-visible, .tab:focus-visible, input:focus-visible { outline:2px solid var(--amber); outline-offset:1px; }
 
-  #caption { left:18px; bottom:18px; max-width:420px; padding:12px 14px;
-             font-size:12.5px; line-height:1.5; color:var(--mute); }
+  input[type="search"] { width:100%; background:#0d1116; border:1px solid var(--edge); color:var(--ink);
+                         font-family:"IBM Plex Mono",monospace; font-size:11px; padding:7px 9px; }
+  input[type="search"]::placeholder { color:var(--faint); }
+
+  .bar { height:3px; background:#1a222a; margin-top:7px; }
+  .bar span { display:block; height:100%; background:var(--teal); transition:width .3s, background .3s; }
+
+  .ghost { background:none; border:0; color:var(--faint); cursor:pointer; padding:0; margin-top:9px;
+           font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.08em; }
+  .ghost:hover { color:var(--amber); }
+
+  #caption { left:16px; bottom:16px; max-width:430px; padding:11px 13px;
+             font-size:12px; line-height:1.5; color:var(--mute); }
   #caption b { color:var(--ink); font-weight:500; }
 
-  #hint { right:18px; bottom:18px; padding:9px 12px; font-family:"IBM Plex Mono",monospace;
-          font-size:10.5px; letter-spacing:.08em; color:var(--faint); }
+  #hint { right:16px; bottom:16px; padding:8px 11px; font-family:"IBM Plex Mono",monospace;
+          font-size:10px; letter-spacing:.07em; color:var(--faint); }
 
-  #tip { position:fixed; pointer-events:none; opacity:0; transform:translate(-50%,-140%);
-         background:#0d1116; border:1px solid var(--amber); padding:7px 10px; z-index:20;
-         font-family:"IBM Plex Mono",monospace; font-size:11px; white-space:nowrap;
-         transition:opacity .12s; }
+  #tip { position:fixed; pointer-events:none; opacity:0; transform:translate(-50%,-135%);
+         background:#0d1116; border:1px solid var(--amber); padding:6px 9px; z-index:20;
+         font-family:"IBM Plex Mono",monospace; font-size:11px; white-space:nowrap; transition:opacity .1s; }
   #tip .t-sub { color:var(--mute); font-size:10px; }
 
-  #back { right:18px; top:18px; padding:9px 13px; font-family:"IBM Plex Mono",monospace;
-          font-size:10.5px; letter-spacing:.08em; color:var(--mute); text-decoration:none; }
+  #back { right:16px; top:16px; padding:8px 12px; font-family:"IBM Plex Mono",monospace;
+          font-size:10px; letter-spacing:.07em; color:var(--mute); text-decoration:none; }
   #back:hover { color:var(--amber); }
 
-  @media (max-width:700px) {
-    #panel { width:calc(100% - 36px); }
+  @media (max-width:760px) {
+    #panel { width:calc(100% - 32px); max-height:52vh; }
     #caption { display:none; }
-    #hint { left:18px; right:18px; text-align:center; }
+    #hint { left:16px; right:16px; text-align:center; }
   }
 </style>
 
@@ -76,22 +97,28 @@
 <div id="stage"></div>
 
 <section class="hud" id="panel">
-  <p class="eyebrow">PERCEPTION DECK</p>
+  <p class="eyebrow"><span>PERCEPTION DECK</span><span class="src" id="src">LOADING</span></p>
   <h1>Akilan Manivannan</h1>
-  <p class="role">Camera-only BEV perception, Brooklyn NY. Two live scenes from the same portfolio.</p>
+  <p class="role">Camera-only BEV perception, Brooklyn NY. Three scenes, all driven by live account data.</p>
 
   <div class="tabs" role="tablist">
-    <button class="tab" id="tab-bev"   role="tab" aria-selected="true"  aria-controls="stage">BEV scene</button>
-    <button class="tab" id="tab-graph" role="tab" aria-selected="false" aria-controls="stage">Repo graph</button>
+    <button class="tab" id="tab-bev"     role="tab" aria-selected="true">BEV<kbd>1</kbd></button>
+    <button class="tab" id="tab-graph"   role="tab" aria-selected="false">Repos<kbd>2</kbd></button>
+    <button class="tab" id="tab-contrib" role="tab" aria-selected="false">Commits<kbd>3</kbd></button>
   </div>
 
   <dl class="readout" id="readout"></dl>
 
-  <div class="legend" id="legend"></div>
+  <div class="sect" id="controls"></div>
+
+  <div class="sect" id="legendWrap">
+    <h2>Legend</h2>
+    <div class="chips" id="legend"></div>
+  </div>
 </section>
 
 <div class="hud" id="caption"></div>
-<div class="hud" id="hint">DRAG TO ORBIT · SCROLL TO ZOOM</div>
+<div class="hud" id="hint">DRAG ORBIT · SCROLL ZOOM · 1 2 3 SWITCH</div>
 <a class="hud" id="back" href="https://github.com/AkilanManivannanak">← GITHUB PROFILE</a>
 <div id="tip"></div>
 
@@ -100,500 +127,685 @@
 (function () {
   "use strict";
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var USER = "AkilanManivannanak";
 
-  var C = { void:0x07090c, grid:0x1d2a34, gridFaint:0x131c23, amber:0xe0873a,
-            teal:0x3fb8a6, sky:0x5aa9e6, crit:0xe2574c, ink:0xf2efe9, mute:0x8b939c };
+  var C = { void:0x07090c, grid:0x1d2a34, gridFaint:0x131c23, amber:0xe0873a, teal:0x3fb8a6,
+            sky:0x5aa9e6, crit:0xe2574c, violet:0xb98bd6, ink:0xf2efe9, mute:0x8b939c, dead:0x2a3038 };
 
-  var stage = document.getElementById("stage");
-  var tip = document.getElementById("tip");
-  var readoutEl = document.getElementById("readout");
-  var legendEl = document.getElementById("legend");
-  var captionEl = document.getElementById("caption");
+  var $ = function (id) { return document.getElementById(id); };
+  var stage = $("stage"), tip = $("tip"), readoutEl = $("readout"),
+      legendEl = $("legend"), captionEl = $("caption"), controlsEl = $("controls"), srcEl = $("src");
 
-  var renderer = new THREE.WebGLRenderer({ antialias:true, alpha:false });
+  var renderer = new THREE.WebGLRenderer({ antialias:true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(window.innerWidth, window.innerHeight);
   stage.appendChild(renderer.domElement);
+  var camera = new THREE.PerspectiveCamera(46, window.innerWidth / window.innerHeight, 0.1, 6000);
 
-  var camera = new THREE.PerspectiveCamera(46, window.innerWidth/window.innerHeight, 0.1, 4000);
-  var scenes = {};
-
-  /* ---------- hand-rolled orbit ---------- */
-  var orbit = { theta:0.9, phi:0.95, radius:150, target:new THREE.Vector3(0,0,0),
-                dragging:false, lx:0, ly:0, vTheta:0, vPhi:0, spin:0.0006 };
-
+  /* ---------------- orbit ---------------- */
+  var orbit = { theta:0.9, phi:0.95, radius:190, target:new THREE.Vector3(),
+                dragging:false, lx:0, ly:0, spin:0.0006, moved:false };
   function applyCamera() {
-    var p = Math.max(0.15, Math.min(Math.PI/2 - 0.05, orbit.phi));
-    orbit.phi = p;
+    orbit.phi = Math.max(0.12, Math.min(Math.PI / 2 - 0.04, orbit.phi));
     camera.position.set(
-      orbit.target.x + orbit.radius * Math.sin(p) * Math.cos(orbit.theta),
-      orbit.target.y + orbit.radius * Math.cos(p),
-      orbit.target.z + orbit.radius * Math.sin(p) * Math.sin(orbit.theta)
-    );
+      orbit.target.x + orbit.radius * Math.sin(orbit.phi) * Math.cos(orbit.theta),
+      orbit.target.y + orbit.radius * Math.cos(orbit.phi),
+      orbit.target.z + orbit.radius * Math.sin(orbit.phi) * Math.sin(orbit.theta));
     camera.lookAt(orbit.target);
   }
+  var pointer = new THREE.Vector2(-9, -9), pointerPx = { x:0, y:0 }, ray = new THREE.Raycaster();
 
-  function onDown(e) {
-    orbit.dragging = true;
-    var t = e.touches ? e.touches[0] : e;
-    orbit.lx = t.clientX; orbit.ly = t.clientY;
-    orbit.vTheta = 0; orbit.vPhi = 0;
-  }
-  function onMove(e) {
-    var t = e.touches ? e.touches[0] : e;
-    if (!t) return;
+  function down(e) { var t = e.touches ? e.touches[0] : e; orbit.dragging = true; orbit.moved = false;
+                     orbit.lx = t.clientX; orbit.ly = t.clientY; }
+  function move(e) {
+    var t = e.touches ? e.touches[0] : e; if (!t) return;
     pointer.x = (t.clientX / window.innerWidth) * 2 - 1;
     pointer.y = -(t.clientY / window.innerHeight) * 2 + 1;
     pointerPx.x = t.clientX; pointerPx.y = t.clientY;
     if (!orbit.dragging) return;
     if (e.touches) e.preventDefault();
     var dx = t.clientX - orbit.lx, dy = t.clientY - orbit.ly;
+    if (Math.abs(dx) + Math.abs(dy) > 3) orbit.moved = true;
     orbit.lx = t.clientX; orbit.ly = t.clientY;
-    orbit.vTheta = -dx * 0.005; orbit.vPhi = -dy * 0.005;
-    orbit.theta += orbit.vTheta; orbit.phi += orbit.vPhi;
-    moved = true;
+    orbit.theta -= dx * 0.005; orbit.phi -= dy * 0.005;
   }
-  function onUp() { orbit.dragging = false; }
-
-  renderer.domElement.addEventListener("mousedown", onDown);
-  renderer.domElement.addEventListener("touchstart", onDown, { passive:true });
-  window.addEventListener("mousemove", onMove);
-  window.addEventListener("touchmove", onMove, { passive:false });
-  window.addEventListener("mouseup", onUp);
-  window.addEventListener("touchend", onUp);
+  function up() { orbit.dragging = false; }
+  renderer.domElement.addEventListener("mousedown", down);
+  renderer.domElement.addEventListener("touchstart", down, { passive:true });
+  window.addEventListener("mousemove", move);
+  window.addEventListener("touchmove", move, { passive:false });
+  window.addEventListener("mouseup", up);
+  window.addEventListener("touchend", up);
   renderer.domElement.addEventListener("wheel", function (e) {
     e.preventDefault();
-    orbit.radius = Math.max(45, Math.min(520, orbit.radius * (1 + Math.sign(e.deltaY) * 0.09)));
+    orbit.radius = Math.max(40, Math.min(900, orbit.radius * (1 + Math.sign(e.deltaY) * 0.09)));
   }, { passive:false });
 
-  var pointer = new THREE.Vector2(-9, -9);
-  var pointerPx = { x:0, y:0 };
-  var moved = false;
-  var ray = new THREE.Raycaster();
-
-  /* =========================================================
-     SCENE 1 — BEV perception
-     ========================================================= */
+  /* =====================================================================
+     SCENE 1 — BEV, with interactive fault injection
+     ===================================================================== */
   var bev = new THREE.Scene();
   bev.background = new THREE.Color(C.void);
-  bev.fog = new THREE.Fog(C.void, 220, 620);
-  scenes.bev = bev;
+  bev.fog = new THREE.Fog(C.void, 240, 660);
+  bev.add(new THREE.AmbientLight(0xffffff, 0.66));
+  var kl = new THREE.DirectionalLight(0xffffff, 0.7); kl.position.set(60, 120, 40); bev.add(kl);
 
-  bev.add(new THREE.AmbientLight(0xffffff, 0.65));
-  var key = new THREE.DirectionalLight(0xffffff, 0.7);
-  key.position.set(60, 120, 40);
-  bev.add(key);
-
-  var grid = new THREE.GridHelper(600, 60, C.grid, C.gridFaint);
-  grid.material.opacity = 0.5; grid.material.transparent = true;
-  bev.add(grid);
-
-  // range rings
-  for (var r = 30; r <= 240; r += 70) {
-    var ringGeo = new THREE.RingGeometry(r - 0.35, r + 0.35, 128);
-    var ringMat = new THREE.MeshBasicMaterial({ color:C.grid, side:THREE.DoubleSide,
-                                                transparent:true, opacity:0.55 });
-    var ring = new THREE.Mesh(ringGeo, ringMat);
-    ring.rotation.x = -Math.PI / 2; ring.position.y = 0.1;
-    bev.add(ring);
+  var gridHelper = new THREE.GridHelper(620, 62, C.grid, C.gridFaint);
+  gridHelper.material.transparent = true; gridHelper.material.opacity = 0.5;
+  bev.add(gridHelper);
+  for (var rr = 30; rr <= 240; rr += 70) {
+    var ring = new THREE.Mesh(new THREE.RingGeometry(rr - 0.35, rr + 0.35, 128),
+      new THREE.MeshBasicMaterial({ color:C.grid, side:THREE.DoubleSide, transparent:true, opacity:0.5 }));
+    ring.rotation.x = -Math.PI / 2; ring.position.y = 0.1; bev.add(ring);
   }
 
-  // ego vehicle
   var ego = new THREE.Group();
-  var bodyMat = new THREE.MeshLambertMaterial({ color:0xe8e6e2 });
-  var chassis = new THREE.Mesh(new THREE.BoxGeometry(9, 4, 20), bodyMat);
+  var chassis = new THREE.Mesh(new THREE.BoxGeometry(9, 4, 20), new THREE.MeshLambertMaterial({ color:0xe8e6e2 }));
   chassis.position.y = 3;
-  var cabin = new THREE.Mesh(new THREE.BoxGeometry(8, 3.6, 9),
-                             new THREE.MeshLambertMaterial({ color:0x2b323a }));
+  var cabin = new THREE.Mesh(new THREE.BoxGeometry(8, 3.6, 9), new THREE.MeshLambertMaterial({ color:0x2b323a }));
   cabin.position.set(0, 6.6, -1);
-  ego.add(chassis, cabin);
-  ego.add(new THREE.LineSegments(
-    new THREE.EdgesGeometry(new THREE.BoxGeometry(9.2, 4.2, 20.2)),
-    new THREE.LineBasicMaterial({ color:C.amber, transparent:true, opacity:0.7 })
-  ));
-  ego.children[2].position.y = 3;
+  var egoEdge = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(9.2, 4.2, 20.2)),
+    new THREE.LineBasicMaterial({ color:C.amber, transparent:true, opacity:0.7 }));
+  egoEdge.position.y = 3;
+  ego.add(chassis, cabin, egoEdge);
   bev.add(ego);
 
-  // six camera frustums
   var CAMS = [
-    { name:"CAM_FRONT",       yaw:0,     fov:0.62, range:120 },
-    { name:"CAM_FRONT_LEFT",  yaw:1.05,  fov:0.62, range:82 },
-    { name:"CAM_FRONT_RIGHT", yaw:-1.05, fov:0.62, range:82 },
-    { name:"CAM_BACK_LEFT",   yaw:2.20,  fov:0.62, range:82 },
-    { name:"CAM_BACK_RIGHT",  yaw:-2.20, fov:0.62, range:82 },
-    { name:"CAM_BACK",        yaw:Math.PI, fov:0.90, range:70 }
+    { id:"F",  name:"CAM_FRONT",       yaw:0,          fov:0.62, range:120 },
+    { id:"FL", name:"CAM_FRONT_LEFT",  yaw:1.05,       fov:0.62, range:84 },
+    { id:"FR", name:"CAM_FRONT_RIGHT", yaw:-1.05,      fov:0.62, range:84 },
+    { id:"BL", name:"CAM_BACK_LEFT",   yaw:2.20,       fov:0.62, range:84 },
+    { id:"BR", name:"CAM_BACK_RIGHT",  yaw:-2.20,      fov:0.62, range:84 },
+    { id:"B",  name:"CAM_BACK",        yaw:Math.PI,    fov:0.90, range:72 }
   ];
-  var frustums = [];
+  var FAULTS = {
+    blur:      { label:"blur",      penalty:0.28, tint:0x6b6f74 },
+    occlusion: { label:"occlusion", penalty:0.52, tint:0x1b1f24 },
+    glare:     { label:"glare",     penalty:0.34, tint:0xf0d9a8 },
+    rain:      { label:"rain",      penalty:0.22, tint:0x4a6b78 }
+  };
+  var faultMode = "occlusion";
+
   CAMS.forEach(function (c, i) {
     var g = new THREE.Group();
-    var half = Math.tan(c.fov) * c.range;
-    var up = 9, lift = 7;
-    var apex = new THREE.Vector3(0, 0, 0);
-    var fl = new THREE.Vector3(-half, up, -c.range);
-    var fr = new THREE.Vector3( half, up, -c.range);
-    var bl = new THREE.Vector3(-half, -up * 0.35, -c.range);
-    var br = new THREE.Vector3( half, -up * 0.35, -c.range);
-
+    var half = Math.tan(c.fov) * c.range, up = 9;
+    var apex = new THREE.Vector3(0, 0, 0),
+        fl = new THREE.Vector3(-half, up, -c.range), fr = new THREE.Vector3(half, up, -c.range),
+        bl = new THREE.Vector3(-half, -up * 0.35, -c.range), br = new THREE.Vector3(half, -up * 0.35, -c.range);
     var pts = [];
-    [[apex,fl],[apex,fr],[apex,bl],[apex,br],[fl,fr],[bl,br],[fl,bl],[fr,br]]
-      .forEach(function (pair) { pts.push(pair[0].clone(), pair[1].clone()); });
-    var lineGeo = new THREE.BufferGeometry().setFromPoints(pts);
+    [[apex,fl],[apex,fr],[apex,bl],[apex,br],[fl,fr],[bl,br],[fl,bl],[fr,br]].forEach(function (p) {
+      pts.push(p[0].clone(), p[1].clone());
+    });
     var lineMat = new THREE.LineBasicMaterial({ color:C.sky, transparent:true, opacity:0.45 });
-    g.add(new THREE.LineSegments(lineGeo, lineMat));
-
-    var faceGeo = new THREE.BufferGeometry().setFromPoints([apex, fl, fr, apex, bl, br]);
+    g.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), lineMat));
     var faceMat = new THREE.MeshBasicMaterial({ color:C.sky, transparent:true, opacity:0.06,
                                                 side:THREE.DoubleSide, depthWrite:false });
-    g.add(new THREE.Mesh(faceGeo, faceMat));
-
-    g.rotation.y = c.yaw;
-    g.position.y = lift;
-    g.userData = { mat:lineMat, face:faceMat, phase:i * 0.7, name:c.name };
-    frustums.push(g);
+    var face = new THREE.Mesh(new THREE.BufferGeometry().setFromPoints([apex, fl, fr, apex, bl, br]), faceMat);
+    face.userData.pickCam = i;
+    g.add(face);
+    g.rotation.y = c.yaw; g.position.y = 7;
+    c.group = g; c.lineMat = lineMat; c.faceMat = faceMat; c.face = face; c.faulted = null; c.phase = i * 0.7;
     ego.add(g);
   });
+  var camFaces = CAMS.map(function (c) { return c.face; });
 
-  // occupancy field as a point cloud
+  // occupancy point field, with each point assigned to the camera that sees it
   var N = 46, SPAN = 240, TOTAL = N * N;
   var occGeo = new THREE.BufferGeometry();
-  var occPos = new Float32Array(TOTAL * 3);
-  var occCol = new Float32Array(TOTAL * 3);
-  for (var i = 0; i < N; i++) {
-    for (var j = 0; j < N; j++) {
-      var idx = i * N + j;
-      occPos[idx * 3]     = (i / (N - 1) - 0.5) * SPAN;
-      occPos[idx * 3 + 1] = 0.6;
-      occPos[idx * 3 + 2] = (j / (N - 1) - 0.5) * SPAN;
+  var occPos = new Float32Array(TOTAL * 3), occCol = new Float32Array(TOTAL * 3);
+  var occCam = new Int8Array(TOTAL), occJit = new Float32Array(TOTAL);
+  for (var i = 0; i < N; i++) for (var j = 0; j < N; j++) {
+    var k = i * N + j;
+    var x = (i / (N - 1) - 0.5) * SPAN, z = (j / (N - 1) - 0.5) * SPAN;
+    occPos[k * 3] = x; occPos[k * 3 + 1] = 0.6; occPos[k * 3 + 2] = z;
+    occJit[k] = Math.random();
+    var a = Math.atan2(x, -z), bestI = 0, bestD = 9;
+    for (var m = 0; m < CAMS.length; m++) {
+      var d = Math.abs(Math.atan2(Math.sin(a + CAMS[m].yaw), Math.cos(a + CAMS[m].yaw)));
+      if (d < bestD) { bestD = d; bestI = m; }
     }
+    occCam[k] = bestI;
   }
   occGeo.setAttribute("position", new THREE.BufferAttribute(occPos, 3));
   occGeo.setAttribute("color", new THREE.BufferAttribute(occCol, 3));
   var occCloud = new THREE.Points(occGeo, new THREE.PointsMaterial({
-    size:3.4, vertexColors:true, transparent:true, opacity:0.95,
-    sizeAttenuation:true, depthWrite:false
-  }));
+    size:3.4, vertexColors:true, transparent:true, opacity:0.95, sizeAttenuation:true, depthWrite:false }));
   bev.add(occCloud);
 
-  // traffic agents that drive the occupancy field
   var AGENTS = [
-    { x:-26, z:-90, vz:0.42,  vx:0,     col:C.amber },
-    { x: 22, z: 60, vz:-0.30, vx:0,     col:C.amber },
-    { x:-80, z: 18, vz:0,     vx:0.36,  col:C.crit  },
-    { x: 96, z:-32, vz:0,     vx:-0.24, col:C.amber },
-    { x: 14, z:-150,vz:0.24,  vx:0,     col:C.amber }
+    { x:-26, z:-90, vz:0.42, vx:0, col:C.amber }, { x:22, z:60, vz:-0.30, vx:0, col:C.amber },
+    { x:-80, z:18, vz:0, vx:0.36, col:C.crit },   { x:96, z:-32, vz:0, vx:-0.24, col:C.amber },
+    { x:14, z:-150, vz:0.24, vx:0, col:C.amber }
   ];
   AGENTS.forEach(function (a) {
-    var m = new THREE.Mesh(new THREE.BoxGeometry(8, 6, 16),
-              new THREE.MeshLambertMaterial({ color:a.col, transparent:true, opacity:0.75 }));
-    m.position.set(a.x, 3, a.z);
-    a.mesh = m;
-    bev.add(m);
+    a.mesh = new THREE.Mesh(new THREE.BoxGeometry(8, 6, 16),
+      new THREE.MeshLambertMaterial({ color:a.col, transparent:true, opacity:0.75 }));
+    a.mesh.position.set(a.x, 3, a.z); bev.add(a.mesh);
   });
 
-  // three predicted trajectory modes
-  var TRAJ = [
-    { pts:[[0,0],[6,-40],[16,-86],[30,-132]], w:1.6, o:0.95 },
-    { pts:[[0,0],[0,-42],[-4,-88],[-10,-134]], w:1.0, o:0.42 },
-    { pts:[[0,0],[18,-32],[52,-58],[96,-74]],  w:1.0, o:0.30 }
-  ];
   var runners = [];
-  TRAJ.forEach(function (t) {
-    var v = t.pts.map(function (p) { return new THREE.Vector3(p[0], 1.4, p[1]); });
-    var curve = new THREE.CatmullRomCurve3(v);
-    var tube = new THREE.Mesh(
-      new THREE.TubeGeometry(curve, 60, t.w, 8, false),
-      new THREE.MeshBasicMaterial({ color:C.teal, transparent:true, opacity:t.o })
-    );
-    bev.add(tube);
-    var dot = new THREE.Mesh(new THREE.SphereGeometry(2.2, 12, 12),
-                             new THREE.MeshBasicMaterial({ color:C.teal }));
-    bev.add(dot);
-    runners.push({ curve:curve, dot:dot, off:Math.random() });
-  });
+  [[[0,0],[6,-40],[16,-86],[30,-132]], [[0,0],[0,-42],[-4,-88],[-10,-134]], [[0,0],[18,-32],[52,-58],[96,-74]]]
+    .forEach(function (pts, i) {
+      var curve = new THREE.CatmullRomCurve3(pts.map(function (p) { return new THREE.Vector3(p[0], 1.4, p[1]); }));
+      var op = i === 0 ? 0.95 : (i === 1 ? 0.42 : 0.3);
+      bev.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 60, i === 0 ? 1.6 : 1.0, 8, false),
+              new THREE.MeshBasicMaterial({ color:C.teal, transparent:true, opacity:op })));
+      var dot = new THREE.Mesh(new THREE.SphereGeometry(2.2, 12, 12), new THREE.MeshBasicMaterial({ color:C.teal }));
+      bev.add(dot);
+      runners.push({ curve:curve, dot:dot, off:Math.random() });
+    });
 
-  // sweep line
-  var sweep = new THREE.Mesh(
-    new THREE.PlaneGeometry(240, 1.6),
-    new THREE.MeshBasicMaterial({ color:C.amber, transparent:true, opacity:0.35, depthWrite:false })
-  );
-  sweep.rotation.x = -Math.PI / 2;
-  sweep.position.set(120, 0.9, 0);
   var sweepPivot = new THREE.Group();
-  sweepPivot.add(sweep);
-  bev.add(sweepPivot);
+  var sweep = new THREE.Mesh(new THREE.PlaneGeometry(240, 1.6),
+    new THREE.MeshBasicMaterial({ color:C.amber, transparent:true, opacity:0.32, depthWrite:false }));
+  sweep.rotation.x = -Math.PI / 2; sweep.position.set(120, 0.9, 0);
+  sweepPivot.add(sweep); bev.add(sweepPivot);
 
-  /* =========================================================
-     SCENE 2 — repository constellation
-     ========================================================= */
+  /* =====================================================================
+     SCENE 2 — repository constellation (data-driven)
+     ===================================================================== */
   var graph = new THREE.Scene();
   graph.background = new THREE.Color(C.void);
-  scenes.graph = graph;
-  graph.add(new THREE.AmbientLight(0xffffff, 0.8));
+  graph.add(new THREE.AmbientLight(0xffffff, 0.82));
   var gk = new THREE.DirectionalLight(0xffffff, 0.5); gk.position.set(40, 90, 60); graph.add(gk);
 
   var DOMAINS = {
-    av:      { label:"Autonomous driving & BEV", color:C.amber, at:[0, 8, 0] },
-    agentic: { label:"Agentic AI · LLM · RAG",   color:C.teal,  at:[66, 26, -24] },
-    rank:    { label:"Retrieval & ranking",      color:C.sky,   at:[-64, 24, -26] },
-    health:  { label:"Healthcare & biomedical",  color:C.crit,  at:[48, -20, 48] },
-    signal:  { label:"Speech · vision · signal", color:0xb98bd6,at:[-54, -18, 46] },
-    archive: { label:"Coursework, forks, meta",  color:C.mute,  at:[3, -46, -60] }
+    av:      { label:"Autonomous driving & BEV", color:C.amber,  at:[0, 8, 0] },
+    agentic: { label:"Agentic AI · LLM · RAG",   color:C.teal,   at:[66, 26, -24] },
+    rank:    { label:"Retrieval & ranking",      color:C.sky,    at:[-64, 24, -26] },
+    health:  { label:"Healthcare & biomedical",  color:C.crit,   at:[48, -20, 48] },
+    signal:  { label:"Speech · vision · signal", color:C.violet, at:[-54, -18, 46] },
+    archive: { label:"Coursework, forks, meta",  color:C.mute,   at:[3, -46, -60] }
   };
-
-  var REPOS = [
-    ["opendrivefm","av",3.1,"BEV occupancy + fault harness · 11★"],
-    ["guardian-drive","av",2.8,"8 hazard detectors fused with BEV"],
-    ["autonomy-vision","av",2.4,"SafeTruck-AV2 trucking stack"],
-    ["Self-Driving-cars-Specialization","av",1.6,"CARLA motion planning, zero collisions"],
-    ["Traffic-Sense-Ideathon","av",1.0,"Traffic sensing concept"],
-    ["nuscenes-devkit","av",1.1,"Fork · 2 upstream docs PRs open"],
-    ["Opendrivefm-1","av",0.9,"Fork · AI-688 course org"],
-    ["vehicle-command","av",0.8,"Fork · Tesla SDK"],
-    ["light-show","av",0.8,"Fork · Tesla light show"],
-
-    ["talentra_copilot","agentic",2.6,"5-agent hiring intelligence · p95 4.81 ms"],
-    ["neurapilot","agentic",2.0,"Agentic RAG tutor · faithfulness 0.81"],
-    ["phamilyops","agentic",2.0,"17 AI modules, live deploy"],
-    ["attentive-flow","agentic",1.7,"Campaign validate-and-repair loop"],
-    ["stock-forecasting-aapl-LSTM-RAG","agentic",1.9,"MAPE 3.34% · grounded RAG"],
-    ["costsim-ai","agentic",0.7,"Empty — fill or delete"],
-
-    ["two-stage-recommender-als-ranker-api","rank",2.5,"CineWave · NDCG@10 0.1409"],
-    ["FashionFinder","rank",2.0,"44,419 items · FAISS 1.79 ms"],
-
-    ["Esophageal-Cancer-Detection","health",2.0,"EfficientNet-B3 · 95.44%"],
-    ["AI-Powered-Multi-Disease-Health-Risk-Prediction","health",1.8,"17 conditions · 87.3% avg"],
-    ["Heart_disease_linear-regression","health",0.8,"Coursework"],
-    ["Alcohol_prediction","health",0.8,"Coursework"],
-
-    ["noise-robust-kws-distress-detection","signal",2.0,"77.02% at 0 dB SNR · 0.43 MB"],
-    ["ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN","signal",1.7,"Real-time webcam CNN"],
-    ["Sign-Language-Regonization-using-CNN-Algorithm-with-Meachine-Learning-Techniques-Paper","signal",1.3,"Paper repo · rename me"],
-    ["Image-Classification-using-CNN","signal",0.8,"Coursework"],
-
-    ["Bayesian-Network-Inference-Problem","archive",0.7,"Coursework 2025"],
-    ["Student-Performance-Using-Neural-Network","archive",0.7,"Coursework 2025"],
-    ["Wine-Quality-using-Neural-Networks","archive",0.7,"Coursework 2025"],
-    ["Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-","archive",0.7,"Coursework 2025"],
-    ["Pharmacy-management-system","archive",0.7,"Undergrad"],
-    ["Library-Management-System-in-Python","archive",0.7,"Undergrad"],
-    ["Android-App-for-Recycling-and-Donation-app","archive",0.7,"Undergrad"],
-    ["AkilanManivannanak","archive",0.9,"This profile"],
-    ["AkilanPortfolio","archive",0.8,"Portfolio site"]
+  var FALLBACK_REPOS = [
+    { name:"opendrivefm", domain:"av", size:3.1, stars:11, note:"BEV occupancy + fault harness" },
+    { name:"guardian-drive", domain:"av", size:2.8, stars:0, note:"8 hazard detectors fused with BEV" },
+    { name:"autonomy-vision", domain:"av", size:2.4, stars:0, note:"SafeTruck-AV2 trucking stack" },
+    { name:"talentra_copilot", domain:"agentic", size:2.6, stars:0, note:"5-agent hiring intelligence" },
+    { name:"neurapilot", domain:"agentic", size:2.0, stars:0, note:"Agentic RAG tutor" },
+    { name:"two-stage-recommender-als-ranker-api", domain:"rank", size:2.5, stars:0, note:"CineWave" },
+    { name:"FashionFinder", domain:"rank", size:2.0, stars:0, note:"FAISS visual search" },
+    { name:"Esophageal-Cancer-Detection", domain:"health", size:2.0, stars:0, note:"EfficientNet-B3" },
+    { name:"noise-robust-kws-distress-detection", domain:"signal", size:2.0, stars:0, note:"Edge KWS" }
   ];
 
-  var nodes = [];
-  var nodeGroup = new THREE.Group();
-  graph.add(nodeGroup);
+  var nodeGroup = new THREE.Group(); graph.add(nodeGroup);
+  var edgeGroup = new THREE.Group(); graph.add(edgeGroup);
+  var nodes = [], activeDomains = {}, query = "";
+  Object.keys(DOMAINS).forEach(function (d) { activeDomains[d] = true; });
 
-  function hash(s) { var h = 0; for (var i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) % 100000; } return h; }
+  function hash(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 100000; return h; }
 
-  REPOS.forEach(function (rep, i) {
-    var name = rep[0], dom = rep[1], size = rep[2], note = rep[3];
-    var d = DOMAINS[dom];
-    var h = hash(name);
-    var a = (h % 628) / 100, b = ((h >> 3) % 628) / 100, rad = 13 + (h % 17);
-    var pos = new THREE.Vector3(
-      d.at[0] + Math.cos(a) * rad,
-      d.at[1] + Math.sin(b) * rad * 0.55,
-      d.at[2] + Math.sin(a) * rad
-    );
-    var mesh = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(size * 1.9, 1),
-      new THREE.MeshLambertMaterial({ color:d.color, transparent:true,
-                                      opacity: dom === "archive" ? 0.4 : 0.92 })
-    );
-    mesh.position.copy(pos);
-    mesh.userData = { name:name, note:note, dom:dom, url:"https://github.com/AkilanManivannanak/" + name, base:pos.clone(), seed:i };
-    nodeGroup.add(mesh);
-    nodes.push(mesh);
-  });
+  function buildGraph(list) {
+    while (nodeGroup.children.length) nodeGroup.remove(nodeGroup.children[0]);
+    while (edgeGroup.children.length) edgeGroup.remove(edgeGroup.children[0]);
+    nodes = [];
+    list.forEach(function (rep, i) {
+      var d = DOMAINS[rep.domain] || DOMAINS.archive;
+      var h = hash(rep.name), a = (h % 628) / 100, b = ((h >> 3) % 628) / 100, rad = 13 + (h % 17);
+      var pos = new THREE.Vector3(d.at[0] + Math.cos(a) * rad,
+                                  d.at[1] + Math.sin(b) * rad * 0.55,
+                                  d.at[2] + Math.sin(a) * rad);
+      var mesh = new THREE.Mesh(new THREE.IcosahedronGeometry(rep.size * 1.9, 1),
+        new THREE.MeshLambertMaterial({ color:d.color, transparent:true,
+                                        opacity: rep.domain === "archive" ? 0.4 : 0.92 }));
+      mesh.position.copy(pos);
+      mesh.userData = { rep:rep, base:pos.clone(), seed:i, baseOpacity:mesh.material.opacity };
+      nodeGroup.add(mesh); nodes.push(mesh);
+    });
 
-  function nodeByName(n) {
-    for (var i = 0; i < nodes.length; i++) { if (nodes[i].userData.name === n) return nodes[i]; }
-    return null;
-  }
-
-  // edges: the shared-encoder spine, then faint intra-cluster links
-  var edgePts = [];
-  var core = nodeByName("opendrivefm");
-  ["guardian-drive", "autonomy-vision"].forEach(function (n) {
-    var t = nodeByName(n);
-    if (core && t) edgePts.push(core.position.clone(), t.position.clone());
-  });
-  var spineMat = new THREE.MeshBasicMaterial({ color:C.amber, transparent:true, opacity:0.85 });
-  var spine = new THREE.Group();
-  for (var e = 0; e < edgePts.length; e += 2) {
-    var a0 = edgePts[e], b0 = edgePts[e + 1];
-    var dir = new THREE.Vector3().subVectors(b0, a0);
-    var cyl = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, dir.length(), 8), spineMat);
-    cyl.position.copy(a0).add(dir.clone().multiplyScalar(0.5));
-    cyl.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().normalize());
-    spine.add(cyl);
-  }
-  spine.material = spineMat;
-  graph.add(spine);
-
-  var faintPts = [];
-  Object.keys(DOMAINS).forEach(function (dom) {
-    var members = nodes.filter(function (n) { return n.userData.dom === dom; });
-    for (var i = 1; i < members.length; i++) {
-      faintPts.push(members[0].position.clone(), members[i].position.clone());
+    var byName = {};
+    nodes.forEach(function (n) { byName[n.userData.rep.name] = n; });
+    var core = byName["opendrivefm"];
+    if (core) {
+      ["guardian-drive", "autonomy-vision"].forEach(function (t) {
+        if (!byName[t]) return;
+        var a0 = core.position, b0 = byName[t].position;
+        var dir = new THREE.Vector3().subVectors(b0, a0);
+        var cyl = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, dir.length(), 8),
+          new THREE.MeshBasicMaterial({ color:C.amber, transparent:true, opacity:0.85 }));
+        cyl.position.copy(a0).add(dir.clone().multiplyScalar(0.5));
+        cyl.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().normalize());
+        cyl.userData.spine = true;
+        edgeGroup.add(cyl);
+      });
     }
-  });
-  graph.add(new THREE.LineSegments(
-    new THREE.BufferGeometry().setFromPoints(faintPts),
-    new THREE.LineBasicMaterial({ color:C.grid, transparent:true, opacity:0.5 })
-  ));
+    var faint = [];
+    Object.keys(DOMAINS).forEach(function (dom) {
+      var mem = nodes.filter(function (n) { return n.userData.rep.domain === dom; });
+      for (var i = 1; i < mem.length; i++) faint.push(mem[0].position.clone(), mem[i].position.clone());
+    });
+    edgeGroup.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(faint),
+      new THREE.LineBasicMaterial({ color:C.grid, transparent:true, opacity:0.45 })));
+    applyFilter();
+  }
 
-  /* ---------- HUD state ---------- */
-  var mode = "bev";
-  var readouts = {
-    bev: [["cameras","6 / 6 nominal"],["occupied cells","—"],["fault AUROC","0.764"],
-          ["runtime","71.2 FPS"],["latency p50","13.9 ms"]],
-    graph: [["repositories","34"],["original","29"],["forks","5"],
-            ["shared-encoder links","2"],["stars","11"]]
-  };
-  var legends = {
-    bev: [[C.sky,"camera frustum"],[C.amber,"occupied"],[C.teal,"free space / trajectory"],[C.crit,"critical agent"]],
-    graph: Object.keys(DOMAINS).map(function (k) { return [DOMAINS[k].color, DOMAINS[k].label]; })
-  };
-  var captions = {
-    bev: "<b>Six surround cameras, no LiDAR.</b> Frustums fire in capture order, the point field is the occupancy grid they produce, and the three teal ribbons are the trajectory modes. This is the encoder that runs inside opendrivefm, guardian-drive and autonomy-vision.",
-    graph: "<b>34 repositories, clustered by domain.</b> Node size tracks how much of the portfolio a repo carries. The two amber edges are the real dependency: one BEV encoder feeding three separate systems. Click any node to open the repo."
-  };
+  function applyFilter() {
+    var q = query.trim().toLowerCase(), shown = 0;
+    nodes.forEach(function (n) {
+      var rep = n.userData.rep;
+      var ok = activeDomains[rep.domain] !== false &&
+               (!q || rep.name.toLowerCase().indexOf(q) >= 0 || (rep.note || "").toLowerCase().indexOf(q) >= 0);
+      n.visible = ok; if (ok) shown++;
+      n.material.opacity = q && ok ? 1 : n.userData.baseOpacity;
+    });
+    var el = $("rd-shown"); if (el) el.textContent = shown + " / " + nodes.length;
+  }
+
+  /* =====================================================================
+     SCENE 3 — contribution surface
+     ===================================================================== */
+  var contrib = new THREE.Scene();
+  contrib.background = new THREE.Color(C.void);
+  contrib.add(new THREE.AmbientLight(0xffffff, 0.75));
+  var ck = new THREE.DirectionalLight(0xffffff, 0.65); ck.position.set(-60, 140, 80); contrib.add(ck);
+
+  var barGroup = new THREE.Group(); contrib.add(barGroup);
+  var bars = [], contribData = null;
+  var LEVEL_MAT = [
+    new THREE.MeshLambertMaterial({ color:0x1a2229 }),
+    new THREE.MeshLambertMaterial({ color:0x6b4a26 }),
+    new THREE.MeshLambertMaterial({ color:0xa06429 }),
+    new THREE.MeshLambertMaterial({ color:C.amber }),
+    new THREE.MeshLambertMaterial({ color:0xf5b877 })
+  ];
+  var BAR_GEO = new THREE.BoxGeometry(3.1, 1, 3.1);
+
+  function sampleContrib() {
+    var days = [], today = new Date();
+    for (var i = 364; i >= 0; i--) {
+      var d = new Date(today.getTime() - i * 86400000);
+      var w = (d.getDay() === 0 || d.getDay() === 6) ? 0.45 : 1;
+      var burst = Math.max(0, Math.sin(i / 26) ) * 6;
+      days.push({ d: d.toISOString().slice(0, 10),
+                  c: Math.max(0, Math.round((Math.random() * 4 + burst) * w - 1)) });
+    }
+    var tot = days.reduce(function (s, x) { return s + x.c; }, 0);
+    var streak = 0, best = 0;
+    days.forEach(function (x) { streak = x.c > 0 ? streak + 1 : 0; best = Math.max(best, streak); });
+    var busiest = days.reduce(function (a, b) { return b.c > a.c ? b : a; }, days[0]);
+    return { sample:true, total:tot, commits:0, prs:0, issues:0, reviews:0,
+             longestStreak:best, busiest:busiest, days:days };
+  }
+
+  function buildContrib(data) {
+    contribData = data;
+    while (barGroup.children.length) barGroup.remove(barGroup.children[0]);
+    bars = [];
+    var days = data.days, maxC = 1;
+    days.forEach(function (d) { maxC = Math.max(maxC, d.c); });
+    var first = new Date(days[0].d + "T00:00:00Z");
+    var offset = first.getUTCDay();
+    days.forEach(function (day, idx) {
+      var n = idx + offset, week = Math.floor(n / 7), dow = n % 7;
+      var lvl = day.c === 0 ? 0 : Math.min(4, 1 + Math.floor((day.c / maxC) * 3.999));
+      var h = day.c === 0 ? 1.2 : 2 + (day.c / maxC) * 44;
+      var m = new THREE.Mesh(BAR_GEO, LEVEL_MAT[lvl]);
+      m.scale.y = h;
+      m.position.set((week - 26) * 4.0, h / 2, (dow - 3) * 4.0);
+      m.userData = { day:day, lvl:lvl, h:h };
+      barGroup.add(m); bars.push(m);
+    });
+    var plate = new THREE.Mesh(new THREE.PlaneGeometry(53 * 4.2, 7 * 4.2),
+      new THREE.MeshBasicMaterial({ color:0x0d1116 }));
+    plate.rotation.x = -Math.PI / 2; plate.position.y = -0.2;
+    barGroup.add(plate);
+    if (mode === "contrib") paintHUD();
+  }
+
+  /* =====================================================================
+     HUD
+     ===================================================================== */
+  var mode = "bev", live = { repos:false, contrib:false };
 
   function hex(n) { return "#" + n.toString(16).padStart(6, "0"); }
+  function trustScore() {
+    var t = 0.96;
+    CAMS.forEach(function (c) { if (c.faulted) t -= FAULTS[c.faulted].penalty * 0.16; });
+    return Math.max(0.28, t);
+  }
+  function faultedCams() { return CAMS.filter(function (c) { return c.faulted; }); }
+
+  function readoutRows() {
+    if (mode === "bev") {
+      var f = faultedCams(), t = trustScore();
+      return [
+        ["cameras nominal", (6 - f.length) + " / 6", f.length ? (f.length > 2 ? "bad" : "warn") : ""],
+        ["trust score", t.toFixed(3), t < 0.6 ? "bad" : (t < 0.85 ? "warn" : "")],
+        ["occupied cells", occupiedCount + " / " + TOTAL, ""],
+        ["fault mode", faultMode, ""],
+        ["runtime", "71.2 FPS · p50 13.9 ms", ""]
+      ];
+    }
+    if (mode === "graph") {
+      var stars = 0, forks = 0;
+      nodes.forEach(function (n) { stars += n.userData.rep.stars || 0; if (n.userData.rep.fork) forks++; });
+      return [
+        ["repositories", String(nodes.length), ""],
+        ["showing", nodes.length + " / " + nodes.length, "", "shown"],
+        ["stars earned", String(stars), ""],
+        ["forks", String(forks), ""],
+        ["shared-encoder links", "2", ""]
+      ];
+    }
+    var d = contribData || {};
+    return [
+      ["contributions, 365d", String(d.total || 0), ""],
+      ["commits", String(d.commits || 0), ""],
+      ["pull requests", String(d.prs || 0), ""],
+      ["longest streak", (d.longestStreak || 0) + " days", ""],
+      ["busiest day", (d.busiest ? d.busiest.c + " on " + d.busiest.d : "—"), ""]
+    ];
+  }
+
+  function controlsHTML() {
+    if (mode === "bev") {
+      return '<h2>Inject a camera fault</h2><div class="chips" id="camChips">' +
+        CAMS.map(function (c, i) {
+          return '<button class="chip' + (c.faulted ? ' faulted' : '') + '" data-cam="' + i +
+                 '" aria-pressed="' + (!!c.faulted) + '">' + c.id + '</button>';
+        }).join("") + '</div>' +
+        '<h2 style="margin-top:11px">Fault type</h2><div class="chips" id="faultChips">' +
+        Object.keys(FAULTS).map(function (k) {
+          return '<button class="chip" data-fault="' + k + '" aria-pressed="' + (faultMode === k) + '">' + k + '</button>';
+        }).join("") + '</div>' +
+        '<div class="bar"><span id="trustBar"></span></div>' +
+        '<button class="ghost" id="resetFaults">↺ CLEAR ALL FAULTS</button>';
+    }
+    if (mode === "graph") {
+      return '<h2>Filter</h2><input type="search" id="repoSearch" placeholder="search 35 repositories…" value="' +
+             query.replace(/"/g, "&quot;") + '" />' +
+             '<button class="ghost" id="resetFilter">↺ SHOW EVERYTHING</button>';
+    }
+    return '<h2>Surface</h2><div class="chips">' +
+           '<button class="chip" id="flatten" aria-pressed="false">flatten</button>' +
+           '<button class="chip" id="topView" aria-pressed="false">top-down</button></div>' +
+           '<button class="ghost" id="openYear">↗ OPEN CONTRIBUTION GRAPH ON GITHUB</button>';
+  }
+
+  var LEGENDS = {
+    bev: [[C.sky,"camera frustum"],[C.amber,"occupied"],[C.teal,"free space / trajectory"],
+          [C.crit,"critical agent"],[C.dead,"no data (faulted)"]],
+    graph: Object.keys(DOMAINS).map(function (k) { return [DOMAINS[k].color, DOMAINS[k].label, k]; }),
+    contrib: [[0x1a2229,"no contributions"],[0x6b4a26,"low"],[0xa06429,"medium"],
+              [C.amber,"high"],[0xf5b877,"peak"]]
+  };
+  var CAPTIONS = {
+    bev: "<b>Click a camera, break it.</b> Pick a fault type, then click F, FL, FR, BL, BR or B — or click a frustum in the scene. That camera's sector of the occupancy grid degrades the way the real fault does, and the trust score drops. This is the harness that found the scorer inverted, made playable.",
+    graph: "<b>Every repository on the account.</b> Sized by weight, coloured by domain, positioned from a hash of the name. Filter by clicking a legend entry, search to isolate, click a node to open the repo. The two amber struts are the shared BEV encoder.",
+    contrib: "<b>A year of contributions as a surface.</b> 53 weeks across, 7 days deep, height and colour by count. Hover a bar for the date, click it to open that day on GitHub."
+  };
 
   function paintHUD() {
-    readoutEl.innerHTML = readouts[mode].map(function (r) {
-      return "<dt>" + r[0] + "</dt><dd id='rd-" + r[0].replace(/[^a-z]/g, "") + "'>" + r[1] + "</dd>";
+    readoutEl.innerHTML = readoutRows().map(function (r) {
+      var id = r[3] ? ' id="rd-' + r[3] + '"' : "";
+      return "<dt>" + r[0] + "</dt><dd class='" + (r[2] || "") + "'" + id + ">" + r[1] + "</dd>";
     }).join("");
-    legendEl.innerHTML = legends[mode].map(function (l) {
-      return "<span class='key'><span class='dot' style='background:" + hex(l[0]) + "'></span>" + l[1] + "</span>";
+    controlsEl.innerHTML = controlsHTML();
+    legendEl.innerHTML = LEGENDS[mode].map(function (l) {
+      var dom = l[2];
+      return "<button class='chip" + (dom ? " legend-dom" : "") + "'" +
+             (dom ? " data-dom='" + dom + "' aria-pressed='" + (activeDomains[dom] !== false) + "'" : " tabindex='-1'") +
+             "><span class='sw' style='background:" + hex(l[0]) + "'></span>" + l[1] + "</button>";
     }).join("");
-    captionEl.innerHTML = captions[mode];
+    captionEl.innerHTML = CAPTIONS[mode];
+    wireControls();
+    updateTrustBar();
   }
+
+  function updateTrustBar() {
+    var b = $("trustBar"); if (!b) return;
+    var t = trustScore();
+    b.style.width = Math.round(t * 100) + "%";
+    b.style.background = t < 0.6 ? hex(C.crit) : (t < 0.85 ? hex(C.amber) : hex(C.teal));
+  }
+
+  function toggleFault(i) {
+    var c = CAMS[i];
+    c.faulted = c.faulted ? null : faultMode;
+    paintHUD();
+  }
+
+  function wireControls() {
+    var chips = controlsEl.querySelectorAll("[data-cam]");
+    Array.prototype.forEach.call(chips, function (el) {
+      el.addEventListener("click", function () { toggleFault(+el.dataset.cam); });
+    });
+    Array.prototype.forEach.call(controlsEl.querySelectorAll("[data-fault]"), function (el) {
+      el.addEventListener("click", function () { faultMode = el.dataset.fault; paintHUD(); });
+    });
+    var reset = $("resetFaults");
+    if (reset) reset.addEventListener("click", function () {
+      CAMS.forEach(function (c) { c.faulted = null; }); paintHUD();
+    });
+    var s = $("repoSearch");
+    if (s) s.addEventListener("input", function () { query = s.value; applyFilter(); });
+    var rf = $("resetFilter");
+    if (rf) rf.addEventListener("click", function () {
+      query = ""; Object.keys(DOMAINS).forEach(function (d) { activeDomains[d] = true; });
+      paintHUD(); applyFilter();
+    });
+    Array.prototype.forEach.call(legendEl.querySelectorAll("[data-dom]"), function (el) {
+      el.addEventListener("click", function () {
+        var d = el.dataset.dom;
+        activeDomains[d] = activeDomains[d] === false;
+        el.setAttribute("aria-pressed", activeDomains[d] !== false);
+        applyFilter();
+      });
+    });
+    var fl = $("flatten");
+    if (fl) fl.addEventListener("click", function () {
+      flat = !flat; fl.setAttribute("aria-pressed", flat);
+    });
+    var tv = $("topView");
+    if (tv) tv.addEventListener("click", function () {
+      orbit.phi = 0.16; orbit.theta = -Math.PI / 2; tv.setAttribute("aria-pressed", "true");
+    });
+    var oy = $("openYear");
+    if (oy) oy.addEventListener("click", function () {
+      window.open("https://github.com/" + USER, "_blank", "noopener");
+    });
+  }
+
+  var flat = false;
 
   function setMode(m) {
     mode = m;
-    document.getElementById("tab-bev").setAttribute("aria-selected", m === "bev");
-    document.getElementById("tab-graph").setAttribute("aria-selected", m === "graph");
-    orbit.radius = m === "bev" ? 190 : 300;
-    orbit.phi = m === "bev" ? 0.85 : 1.05;
-    orbit.target.set(0, m === "bev" ? 4 : 0, 0);
+    ["bev", "graph", "contrib"].forEach(function (k) {
+      $("tab-" + k).setAttribute("aria-selected", k === m);
+    });
+    $("legendWrap").style.display = "";
+    if (m === "bev")     { orbit.radius = 190; orbit.phi = 0.85; orbit.target.set(0, 4, 0); }
+    if (m === "graph")   { orbit.radius = 250; orbit.phi = 1.02; orbit.target.set(0, 0, 0); }
+    if (m === "contrib") { orbit.radius = 265; orbit.phi = 0.62; orbit.theta = -1.40; orbit.target.set(0, 6, 0); }
     tip.style.opacity = 0;
     paintHUD();
   }
-  document.getElementById("tab-bev").addEventListener("click", function () { setMode("bev"); });
-  document.getElementById("tab-graph").addEventListener("click", function () { setMode("graph"); });
-
-  renderer.domElement.addEventListener("click", function () {
-    if (mode !== "graph" || !hovered) return;
-    window.open(hovered.userData.url, "_blank", "noopener");
+  ["bev", "graph", "contrib"].forEach(function (k) {
+    $("tab-" + k).addEventListener("click", function () { setMode(k); });
+  });
+  window.addEventListener("keydown", function (e) {
+    if (e.target && /input|textarea/i.test(e.target.tagName)) return;
+    if (e.key === "1") setMode("bev");
+    if (e.key === "2") setMode("graph");
+    if (e.key === "3") setMode("contrib");
+    if (e.key.toLowerCase() === "r" && mode === "bev") { CAMS.forEach(function (c) { c.faulted = null; }); paintHUD(); }
   });
 
-  /* ---------- loop ---------- */
-  var clock = new THREE.Clock();
-  var hovered = null;
-  var colorTmp = new THREE.Color();
+  renderer.domElement.addEventListener("click", function () {
+    if (orbit.moved) return;
+    if (mode === "graph" && hovered) { window.open(hovered.userData.rep.url ||
+        ("https://github.com/" + USER + "/" + hovered.userData.rep.name), "_blank", "noopener"); return; }
+    if (mode === "contrib" && hovered) {
+      var d = hovered.userData.day.d;
+      window.open("https://github.com/" + USER + "?tab=overview&from=" + d + "&to=" + d, "_blank", "noopener");
+      return;
+    }
+    if (mode === "bev") {
+      ray.setFromCamera(pointer, camera);
+      var hit = ray.intersectObjects(camFaces, false);
+      if (hit.length) toggleFault(hit[0].object.userData.pickCam);
+    }
+  });
+
+  /* =====================================================================
+     data
+     ===================================================================== */
+  function loadJSON(url) {
+    return fetch(url, { cache:"no-store" }).then(function (r) {
+      if (!r.ok) throw new Error(r.status); return r.json();
+    });
+  }
+  function markSource() {
+    srcEl.textContent = (live.repos || live.contrib)
+      ? "LIVE · " + (live.repos && live.contrib ? "FULL" : "PARTIAL")
+      : "SAMPLE DATA";
+    srcEl.style.color = (live.repos && live.contrib) ? hex(C.teal) : hex(C.amber);
+  }
+
+  buildGraph(FALLBACK_REPOS);
+  buildContrib(sampleContrib());
+  markSource();
+
+  loadJSON("data/repos.json").then(function (d) {
+    live.repos = true; buildGraph(d.repos); markSource(); if (mode === "graph") paintHUD();
+  }).catch(function () {});
+  loadJSON("data/contributions.json").then(function (d) {
+    live.contrib = true; buildContrib(d); markSource();
+  }).catch(function () {});
+
+  /* =====================================================================
+     loop
+     ===================================================================== */
+  var clock = new THREE.Clock(), hovered = null, occupiedCount = 0, frame = 0;
+  var tmp = new THREE.Color();
   var occAttr = occGeo.getAttribute("color");
-  var occupiedCount = 0;
+  var scenes = { bev:bev, graph:graph, contrib:contrib };
 
   function updateOccupancy(t) {
     var pos = occGeo.getAttribute("position");
     occupiedCount = 0;
     for (var k = 0; k < TOTAL; k++) {
       var x = pos.getX(k), z = pos.getZ(k);
+      var fault = CAMS[occCam[k]].faulted;
+      if (fault === "occlusion") { tmp.setHex(C.dead).multiplyScalar(0.5); occAttr.setXYZ(k, tmp.r, tmp.g, tmp.b); continue; }
       var v = 0, crit = false;
       for (var a = 0; a < AGENTS.length; a++) {
         var dx = x - AGENTS[a].mesh.position.x, dz = z - AGENTS[a].mesh.position.z;
-        var d2 = dx * dx + dz * dz;
-        var contrib = Math.exp(-d2 / 620);
-        if (contrib > 0.3 && AGENTS[a].col === C.crit) crit = true;
-        v += contrib;
+        var contribV = Math.exp(-(dx * dx + dz * dz) / 620);
+        if (contribV > 0.3 && AGENTS[a].col === C.crit) crit = true;
+        v += contribV;
       }
-      var dEgo = Math.sqrt(x * x + z * z);
-      var ripple = 0.07 + 0.045 * Math.sin(dEgo * 0.07 - t * 1.6);
       var val = Math.min(1, v);
+      if (fault === "blur") val *= 0.45 + 0.2 * Math.sin(t + occJit[k] * 6);
+      if (fault === "rain" && occJit[k] > 0.62) val = 0;
       if (val > 0.3) occupiedCount++;
-      if (val > 0.16) {
-        colorTmp.setHex(crit ? C.crit : C.amber);
-        colorTmp.multiplyScalar(0.3 + val * 0.7);
+      if (fault === "glare" && occJit[k] > 0.25) {
+        tmp.setHex(FAULTS.glare.tint).multiplyScalar(0.22 + 0.2 * occJit[k]);
+      } else if (val > 0.16) {
+        tmp.setHex(crit ? C.crit : C.amber).multiplyScalar(0.3 + val * 0.7);
+        if (fault) tmp.lerp(new THREE.Color(FAULTS[fault].tint), 0.45);
       } else {
-        colorTmp.setHex(C.teal).multiplyScalar(ripple);
+        var dEgo = Math.sqrt(x * x + z * z);
+        tmp.setHex(C.teal).multiplyScalar(0.07 + 0.045 * Math.sin(dEgo * 0.07 - t * 1.6));
+        if (fault) tmp.multiplyScalar(0.35);
       }
-      occAttr.setXYZ(k, colorTmp.r, colorTmp.g, colorTmp.b);
+      occAttr.setXYZ(k, tmp.r, tmp.g, tmp.b);
     }
     occAttr.needsUpdate = true;
   }
 
-  var frame = 0;
   function tick() {
     requestAnimationFrame(tick);
-    var t = clock.getElapsedTime();
-    frame++;
-
-    if (!orbit.dragging && !reduced) orbit.theta += orbit.spin * (mode === "graph" ? 1.8 : 1);
+    var t = clock.getElapsedTime(); frame++;
+    if (!orbit.dragging && !reduced) orbit.theta += orbit.spin * (mode === "bev" ? 1 : (mode === "graph" ? 1.6 : 0.35));
     applyCamera();
 
     if (mode === "bev") {
-      for (var i = 0; i < AGENTS.length; i++) {
-        var a = AGENTS[i];
+      AGENTS.forEach(function (a) {
         a.mesh.position.z += a.vz; a.mesh.position.x += a.vx;
         if (a.mesh.position.z > 170) a.mesh.position.z = -170;
         if (a.mesh.position.z < -170) a.mesh.position.z = 170;
         if (a.mesh.position.x > 170) a.mesh.position.x = -170;
         if (a.mesh.position.x < -170) a.mesh.position.x = 170;
-      }
+      });
       if (frame % 2 === 0) updateOccupancy(t);
-
-      frustums.forEach(function (g) {
-        var pulse = 0.28 + 0.42 * (0.5 + 0.5 * Math.sin(t * 1.5 - g.userData.phase));
-        g.userData.mat.opacity = pulse;
-        g.userData.face.opacity = pulse * 0.16;
+      CAMS.forEach(function (c) {
+        if (c.faulted) {
+          var flick = 0.35 + 0.4 * Math.abs(Math.sin(t * 6 + c.phase));
+          c.lineMat.color.setHex(C.crit); c.lineMat.opacity = flick;
+          c.faceMat.color.setHex(C.crit); c.faceMat.opacity = 0.05 + 0.05 * flick;
+        } else {
+          var pulse = 0.28 + 0.42 * (0.5 + 0.5 * Math.sin(t * 1.5 - c.phase));
+          c.lineMat.color.setHex(C.sky); c.lineMat.opacity = pulse;
+          c.faceMat.color.setHex(C.sky); c.faceMat.opacity = pulse * 0.16;
+        }
       });
-
       sweepPivot.rotation.y = -t * 0.9;
+      runners.forEach(function (r) { r.dot.position.copy(r.curve.getPoint((t * 0.28 + r.off) % 1)); });
+      if (frame % 12 === 0) {
+        var oc = readoutEl.children[5];
+        if (oc) oc.textContent = occupiedCount + " / " + TOTAL;
+      }
+      hovered = null; tip.style.opacity = 0;
+      renderer.domElement.style.cursor = orbit.dragging ? "grabbing" : "crosshair";
 
-      runners.forEach(function (r, i) {
-        var u = ((t * 0.28 + r.off) % 1);
-        r.dot.position.copy(r.curve.getPoint(u));
-      });
-
-      var rd = document.getElementById("rd-occupiedcells");
-      if (rd && frame % 12 === 0) rd.textContent = occupiedCount + " / " + TOTAL;
-
-    } else {
+    } else if (mode === "graph") {
       nodes.forEach(function (n) {
         n.position.y = n.userData.base.y + Math.sin(t * 0.6 + n.userData.seed) * 1.2;
         n.rotation.y += 0.003;
       });
-      spine.material.opacity = 0.5 + 0.4 * Math.sin(t * 2);
-
+      edgeGroup.children.forEach(function (c) {
+        if (c.userData.spine) c.material.opacity = 0.5 + 0.4 * Math.sin(t * 2);
+      });
       ray.setFromCamera(pointer, camera);
-      var hits = ray.intersectObjects(nodes, false);
+      var hits = ray.intersectObjects(nodes.filter(function (n) { return n.visible; }), false);
       var next = hits.length ? hits[0].object : null;
       if (next !== hovered) {
-        if (hovered) hovered.scale.setScalar(1);
+        if (hovered && hovered.scale) hovered.scale.setScalar(1);
         hovered = next;
         if (hovered) {
           hovered.scale.setScalar(1.45);
-          tip.innerHTML = hovered.userData.name + "<br><span class='t-sub'>" + hovered.userData.note + "</span>";
+          var r = hovered.userData.rep;
+          tip.innerHTML = r.name + "<br><span class='t-sub'>" + (r.note || "") +
+            (r.stars ? " · " + r.stars + "★" : "") + (r.lang ? " · " + r.lang : "") + "</span>";
         }
       }
-      if (hovered) {
-        tip.style.left = pointerPx.x + "px";
-        tip.style.top = pointerPx.y + "px";
-        tip.style.opacity = 1;
-        renderer.domElement.style.cursor = "pointer";
-      } else {
-        tip.style.opacity = 0;
-        renderer.domElement.style.cursor = orbit.dragging ? "grabbing" : "grab";
+      tipFollow();
+
+    } else {
+      barGroup.rotation.y = 0;
+      bars.forEach(function (b, i) {
+        if (!b.userData.day) return;
+        var target = flat ? 1.2 : b.userData.h;
+        var wave = reduced ? 0 : Math.sin(t * 1.4 + i * 0.05) * (b.userData.lvl ? 0.9 : 0);
+        b.scale.y += ((target + wave) - b.scale.y) * 0.16;
+        b.position.y = b.scale.y / 2;
+      });
+      ray.setFromCamera(pointer, camera);
+      var bh = ray.intersectObjects(bars, false);
+      var nb = bh.length ? bh[0].object : null;
+      if (nb !== hovered) {
+        hovered = nb;
+        if (hovered && hovered.userData.day) {
+          var d = hovered.userData.day;
+          tip.innerHTML = d.c + (d.c === 1 ? " contribution" : " contributions") +
+                          "<br><span class='t-sub'>" + d.d + "</span>";
+        }
       }
+      tipFollow();
     }
 
     renderer.render(scenes[mode], camera);
+  }
+
+  function tipFollow() {
+    if (hovered) {
+      tip.style.left = pointerPx.x + "px"; tip.style.top = pointerPx.y + "px";
+      tip.style.opacity = 1; renderer.domElement.style.cursor = "pointer";
+    } else {
+      tip.style.opacity = 0; renderer.domElement.style.cursor = orbit.dragging ? "grabbing" : "grab";
+    }
   }
 
   window.addEventListener("resize", function () {

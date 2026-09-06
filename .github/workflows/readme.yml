@@ -38,12 +38,12 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain README.md)" ]; then
-            git add README.md
-            git commit -m "chore: rebuild README from the GitHub API"
+          if [ -n "$(git status --porcelain README.md docs/data)" ]; then
+            git add README.md docs/data
+            git commit -m "chore: rebuild README and deck data from the GitHub API"
             git push
           else
-            echo "README unchanged."
+            echo "Nothing changed."
           fi
 
       - name: Publish shields.io endpoints to the output branch
