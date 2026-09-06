@@ -186,41 +186,6 @@ DOMAIN_LABELS = {
 }
 
 
-def block_activity(repos):
-    """Recent pushes, each row expandable, each one deep-linking into the deck so
-    the repository is focused and opened in the 3D graph."""
-    recent = sorted((r for r in repos if r.get("pushed_at")),
-                    key=lambda r: r["pushed_at"], reverse=True)[:8]
-    if not recent:
-        return "_No recent pushes._"
-    out = []
-    for r in recent:
-        when = datetime.strptime(r["pushed_at"], "%Y-%m-%dT%H:%M:%SZ")
-        desc = (r.get("description") or "").strip()
-        lang = r.get("language") or "—"
-        kb = r.get("size") or 0
-        note = NOTES.get(r["name"]) or desc
-        summary = f"<b>{r['name']}</b> &nbsp;·&nbsp; {when:%d %b %Y} &nbsp;·&nbsp; {lang}"
-        body = [
-            "", "| | |", "|---|---|",
-            f"| stars | {r.get('stargazers_count') or 0} |",
-            f"| size | {kb:,} KB |",
-            f"| domain | {DOMAIN_LABELS.get(classify(r), '—')} |",
-            f"| description | {desc if desc else '**not set** — run `scripts/set_descriptions.sh`'} |",
-        ]
-        if note and note != desc:
-            body.append(f"| what it is | {note} |")
-        body += ["",
-                 f"[Open the repository ↗]({r['html_url']}) &nbsp;·&nbsp; "
-                 f"[Focus it in the 3D graph ↗]({DECK}?repo={r['name']})", ""]
-        out.append("<details>\n<summary>" + summary + "</summary>\n" +
-                   "\n".join(body) + "\n</details>")
-    out.append("")
-    out.append(f"<sub>Each row opens the repository, or drops you into the "
-               f"<a href=\"{DECK}?scene=repos\">3D graph</a> with that node selected.</sub>")
-    return "\n".join(out)
-
-
 def plural(n, word):
     return f"{n} {word}" + ("" if n == 1 else "s")
 
@@ -258,79 +223,6 @@ def block_audit(repos, prs):
                     f"AV repository is the current priority.")
 
     return "\n".join(findings) if findings else "_Nothing outstanding._"
-
-
-# ----------------------------------------------------------------- isometric SVG
-
-ISO_THEMES = {
-    "dark":  {"bg":"#07090c", "rule":"#1d2a34", "txt":"#f2efe9", "mute":"#6f7b86",
-              "levels":[("#141c23","#0f161c","#0c1218"),
-                        ("#6b4a26","#553a1e","#3f2c16"),
-                        ("#a06429","#7f4f21","#5f3b19"),
-                        ("#e0873a","#b26b2e","#855022"),
-                        ("#f5b877","#c4935f","#936e47")]},
-    "light": {"bg":"#f5f3ef", "rule":"#ddd8ce", "txt":"#14171c", "mute":"#7d838b",
-              "levels":[("#e6e2d9","#d8d4cb","#cac6bd"),
-                        ("#e8c9a4","#cfb28f","#b69c7d"),
-                        ("#d79a5a","#b98249","#9b6c3c"),
-                        ("#b4531a","#933f13","#72300e"),
-                        ("#8c3d10","#71300c","#562509")]},
-}
-
-
-def iso_contrib_svg(days, total, theme):
-    """Isometric contribution surface, drawn from our own data. No third-party service."""
-    t = ISO_THEMES[theme]
-    hw, hh, unit = 7.4, 4.3, 1.05
-    maxc = max([d["c"] for d in days] or [1]) or 1
-    offset = datetime.strptime(days[0]["d"], "%Y-%m-%d").weekday()
-    offset = (offset + 1) % 7  # Sunday-first, matching GitHub
-
-    cells = []
-    for idx, day in enumerate(days):
-        n = idx + offset
-        w, dow = divmod(n, 7)
-        c = day["c"]
-        lvl = 0 if c == 0 else min(4, 1 + int((c / maxc) * 3.999))
-        h = 2.0 if c == 0 else 2.0 + (c / maxc) * 46 * unit
-        cells.append((w, dow, h, lvl, day["d"], c))
-
-    minx = min((w - d) * hw for w, d, _, _, _, _ in cells)
-    maxx = max((w - d) * hw for w, d, _, _, _, _ in cells)
-    maxy = max((w + d) * hh for w, d, _, _, _, _ in cells)
-    maxh = max(h for _, _, h, _, _, _ in cells)
-    padx, pady, top = 26, 58, 26
-    W = int(maxx - minx + hw * 2 + padx * 2)
-    H = int(maxy + hh * 2 + maxh + pady + top)
-    ox = -minx + padx + hw
-    oy = top + maxh
-
-    body = []
-    # painter's order: far cells first
-    for w, d, h, lvl, date, c in sorted(cells, key=lambda x: (x[0] + x[1])):
-        top_c, left_c, right_c = t["levels"][lvl]
-        x = ox + (w - d) * hw
-        y = oy + (w + d) * hh - h
-        body.append(
-            f'<g><title>{c} on {date}</title>'
-            f'<path fill="{top_c}" d="M{x:.1f} {y:.1f}l{hw:.1f} {hh:.1f}l{-hw:.1f} {hh:.1f}l{-hw:.1f} {-hh:.1f}Z"/>'
-            f'<path fill="{left_c}" d="M{x - hw:.1f} {y + hh:.1f}l{hw:.1f} {hh:.1f}v{h:.1f}l{-hw:.1f} {-hh:.1f}Z"/>'
-            f'<path fill="{right_c}" d="M{x + hw:.1f} {y + hh:.1f}l{-hw:.1f} {hh:.1f}v{h:.1f}l{hw:.1f} {-hh:.1f}Z"/>'
-            f'</g>')
-
-    mono = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
-    head = (f'<text x="{padx}" y="30" fill="{t["txt"]}" '
-            f'font-family="Archivo, Helvetica, Arial, sans-serif" font-weight="600" font-size="17">'
-            f'{total:,} contributions</text>'
-            f'<text x="{padx}" y="48" fill="{t["mute"]}" font-family="{mono}" font-size="10.5" '
-            f'letter-spacing="1.4">{days[0]["d"]} — {days[-1]["d"]} · SELF-COMPUTED FROM THE GITHUB API</text>')
-    foot = (f'<line x1="{padx}" y1="{H - 30}" x2="{W - padx}" y2="{H - 30}" stroke="{t["rule"]}"/>'
-            f'<text x="{padx}" y="{H - 12}" fill="{t["mute"]}" font-family="{mono}" font-size="10" '
-            f'letter-spacing="1.2">HOVER A COLUMN FOR THE DATE · FULL 3D VERSION IN THE PERCEPTION DECK</text>')
-
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
-            f'role="img" aria-label="Isometric view of {total} contributions over the last year.">'
-            f'<rect width="{W}" height="{H}" fill="{t["bg"]}"/>{head}{"".join(body)}{foot}</svg>')
 
 
 # ----------------------------------------------------------------- deck data
@@ -428,58 +320,11 @@ def write_deck_data(repos, contrib):
             }
 
         years = [summarise(label, c) for label, c in windows]
-        assets = ROOT / "assets"
-        assets.mkdir(exist_ok=True)
-        for theme in ("dark", "light"):
-            (assets / f"contrib-iso-{theme}.svg").write_text(
-                iso_contrib_svg(years[0]["days"], years[0]["total"], theme))
         payload = dict(years[0])
         payload["generated"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         payload["years"] = years
         (data_dir / "contributions.json").write_text(json.dumps(payload, indent=None) + "\n")
     print(f"  deck data written to docs/data/")
-
-
-def block_contrib_months(days):
-    """One row per month, each linking into the deck with that month lit up."""
-    if not days:
-        return ""
-    buckets = {}
-    for d in days:
-        buckets.setdefault(d["d"][:7], []).append(d)
-    rows = ["", "| Month | Contributions | Busiest day | Active days | |",
-            "|---|---|---|---|---|"]
-    for month in sorted(buckets, reverse=True):
-        ds = buckets[month]
-        total = sum(x["c"] for x in ds)
-        best = max(ds, key=lambda x: x["c"])
-        active = sum(1 for x in ds if x["c"] > 0)
-        label = datetime.strptime(month, "%Y-%m").strftime("%b %Y")
-        rows.append(f"| {label} | {total} | {best['c']} on {best['d'][-2:]} | "
-                    f"{active} / {len(ds)} | [open ↗]({DECK}?date={month}) |")
-    rows.append("")
-    return "\n".join(rows)
-
-
-def block_contrib_graph(has_data):
-    if not has_data:
-        return ("_Generated once the workflow runs with `PROFILE_TOKEN` set: the contributions "
-                "calendar is only readable through authenticated GraphQL._")
-    base = f"https://raw.githubusercontent.com/{USER}/{USER}/main/assets"
-    pic = ('<picture>\n'
-           f'  <source media="(prefers-color-scheme: dark)" srcset="{base}/contrib-iso-dark.svg" />\n'
-           f'  <img src="{base}/contrib-iso-light.svg" alt="Isometric view of the last year of contributions" width="100%" />\n'
-           '</picture>')
-    months = ""
-    data_file = ROOT / "docs" / "data" / "contributions.json"
-    if data_file.exists():
-        try:
-            months = ("\n\n<details>\n<summary><sub>MONTH BY MONTH</sub></summary>\n" +
-                      block_contrib_months(json.loads(data_file.read_text()).get("days", [])) +
-                      "\n</details>")
-        except (ValueError, OSError):
-            months = ""
-    return pic + months
 
 
 def splice(text, marker, body):
@@ -501,10 +346,7 @@ def main():
     readme_path = ROOT / "README.md"
     text = readme_path.read_text()
     text = splice(text, "STATS", block_stats(user, repos, contrib, stars, total, prs))
-    text = splice(text, "ACTIVITY", block_activity(repos))
     text = splice(text, "AUDIT", block_audit(repos, prs))
-    text = splice(text, "CONTRIBGRAPH",
-                  block_contrib_graph((ROOT / "assets" / "contrib-iso-dark.svg").exists()))
     readme_path.write_text(text)
 
     print(f"Updated README for {USER}: {len(repos)} repos, {stars} stars, "
