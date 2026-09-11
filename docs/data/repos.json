@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-10T10:02:02+00:00",
+ "generated": "2026-09-11T09:59:52+00:00",
  "count": 35,
  "repos": [
   {
@@ -19,10 +19,10 @@
    "domain": "rank",
    "size": 3.1,
    "stars": 0,
-   "kb": 67727,
-   "lang": "HTML",
+   "kb": 68080,
+   "lang": "Python",
    "fork": false,
-   "pushed": "2026-06-16",
+   "pushed": "2026-09-11",
    "note": "CineWave \u00b7 NDCG@10 0.1409",
    "url": "https://github.com/AkilanManivannanak/two-stage-recommender-als-ranker-api"
   },
@@ -173,12 +173,12 @@
   {
    "name": "AkilanManivannanak",
    "domain": "archive",
-   "size": 2.53,
+   "size": 2.54,
    "stars": 0,
-   "kb": 2276,
+   "kb": 2282,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-09-09",
+   "pushed": "2026-09-10",
    "note": "no description set",
    "url": "https://github.com/AkilanManivannanak/AkilanManivannanak"
   },
@@ -245,12 +245,12 @@
   {
    "name": "talentra_copilot",
    "domain": "agentic",
-   "size": 1.88,
+   "size": 1.9,
    "stars": 0,
-   "kb": 948,
+   "kb": 976,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-04-20",
+   "pushed": "2026-09-11",
    "note": "5-agent hiring intelligence \u00b7 p95 4.81 ms",
    "url": "https://github.com/AkilanManivannanak/talentra_copilot"
   },

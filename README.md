@@ -105,12 +105,12 @@ consumers, which is why the AV cluster is the part of this portfolio that compou
 |---|---|
 | Public repositories | 35  ·  30 original, 5 forks |
 | Stars earned | 11 |
-| Contributions, rolling 365 days | 755 |
-| Pull requests authored | 33 |
+| Contributions, rolling 365 days | 756 |
+| Pull requests authored | 35 |
 | Repos carrying a description | 2 / 35 |
-| Primary languages | Python (19), Jupyter Notebook (2), HTML (2), Makefile (1), Vue (1) |
+| Primary languages | Python (20), Jupyter Notebook (2), Makefile (1), HTML (1), Vue (1) |
 
-<sub>Recomputed 10 Sep 2026, 10:02 UTC from the GitHub API.</sub>
+<sub>Recomputed 11 Sep 2026, 09:59 UTC from the GitHub API.</sub>
 <!-- STATS:END -->
 
 <br/>
@@ -121,12 +121,12 @@ Generated against my own account, published on my own profile, on a schedule I d
 to veto. If something here has been open too long, that is the point.
 
 <!-- AUDIT:START -->
-- **30 repositories have no description.** Invisible to GitHub search. Worst offenders: `AkilanManivannanak`, `Esophageal-Cancer-Detection`, `opendrivefm`, `two-stage-recommender-als-ranker-api`.
+- **30 repositories have no description.** Invisible to GitHub search. Worst offenders: `two-stage-recommender-als-ranker-api`, `talentra_copilot`, `AkilanManivannanak`, `Esophageal-Cancer-Detection`.
 - **1 repository is effectively empty**: `costsim-ai`.
 - **1 starred repository carries no LICENSE**, so they read as all-rights-reserved: `opendrivefm`.
-- **Upstream PR open 107 days**: [nutonomy/nuscenes-devkit#1203](https://github.com/nutonomy/nuscenes-devkit/pull/1203) — Improve nuScenes dataset verification messaging
-- **Upstream PR open 107 days**: [nutonomy/nuscenes-devkit#1202](https://github.com/nutonomy/nuscenes-devkit/pull/1202) — docs: clarify local clone setup
-- **Upstream PR open 142 days**: [AI-688-Image-and-Vision-Computing/Opendrivefm#1](https://github.com/AI-688-Image-and-Vision-Computing/Opendrivefm/pull/1) — Update README.md
+- **Upstream PR open 108 days**: [nutonomy/nuscenes-devkit#1203](https://github.com/nutonomy/nuscenes-devkit/pull/1203) — Improve nuScenes dataset verification messaging
+- **Upstream PR open 108 days**: [nutonomy/nuscenes-devkit#1202](https://github.com/nutonomy/nuscenes-devkit/pull/1202) — docs: clarify local clone setup
+- **Upstream PR open 143 days**: [AI-688-Image-and-Vision-Computing/Opendrivefm#1](https://github.com/AI-688-Image-and-Vision-Computing/Opendrivefm/pull/1) — Update README.md
 - **External pull requests: 4 opened, 1 closed.** Landing merged code in an upstream AV repository is the current priority.
 <!-- AUDIT:END -->
 
