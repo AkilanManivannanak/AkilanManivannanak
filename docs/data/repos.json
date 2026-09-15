@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-14T10:58:02+00:00",
+ "generated": "2026-09-15T10:26:49+00:00",
  "count": 35,
  "repos": [
   {
@@ -159,6 +159,18 @@
    "url": "https://github.com/AkilanManivannanak/Self-Driving-cars-Specialization"
   },
   {
+   "name": "AkilanManivannanak",
+   "domain": "archive",
+   "size": 2.55,
+   "stars": 0,
+   "kb": 2305,
+   "lang": "Python",
+   "fork": false,
+   "pushed": "2026-09-14",
+   "note": "no description set",
+   "url": "https://github.com/AkilanManivannanak/AkilanManivannanak"
+  },
+  {
    "name": "stock-forecasting-aapl-LSTM-RAG",
    "domain": "agentic",
    "size": 2.55,
@@ -169,18 +181,6 @@
    "pushed": "2026-04-10",
    "note": "no description set",
    "url": "https://github.com/AkilanManivannanak/stock-forecasting-aapl-LSTM-RAG"
-  },
-  {
-   "name": "AkilanManivannanak",
-   "domain": "archive",
-   "size": 2.54,
-   "stars": 0,
-   "kb": 2299,
-   "lang": "Python",
-   "fork": false,
-   "pushed": "2026-09-13",
-   "note": "no description set",
-   "url": "https://github.com/AkilanManivannanak/AkilanManivannanak"
   },
   {
    "name": "Sign-Language-Regonization-using-CNN-Algorithm-with-Meachine-Learning-Techniques-Paper",
