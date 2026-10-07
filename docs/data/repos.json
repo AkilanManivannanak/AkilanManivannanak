@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-06T12:13:40+00:00",
+ "generated": "2026-10-07T11:59:33+00:00",
  "count": 35,
  "repos": [
   {
@@ -7,10 +7,10 @@
    "domain": "av",
    "size": 4.3,
    "stars": 11,
-   "kb": 5360,
-   "lang": "Makefile",
+   "kb": 12307,
+   "lang": "Python",
    "fork": false,
-   "pushed": "2026-08-31",
+   "pushed": "2026-10-07",
    "note": "BEV occupancy + fault harness \u00b7 AUROC 0.764",
    "url": "https://github.com/AkilanManivannanak/opendrivefm"
   },
@@ -175,10 +175,10 @@
    "domain": "archive",
    "size": 2.54,
    "stars": 0,
-   "kb": 2288,
+   "kb": 2294,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-10-05",
+   "pushed": "2026-10-06",
    "note": "no description set",
    "url": "https://github.com/AkilanManivannanak/AkilanManivannanak"
   },
