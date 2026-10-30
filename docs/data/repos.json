@@ -1,24 +1,24 @@
 {
- "generated": "2026-10-29T11:44:41+00:00",
+ "generated": "2026-10-30T11:37:18+00:00",
  "count": 35,
  "repos": [
   {
    "name": "opendrivefm",
    "domain": "av",
    "size": 4.3,
-   "stars": 11,
-   "kb": 19983,
+   "stars": 12,
+   "kb": 63295,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-10-29",
+   "pushed": "2026-10-30",
    "note": "BEV occupancy + fault harness \u00b7 AUROC 0.764",
    "url": "https://github.com/AkilanManivannanak/opendrivefm"
   },
   {
    "name": "two-stage-recommender-als-ranker-api",
    "domain": "rank",
-   "size": 3.1,
-   "stars": 0,
+   "size": 3.28,
+   "stars": 1,
    "kb": 68080,
    "lang": "Python",
    "fork": false,
@@ -29,14 +29,26 @@
   {
    "name": "guardian-drive",
    "domain": "av",
-   "size": 3.1,
-   "stars": 0,
+   "size": 3.28,
+   "stars": 1,
    "kb": 93948,
    "lang": "Python",
    "fork": false,
    "pushed": "2026-06-13",
    "note": "8 hazard detectors fused with BEV",
    "url": "https://github.com/AkilanManivannanak/guardian-drive"
+  },
+  {
+   "name": "AkilanPortfolio",
+   "domain": "archive",
+   "size": 3.28,
+   "stars": 1,
+   "kb": 20077,
+   "lang": "Vue",
+   "fork": false,
+   "pushed": "2026-02-22",
+   "note": "no description set",
+   "url": "https://github.com/AkilanManivannanak/AkilanPortfolio"
   },
   {
    "name": "nuscenes-devkit",
@@ -99,18 +111,6 @@
    "url": "https://github.com/AkilanManivannanak/noise-robust-kws-distress-detection"
   },
   {
-   "name": "AkilanPortfolio",
-   "domain": "archive",
-   "size": 3.1,
-   "stars": 0,
-   "kb": 20077,
-   "lang": "Vue",
-   "fork": false,
-   "pushed": "2026-02-22",
-   "note": "no description set",
-   "url": "https://github.com/AkilanManivannanak/AkilanPortfolio"
-  },
-  {
    "name": "light-show",
    "domain": "av",
    "size": 3.1,
@@ -149,8 +149,8 @@
   {
    "name": "Self-Driving-cars-Specialization",
    "domain": "av",
-   "size": 2.6,
-   "stars": 0,
+   "size": 2.78,
+   "stars": 1,
    "kb": 2441,
    "lang": "Python",
    "fork": false,
@@ -161,8 +161,8 @@
   {
    "name": "stock-forecasting-aapl-LSTM-RAG",
    "domain": "agentic",
-   "size": 2.55,
-   "stars": 0,
+   "size": 2.73,
+   "stars": 1,
    "kb": 2326,
    "lang": "Python",
    "fork": false,
@@ -173,12 +173,12 @@
   {
    "name": "AkilanManivannanak",
    "domain": "archive",
-   "size": 2.54,
-   "stars": 0,
-   "kb": 2284,
+   "size": 2.72,
+   "stars": 1,
+   "kb": 2290,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-10-28",
+   "pushed": "2026-10-29",
    "note": "no description set",
    "url": "https://github.com/AkilanManivannanak/AkilanManivannanak"
   },
@@ -245,8 +245,8 @@
   {
    "name": "talentra_copilot",
    "domain": "agentic",
-   "size": 1.9,
-   "stars": 0,
+   "size": 2.08,
+   "stars": 1,
    "kb": 976,
    "lang": "Python",
    "fork": false,
