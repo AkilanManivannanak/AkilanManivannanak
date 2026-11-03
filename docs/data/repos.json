@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-02T13:49:46+00:00",
+ "generated": "2026-11-03T12:59:42+00:00",
  "count": 36,
  "repos": [
   {
    "name": "opendrivefm",
    "domain": "av",
    "size": 4.3,
-   "stars": 12,
+   "stars": 13,
    "kb": 197361,
    "lang": "Python",
    "fork": false,
@@ -19,10 +19,10 @@
    "domain": "av",
    "size": 3.28,
    "stars": 1,
-   "kb": 96398,
+   "kb": 100527,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-11-02",
+   "pushed": "2026-11-03",
    "note": "8 hazard detectors fused with BEV",
    "url": "https://github.com/AkilanManivannanak/guardian-drive"
   },
@@ -163,10 +163,10 @@
    "domain": "archive",
    "size": 2.73,
    "stars": 1,
-   "kb": 2307,
+   "kb": 2313,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-11-01",
+   "pushed": "2026-11-02",
    "note": "no description set",
    "url": "https://github.com/AkilanManivannanak/AkilanManivannanak"
   },
