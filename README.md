@@ -105,12 +105,12 @@ consumers, which is why the AV cluster is the part of this portfolio that compou
 |---|---|
 | Public repositories | 36  ·  31 original, 5 forks |
 | Stars earned | 34 |
-| Contributions, rolling 365 days | 1,009 |
+| Contributions, rolling 365 days | 1,007 |
 | Pull requests authored | 37 |
 | Repos carrying a description | 3 / 36 |
 | Primary languages | Python (22), Jupyter Notebook (2), HTML (1), Vue (1), Java (1) |
 
-<sub>Recomputed 03 Nov 2026, 12:59 UTC from the GitHub API.</sub>
+<sub>Recomputed 04 Nov 2026, 13:15 UTC from the GitHub API.</sub>
 <!-- STATS:END -->
 
 <br/>
@@ -124,9 +124,9 @@ to veto. If something here has been open too long, that is the point.
 - **30 repositories have no description.** Invisible to GitHub search. Worst offenders: `AkilanManivannanak`, `ATLAS`, `opendrivefm`, `two-stage-recommender-als-ranker-api`.
 - **1 repository is effectively empty**: `costsim-ai`.
 - **18 starred repositories carry no LICENSE**, so they read as all-rights-reserved: `AkilanManivannanak`, `opendrivefm`, `two-stage-recommender-als-ranker-api`.
-- **Upstream PR open 161 days**: [nutonomy/nuscenes-devkit#1203](https://github.com/nutonomy/nuscenes-devkit/pull/1203) — Improve nuScenes dataset verification messaging
-- **Upstream PR open 161 days**: [nutonomy/nuscenes-devkit#1202](https://github.com/nutonomy/nuscenes-devkit/pull/1202) — docs: clarify local clone setup
-- **Upstream PR open 196 days**: [AI-688-Image-and-Vision-Computing/Opendrivefm#1](https://github.com/AI-688-Image-and-Vision-Computing/Opendrivefm/pull/1) — Update README.md
+- **Upstream PR open 162 days**: [nutonomy/nuscenes-devkit#1203](https://github.com/nutonomy/nuscenes-devkit/pull/1203) — Improve nuScenes dataset verification messaging
+- **Upstream PR open 162 days**: [nutonomy/nuscenes-devkit#1202](https://github.com/nutonomy/nuscenes-devkit/pull/1202) — docs: clarify local clone setup
+- **Upstream PR open 197 days**: [AI-688-Image-and-Vision-Computing/Opendrivefm#1](https://github.com/AI-688-Image-and-Vision-Computing/Opendrivefm/pull/1) — Update README.md
 - **External pull requests: 4 opened, 1 closed.** Landing merged code in an upstream AV repository is the current priority.
 <!-- AUDIT:END -->
 
