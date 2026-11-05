@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T13:15:57+00:00",
+ "generated": "2026-11-05T13:28:55+00:00",
  "count": 36,
  "repos": [
   {
@@ -19,10 +19,10 @@
    "domain": "av",
    "size": 3.28,
    "stars": 1,
-   "kb": 100527,
+   "kb": 119652,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-11-03",
+   "pushed": "2026-11-04",
    "note": "8 hazard detectors fused with BEV",
    "url": "https://github.com/AkilanManivannanak/guardian-drive"
   },
@@ -163,10 +163,10 @@
    "domain": "archive",
    "size": 2.73,
    "stars": 1,
-   "kb": 2319,
+   "kb": 2325,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-11-03",
+   "pushed": "2026-11-04",
    "note": "no description set",
    "url": "https://github.com/AkilanManivannanak/AkilanManivannanak"
   },
