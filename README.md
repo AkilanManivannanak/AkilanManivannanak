@@ -138,9 +138,9 @@ mindmap
 |---|---|---|---|---|
 | **[opendrivefm](https://github.com/AkilanManivannanak/opendrivefm)** | BEV occupancy + fault harness · AUROC 0.764 | `Python` | 13 | 2026-11-07 |
 | **[guardian-drive](https://github.com/AkilanManivannanak/guardian-drive)** | 8 hazard detectors fused with BEV | `Python` | 1 | 2026-11-04 |
-| **[Self-Driving-cars-Specialization](https://github.com/AkilanManivannanak/Self-Driving-cars-Specialization)** | <sub><i>description pending</i></sub> | `Python` | 1 | 2026-06-09 |
+| **[Self-Driving-cars-Specialization](https://github.com/AkilanManivannanak/Self-Driving-cars-Specialization)** | CARLA motion planning: behavioural state machine, polynomial spiral path optimisation and collision checkin… | `Python` | 1 | 2026-06-09 |
 | **[autonomy-vision](https://github.com/AkilanManivannanak/autonomy-vision)** | SafeTruck-AV2 trucking stack · ADE 18.78 m | `Python` | 1 | 2026-06-05 |
-| **[Traffic-Sense-Ideathon](https://github.com/AkilanManivannanak/Traffic-Sense-Ideathon)** | <sub><i>description pending</i></sub> | – | 1 | 2026-02-22 |
+| **[Traffic-Sense-Ideathon](https://github.com/AkilanManivannanak/Traffic-Sense-Ideathon)** | Traffic-sensing concept submission for an ideathon. | – | 1 | 2026-02-22 |
 | **[nuscenes-devkit](https://github.com/AkilanManivannanak/nuscenes-devkit)** <sub>fork</sub> | The devkit of the nuScenes dataset. | – | 1 | 2026-05-26 |
 | **[Opendrivefm-1](https://github.com/AkilanManivannanak/Opendrivefm-1)** <sub>fork</sub> | <sub><i>description pending</i></sub> | `Python` | 1 | 2026-04-20 |
 | **[vehicle-command](https://github.com/AkilanManivannanak/vehicle-command)** <sub>fork</sub> | <sub><i>description pending</i></sub> | – | · | 2026-02-04 |
@@ -155,9 +155,9 @@ mindmap
 |---|---|---|---|---|
 | **[talentra_copilot](https://github.com/AkilanManivannanak/talentra_copilot)** | 5-agent hiring intelligence · p95 4.81 ms | `Python` | 1 | 2026-09-11 |
 | **[costsim-ai](https://github.com/AkilanManivannanak/costsim-ai)** | <sub><i>description pending</i></sub> | – | 1 | 2026-06-14 |
-| **[attentive-flow](https://github.com/AkilanManivannanak/attentive-flow)** | <sub><i>description pending</i></sub> | `Python` | 1 | 2026-05-31 |
+| **[attentive-flow](https://github.com/AkilanManivannanak/attentive-flow)** | Turns a marketing brief into a compliant multi-channel campaign, with a validate-and-auto-repair loop and a… | `Python` | 1 | 2026-05-31 |
 | **[phamilyops](https://github.com/AkilanManivannanak/phamilyops)** | 17 AI modules, live deploy | `HTML` | 1 | 2026-05-31 |
-| **[stock-forecasting-aapl-LSTM-RAG](https://github.com/AkilanManivannanak/stock-forecasting-aapl-LSTM-RAG)** | <sub><i>description pending</i></sub> | `Python` | 1 | 2026-04-10 |
+| **[stock-forecasting-aapl-LSTM-RAG](https://github.com/AkilanManivannanak/stock-forecasting-aapl-LSTM-RAG)** | Multi-horizon AAPL forecasting with LSTM and moving-average baselines, served behind FastAPI with a strictl… | `Python` | 1 | 2026-04-10 |
 | **[neurapilot](https://github.com/AkilanManivannanak/neurapilot)** <sub>fork</sub> | Agentic RAG tutor | – | 1 | 2026-04-12 |
 
 </details>
@@ -178,9 +178,9 @@ mindmap
 | Repository | What it is | Lang | ★ | Last push |
 |---|---|---|---|---|
 | **[Esophageal-Cancer-Detection](https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection)** | EfficientNet-B3 · 95.44% | `Jupyter Notebook` | 1 | 2026-09-06 |
-| **[AI-Powered-Multi-Disease-Health-Risk-Prediction](https://github.com/AkilanManivannanak/AI-Powered-Multi-Disease-Health-Risk-Prediction)** | <sub><i>description pending</i></sub> | `Python` | 1 | 2026-04-07 |
-| **[Alcohol_prediction](https://github.com/AkilanManivannanak/Alcohol_prediction)** | <sub><i>description pending</i></sub> | `Python` | · | 2025-05-22 |
-| **[Heart_disease_linear-regression](https://github.com/AkilanManivannanak/Heart_disease_linear-regression)** | <sub><i>description pending</i></sub> | `Python` | · | 2025-05-22 |
+| **[AI-Powered-Multi-Disease-Health-Risk-Prediction](https://github.com/AkilanManivannanak/AI-Powered-Multi-Disease-Health-Risk-Prediction)** | Screening pipeline across 17 clinical conditions: Random Forest on tabular data, CNN on chest X-rays, SHAP… | `Python` | 1 | 2026-04-07 |
+| **[Alcohol_prediction](https://github.com/AkilanManivannanak/Alcohol_prediction)** | Coursework: classification exercise on alcohol-consumption data. | `Python` | · | 2025-05-22 |
+| **[Heart_disease_linear-regression](https://github.com/AkilanManivannanak/Heart_disease_linear-regression)** | Coursework: regression on the heart-disease dataset. | `Python` | · | 2025-05-22 |
 
 </details>
 
@@ -191,8 +191,8 @@ mindmap
 |---|---|---|---|---|
 | **[noise-robust-kws-distress-detection](https://github.com/AkilanManivannanak/noise-robust-kws-distress-detection)** | 77.02% at 0 dB SNR · recall 0.02 | `Jupyter Notebook` | 1 | 2026-04-07 |
 | **[Sign-Language-Regonization-using-CNN-Algorithm-with-Meachine-Learning-Techniques-Paper](https://github.com/AkilanManivannanak/Sign-Language-Regonization-using-CNN-Algorithm-with-Meachine-Learning-Techniques-Paper)** | <sub><i>description pending</i></sub> | – | 1 | 2026-02-21 |
-| **[ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN](https://github.com/AkilanManivannanak/ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN)** | <sub><i>description pending</i></sub> | `Python` | 1 | 2026-02-18 |
-| **[Image-Classification-using-CNN](https://github.com/AkilanManivannanak/Image-Classification-using-CNN)** | <sub><i>description pending</i></sub> | `Python` | · | 2025-05-22 |
+| **[ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN](https://github.com/AkilanManivannanak/ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN)** | Real-time webcam CNN classifying the ASL fingerspelling alphabet. | `Python` | 1 | 2026-02-18 |
+| **[Image-Classification-using-CNN](https://github.com/AkilanManivannanak/Image-Classification-using-CNN)** | Coursework: baseline CNN image classification. | `Python` | · | 2025-05-22 |
 
 </details>
 
@@ -201,20 +201,20 @@ mindmap
 
 | Repository | What it is | Lang | ★ | Last push |
 |---|---|---|---|---|
-| **[AkilanPortfolio](https://github.com/AkilanManivannanak/AkilanPortfolio)** | <sub><i>description pending</i></sub> | `Vue` | 1 | 2026-02-22 |
+| **[AkilanPortfolio](https://github.com/AkilanManivannanak/AkilanPortfolio)** | Source for my portfolio site. | `Vue` | 1 | 2026-02-22 |
 | **[ATLAS](https://github.com/AkilanManivannanak/ATLAS)** ![new](https://img.shields.io/badge/new-3fb8a6?style=flat-square) | <sub><i>description pending</i></sub> | `Python` | · | 2026-11-02 |
 | **[Initialize-this-repository](https://github.com/AkilanManivannanak/Initialize-this-repository)** | <sub><i>description pending</i></sub> | – | · | 2026-06-09 |
-| **[Library-Management-System-in-Python](https://github.com/AkilanManivannanak/Library-Management-System-in-Python)** | <sub><i>description pending</i></sub> | `Python` | · | 2026-02-18 |
-| **[Pharmacy-management-system](https://github.com/AkilanManivannanak/Pharmacy-management-system)** | <sub><i>description pending</i></sub> | `Python` | · | 2026-02-18 |
-| **[Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-](https://github.com/AkilanManivannanak/Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-)** | <sub><i>description pending</i></sub> | `Python` | · | 2025-05-22 |
-| **[Android-App-for-Recycling-and-Donation-app](https://github.com/AkilanManivannanak/Android-App-for-Recycling-and-Donation-app)** | <sub><i>description pending</i></sub> | `Java` | · | 2025-05-22 |
-| **[Student-Performance-Using-Neural-Network](https://github.com/AkilanManivannanak/Student-Performance-Using-Neural-Network)** | <sub><i>description pending</i></sub> | `Python` | · | 2025-05-22 |
-| **[Bayesian-Network-Inference-Problem](https://github.com/AkilanManivannanak/Bayesian-Network-Inference-Problem)** | <sub><i>description pending</i></sub> | `Python` | · | 2025-05-22 |
-| **[Wine-Quality-using-Neural-Networks](https://github.com/AkilanManivannanak/Wine-Quality-using-Neural-Networks)** | <sub><i>description pending</i></sub> | `Python` | · | 2025-05-22 |
+| **[Library-Management-System-in-Python](https://github.com/AkilanManivannanak/Library-Management-System-in-Python)** | Undergraduate project: library management system in Python. | `Python` | · | 2026-02-18 |
+| **[Pharmacy-management-system](https://github.com/AkilanManivannanak/Pharmacy-management-system)** | Undergraduate project: pharmacy management system in Python. | `Python` | · | 2026-02-18 |
+| **[Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-](https://github.com/AkilanManivannanak/Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-)** | Undergraduate project: stock forecasting with LSTM. | `Python` | · | 2025-05-22 |
+| **[Android-App-for-Recycling-and-Donation-app](https://github.com/AkilanManivannanak/Android-App-for-Recycling-and-Donation-app)** | Undergraduate project: Android app for recycling and donation. | `Java` | · | 2025-05-22 |
+| **[Student-Performance-Using-Neural-Network](https://github.com/AkilanManivannanak/Student-Performance-Using-Neural-Network)** | Coursework: neural network on student-performance data. | `Python` | · | 2025-05-22 |
+| **[Bayesian-Network-Inference-Problem](https://github.com/AkilanManivannanak/Bayesian-Network-Inference-Problem)** | Coursework: Bayesian network inference. | `Python` | · | 2025-05-22 |
+| **[Wine-Quality-using-Neural-Networks](https://github.com/AkilanManivannanak/Wine-Quality-using-Neural-Networks)** | Coursework: neural network on the wine-quality dataset. | `Python` | · | 2025-05-22 |
 
 </details>
 
-<sub>Auto-sorted from repo topics, names and descriptions. Repos created in the last 30 days are tagged <b>new</b>. Recomputed 08 Nov 2026, 21:22 UTC.</sub>
+<sub>Auto-sorted from repo topics, names and descriptions. Repos created in the last 30 days are tagged <b>new</b>. Recomputed 08 Nov 2026, 21:23 UTC.</sub>
 <!-- CATALOG:END -->
 
 <br/>
@@ -255,10 +255,10 @@ consumers, which is why the AV cluster is the part of this portfolio that compou
 | Stars earned | 34 |
 | Contributions, rolling 365 days | 1,006 |
 | Pull requests authored | 37 |
-| Repos carrying a description | 3 / 36 |
+| Repos carrying a description | 30 / 36 |
 | Primary languages | Python (22), Jupyter Notebook (2), HTML (1), Vue (1), Java (1) |
 
-<sub>Recomputed 08 Nov 2026, 21:22 UTC from the GitHub API.</sub>
+<sub>Recomputed 08 Nov 2026, 21:23 UTC from the GitHub API.</sub>
 <!-- STATS:END -->
 
 <br/>
@@ -269,7 +269,7 @@ Generated against my own account, published on my own profile, on a schedule I d
 to veto. If something here has been open too long, that is the point.
 
 <!-- AUDIT:START -->
-- **30 repositories have no description.** Invisible to GitHub search. Worst offenders: `AkilanManivannanak`, `opendrivefm`, `ATLAS`, `two-stage-recommender-als-ranker-api`.
+- **4 repositories have no description.** Invisible to GitHub search. Worst offenders: `ATLAS`, `costsim-ai`, `Initialize-this-repository`, `Sign-Language-Regonization-using-CNN-Algorithm-with-Meachine-Learning-Techniques-Paper`.
 - **1 repository is effectively empty**: `costsim-ai`.
 - **18 starred repositories carry no LICENSE**, so they read as all-rights-reserved: `AkilanManivannanak`, `opendrivefm`, `two-stage-recommender-als-ranker-api`.
 - **Upstream PR open 166 days**: [nutonomy/nuscenes-devkit#1203](https://github.com/nutonomy/nuscenes-devkit/pull/1203) — Improve nuScenes dataset verification messaging

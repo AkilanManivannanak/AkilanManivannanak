@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-08T21:22:08+00:00",
+ "generated": "2026-11-08T21:23:16+00:00",
  "count": 36,
  "repos": [
   {
@@ -107,7 +107,7 @@
    "lang": "Vue",
    "fork": false,
    "pushed": "2026-02-22",
-   "note": "no description set",
+   "note": "Source for my portfolio site.",
    "url": "https://github.com/AkilanManivannanak/AkilanPortfolio"
   },
   {
@@ -143,7 +143,7 @@
    "lang": "",
    "fork": false,
    "pushed": "2026-02-22",
-   "note": "no description set",
+   "note": "Traffic-sensing concept submission for an ideathon.",
    "url": "https://github.com/AkilanManivannanak/Traffic-Sense-Ideathon"
   },
   {
@@ -155,7 +155,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-06-09",
-   "note": "no description set",
+   "note": "CARLA motion planning: behavioural state machine, polynomial spiral path optimisation and collision checking. Zero collisions in evaluation.",
    "url": "https://github.com/AkilanManivannanak/Self-Driving-cars-Specialization"
   },
   {
@@ -167,7 +167,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-11-08",
-   "note": "no description set",
+   "note": "My GitHub profile: the perception deck, the animated hero, and the workflows that keep both current.",
    "url": "https://github.com/AkilanManivannanak/AkilanManivannanak"
   },
   {
@@ -179,7 +179,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-04-10",
-   "note": "no description set",
+   "note": "Multi-horizon AAPL forecasting with LSTM and moving-average baselines, served behind FastAPI with a strictly grounded RAG copilot.",
    "url": "https://github.com/AkilanManivannanak/stock-forecasting-aapl-LSTM-RAG"
   },
   {
@@ -203,7 +203,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-04-07",
-   "note": "no description set",
+   "note": "Screening pipeline across 17 clinical conditions: Random Forest on tabular data, CNN on chest X-rays, SHAP explanations. Educational use only.",
    "url": "https://github.com/AkilanManivannanak/AI-Powered-Multi-Disease-Health-Risk-Prediction"
   },
   {
@@ -215,7 +215,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-02-18",
-   "note": "no description set",
+   "note": "Real-time webcam CNN classifying the ASL fingerspelling alphabet.",
    "url": "https://github.com/AkilanManivannanak/ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN"
   },
   {
@@ -227,7 +227,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-02-18",
-   "note": "no description set",
+   "note": "Undergraduate project: pharmacy management system in Python.",
    "url": "https://github.com/AkilanManivannanak/Pharmacy-management-system"
   },
   {
@@ -239,7 +239,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-02-18",
-   "note": "no description set",
+   "note": "Undergraduate project: library management system in Python.",
    "url": "https://github.com/AkilanManivannanak/Library-Management-System-in-Python"
   },
   {
@@ -299,7 +299,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-05-31",
-   "note": "no description set",
+   "note": "Turns a marketing brief into a compliant multi-channel campaign, with a validate-and-auto-repair loop and a deterministic fallback when no LLM key is present.",
    "url": "https://github.com/AkilanManivannanak/attentive-flow"
   },
   {
@@ -347,7 +347,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "no description set",
+   "note": "Coursework: classification exercise on alcohol-consumption data.",
    "url": "https://github.com/AkilanManivannanak/Alcohol_prediction"
   },
   {
@@ -359,7 +359,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "no description set",
+   "note": "Undergraduate project: stock forecasting with LSTM.",
    "url": "https://github.com/AkilanManivannanak/Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-"
   },
   {
@@ -371,7 +371,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "no description set",
+   "note": "Coursework: regression on the heart-disease dataset.",
    "url": "https://github.com/AkilanManivannanak/Heart_disease_linear-regression"
   },
   {
@@ -383,7 +383,7 @@
    "lang": "Java",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "no description set",
+   "note": "Undergraduate project: Android app for recycling and donation.",
    "url": "https://github.com/AkilanManivannanak/Android-App-for-Recycling-and-Donation-app"
   },
   {
@@ -395,7 +395,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "no description set",
+   "note": "Coursework: neural network on the wine-quality dataset.",
    "url": "https://github.com/AkilanManivannanak/Wine-Quality-using-Neural-Networks"
   },
   {
@@ -407,7 +407,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "no description set",
+   "note": "Coursework: neural network on student-performance data.",
    "url": "https://github.com/AkilanManivannanak/Student-Performance-Using-Neural-Network"
   },
   {
@@ -419,7 +419,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "no description set",
+   "note": "Coursework: Bayesian network inference.",
    "url": "https://github.com/AkilanManivannanak/Bayesian-Network-Inference-Problem"
   },
   {
@@ -431,7 +431,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "no description set",
+   "note": "Coursework: baseline CNN image classification.",
    "url": "https://github.com/AkilanManivannanak/Image-Classification-using-CNN"
   }
  ]
