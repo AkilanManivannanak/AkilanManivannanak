@@ -95,3 +95,33 @@ Both were flagged by the repo audit and both weaken the profile the README point
 2. **The two `nuscenes-devkit` PRs are still open.** Either nudge them or close them. The
    audit block prints their age in days on your own profile, which is uncomfortable by
    design.
+
+## Repository catalog and auto-categorisation
+
+`scripts/update_readme.py` fills two extra marker blocks, `LATEST` and `CATALOG`, on every
+run (every six hours, plus immediately whenever the script or workflow changes).
+
+A new repository needs nothing from you to appear. To make sure it lands in the right
+group, give it **topics** when you create it; they are weighted three times higher than the
+name and description. Useful ones:
+
+| Group | Topics that route a repo there |
+|---|---|
+| Autonomous driving & BEV | `autonomous-driving`, `bev`, `perception`, `nuscenes`, `lidar`, `carla` |
+| Agentic AI · LLM · RAG | `llm`, `rag`, `agents`, `langgraph`, `genai` |
+| Retrieval & ranking | `recommender-system`, `retrieval`, `faiss`, `embeddings` |
+| Healthcare & biomedical | `healthcare`, `medical`, `clinical` |
+| Speech · vision · signal | `computer-vision`, `speech`, `audio`, `image-classification` |
+
+Anything that scores below the threshold goes to "Classical ML, coursework & forks". To pin
+a repo to a group regardless of keywords, add it to `DOMAIN_MAP` in the script; to give it a
+metric-first one-liner, add it to `NOTES`.
+
+## Inline video
+
+`assets/perception-reel.mp4` is a 21-second captioned cut of the three deck scenes.
+GitHub will not play a video referenced by a repo path; it has to be uploaded through the
+web editor. Edit `README.md` on github.com, drag the MP4 onto the `VIDEO SLOT` comment under
+"Perception deck", and commit. The generated `https://github.com/user-attachments/assets/…`
+line plays inline with controls. The GIFs below it stay as the fallback for viewers whose
+client does not autoplay video.

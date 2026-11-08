@@ -19,13 +19,27 @@
 > Every figure on this page is emitted by a script inside the repository it describes.
 > Where a harness later contradicted one, the ledger below keeps both numbers.
 
-MS Artificial Intelligence at LIU Brooklyn, graduating January 2027. Brooklyn, NY.
+MS Artificial Intelligence at LIU Brooklyn, graduating December 2026. Brooklyn, NY.
 I build camera-only bird's-eye-view perception and the test rigs that break it.
-Open to perception and applied-ML internships.
+Open to full-time perception and applied-ML roles starting January 2027.
+
+<br/>
+
+## ⬢ Latest shipped
+
+The three newest repositories on the account, picked up automatically within six hours of
+creation and sorted into a category without any manual edit to this page.
+
+<!-- LATEST:START -->
+<!-- LATEST:END -->
 
 <br/>
 
 ## ⬢ Perception deck
+
+<!-- VIDEO SLOT: GitHub only plays video inline when it is uploaded through the web editor.
+     Open this file on github.com, click the pencil, drag assets/perception-reel.mp4 onto
+     this line, and GitHub replaces it with a user-attachments URL that plays in place. -->
 
 Three scenes, recorded from the live page. Everything below is running in a browser, not
 rendered offline: [open the deck](https://akilanmanivannanak.github.io/AkilanManivannanak/) to drive it yourself.
@@ -68,6 +82,17 @@ ships at, and the number it fails at. The last column is the one most portfolios
 | **[talentra_copilot](https://github.com/AkilanManivannanak/talentra_copilot)** <br/><sub>LangGraph · FastAPI · Prometheus</sub> | Five agents — screener, ranker, interviewer, bias auditor, copilot — with a rule-based fallback at every layer | `p95 4.81 ms` <sub>vs a 1.5 s SLO</sub> <br/> `$0.000 / request` | Top-1 accuracy of 1.0 is measured on a fixture, not on a real candidate pool. |
 | **[noise-robust-kws](https://github.com/AkilanManivannanak/noise-robust-kws-distress-detection)** <br/><sub>MFCC · CNN · Apple MPS</sub> | In-cabin distress keyword spotting under real noise, sized for the edge | `77.02% @ 0 dB SNR` <br/> `0.43 MB · p95 2.18 ms` | **Distress-class recall is 0.02.** Class imbalance. Weighted-loss fix in progress. |
 | **[two-stage-recommender](https://github.com/AkilanManivannanak/two-stage-recommender-als-ranker-api)** <br/><sub>Spark ALS · LightGBM · bandits</sub> | ALS retrieval → LightGBM ranker → REINFORCE + LinUCB exploration, with 27 policy gates and sub-30 s rollback | `NDCG@10 0.1409` <sub>+253% over ALS</sub> <br/> `p95 < 50 ms` | Offline evaluation only. Doubly-robust IPS is not a live A/B test. |
+
+<br/>
+
+## ⬢ Repository catalog
+
+Every public repository, grouped by domain. New repositories are classified from their
+topics, name and description and appear here on the next scheduled run. Expand or collapse
+any group; all of the active ones start open.
+
+<!-- CATALOG:START -->
+<!-- CATALOG:END -->
 
 <br/>
 
@@ -158,7 +183,7 @@ Brooklyn, NY &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/akilan-manivann
 <a href="mailto:ak.akilan.smart22@gmail.com">Email</a> &nbsp;·&nbsp;
 <a href="https://akilanmanivannanak.github.io/AkilanManivannanak/">Perception deck</a>
 <br/><br/>
-Telemetry, pushes and open faults are regenerated from the GitHub API every morning.
+Catalog, telemetry and open faults are regenerated from the GitHub API every six hours.
 Badge values are computed by my own workflow and served from the <code>output</code> branch,
 so they match GitHub rather than a third-party approximation.
 </sub>

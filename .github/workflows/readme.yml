@@ -2,10 +2,18 @@ name: Rebuild README
 
 on:
   schedule:
-    - cron: "40 5 * * *"        # daily, 05:40 UTC
+    # Every six hours, so a newly created repository is categorised and listed on the
+    # profile the same day. GitHub has no "repository created" event for a user
+    # account, so polling is the only fully automatic option.
+    - cron: "40 */6 * * *"
   workflow_dispatch:
-  # No push trigger on purpose: this job commits to main, so running it on every
-  # push made local clones go stale between a push and the next one.
+  push:
+    # Rebuild immediately when the generator itself changes. The job's own commit only
+    # touches README.md and docs/data, so it cannot retrigger this.
+    branches: [main]
+    paths:
+      - "scripts/update_readme.py"
+      - ".github/workflows/readme.yml"
 
 permissions:
   contents: write
