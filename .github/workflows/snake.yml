@@ -1,0 +1,29 @@
+name: Contribution snake
+
+on:
+  schedule:
+    - cron: "15 */12 * * *"   # twice a day
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snake:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Platane/snk@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-snake.svg?palette=github-light&color_snake=#b4531a&color_dots=#ebe7df,#cfe8e2,#8fcfc2,#3fb8a6,#1f8878
+            dist/github-snake-dark.svg?palette=github-dark&color_snake=#e0873a&color_dots=#11171d,#123a35,#1c5f55,#2c8f80,#3fb8a6
+
+      # Kept on its own branch: the README workflow force-pushes the `output` branch.
+      - uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: snake
+          build_dir: dist
+          commit_message: "chore: refresh contribution snake"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

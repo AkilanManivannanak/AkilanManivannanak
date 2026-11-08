@@ -17,6 +17,10 @@ import sys
 import urllib.error
 import urllib.request
 from datetime import datetime, timedelta, timezone
+import hashlib
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import visuals  # noqa: E402
 
 USER = os.environ.get("GH_USER", "AkilanManivannanak")
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
@@ -407,7 +411,8 @@ def block_latest(repos):
 
 def block_catalog(repos):
     groups = group_repos(repos)
-    out = [block_mindmap(groups), ""]
+    out = ["<details>", "<summary><b>Full repository list</b> <sub>· every repo as a table, "
+           "click to expand</sub></summary>", ""]
     for d in DOMAIN_ORDER:
         rs = groups[d]
         if not rs:
@@ -424,6 +429,8 @@ def block_catalog(repos):
         out.append("")
         out.append("</details>")
         out.append("")
+    out.append("</details>")
+    out.append("")
     out.append(f"<sub>Auto-sorted from repo topics, names and descriptions. "
                f"Repos created in the last {NEW_DAYS} days are tagged "
                f"<b>new</b>. Recomputed {datetime.now(timezone.utc):%d %b %Y, %H:%M} UTC.</sub>")
@@ -490,6 +497,107 @@ def write_deck_data(repos, contrib):
     print(f"  deck data written to docs/data/")
 
 
+# ----------------------------------------------------------------- visual blocks
+
+RAW = f"https://raw.githubusercontent.com/{USER}/{USER}/main"
+
+
+def plain_blurb(r):
+    return (NOTES.get(r["name"]) or (r.get("description") or "").strip())
+
+
+def _ver(name):
+    """Content hash in the URL so GitHub's image cache refreshes when a card changes."""
+    f = visuals.LIVE / f"{name}-dark.svg"
+    return hashlib.sha1(f.read_bytes()).hexdigest()[:8] if f.exists() else "0"
+
+
+def pic(name, alt, href, width):
+    v = _ver(name)
+    return (f'<a href="{href}"><picture>'
+            f'<source media="(prefers-color-scheme: dark)" srcset="{RAW}/assets/live/{name}-dark.svg?v={v}" />'
+            f'<img src="{RAW}/assets/live/{name}-light.svg?v={v}" alt="{alt}" width="{width}" />'
+            f'</picture></a>')
+
+
+def latest_repos(repos, n=3):
+    fresh = [r for r in repos if not r.get("fork") and r["name"].lower() != USER.lower()]
+    fresh.sort(key=lambda r: r.get("created_at") or "", reverse=True)
+    return fresh[:n]
+
+
+def block_latest_visual(repos):
+    rs = latest_repos(repos)
+    if not rs:
+        return "_No repositories yet._"
+    return "<p align=\"center\">\n" + "\n".join(
+        pic(f"latest-{i + 1}", f"New repository {r['name']}", r["html_url"], "32%")
+        for i, r in enumerate(rs)) + "\n</p>"
+
+
+def block_flagships():
+    out = ["<p align=\"center\">"]
+    for f in visuals.FLAGSHIPS:
+        out.append(pic(f"card-{f['repo']}", f"{f['title']}: {f['metric']} {f['unit']}",
+                       f"https://github.com/{USER}/{f['repo']}", "49%"))
+    out.append("</p>")
+    return "\n".join(out)
+
+
+def block_domains(groups):
+    out = ["<p align=\"center\">"]
+    for d in DOMAIN_ORDER:
+        if groups[d]:
+            out.append(pic(f"domain-{d}", f"{CATALOG_LABELS[d]}: {len(groups[d])} repositories",
+                           "#-repository-catalog", "32%"))
+    out.append("</p>")
+    return "\n".join(out)
+
+
+def block_ledger():
+    return ("<p align=\"center\">\n"
+            + pic("ledger", "Regression ledger: published versus fixed numbers",
+                  f"https://github.com/{USER}/opendrivefm", "100%")
+            + "\n</p>")
+
+
+def block_pulse():
+    return ("<p align=\"center\">\n"
+            + pic("pulse", "Live GitHub telemetry", f"https://github.com/{USER}", "100%")
+            + "\n</p>")
+
+
+def _nice_ceiling(v):
+    for step in (10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000):
+        if v <= step:
+            return step
+    return v
+
+
+def render_visuals(repos, contrib, stars, total, prs):
+    groups = group_repos(repos)
+    days = []
+    if contrib:
+        for wk in contrib["contributionCalendar"]["weeks"]:
+            days += [{"d": d["date"], "c": d["contributionCount"]} for d in wk["contributionDays"]]
+    else:
+        try:
+            days = json.loads((ROOT / "docs" / "data" / "contributions.json").read_text())["days"]
+        except Exception:
+            days = []
+    n = len(repos)
+    contribs = total if total is not None else sum(d["c"] for d in days)
+    stats = [
+        ("public repos", str(n), n / _nice_ceiling(n)),
+        ("stars earned", str(stars), stars / _nice_ceiling(stars or 1)),
+        ("contributions · 365d", f"{contribs:,}", contribs / _nice_ceiling(contribs or 1)),
+        ("pull requests", str(prs["total"]), prs["total"] / _nice_ceiling(prs["total"] or 1)),
+    ]
+    visuals.render_all(groups, CATALOG_LABELS, latest_repos(repos), stats, days,
+                       plain_blurb, classify)
+    return groups
+
+
 def splice(text, marker, body):
     pat = re.compile(rf"(<!-- {marker}:START -->)(.*?)(<!-- {marker}:END -->)", re.S)
     if not pat.search(text):
@@ -510,7 +618,13 @@ def main():
     text = readme_path.read_text()
     text = splice(text, "STATS", block_stats(user, repos, contrib, stars, total, prs))
     text = splice(text, "AUDIT", block_audit(repos, prs))
-    text = splice(text, "LATEST", block_latest(repos))
+    groups = render_visuals(repos, contrib, stars, total, prs)
+    text = splice(text, "LATEST", block_latest_visual(repos))
+    text = splice(text, "FLAGSHIPS", block_flagships())
+    text = splice(text, "DOMAINS", block_domains(groups))
+    text = splice(text, "PULSE", block_pulse())
+    text = splice(text, "LEDGER", block_ledger())
+    text = splice(text, "MINDMAP", block_mindmap(groups))
     text = splice(text, "CATALOG", block_catalog(repos))
     readme_path.write_text(text)
 

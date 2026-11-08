@@ -125,3 +125,18 @@ web editor. Edit `README.md` on github.com, drag the MP4 onto the `VIDEO SLOT` c
 "Perception deck", and commit. The generated `https://github.com/user-attachments/assets/…`
 line plays inline with controls. The GIFs below it stay as the fallback for viewers whose
 client does not autoplay video.
+
+## Animated cards (assets/live)
+
+`scripts/visuals.py` draws every card on the profile as an animated SVG, in a dark and a
+light version: the six flagship cards, the regression ledger, one tile per category, the
+three latest repos and the live telemetry panel. `update_readme.py` regenerates all of them
+on every run and commits `assets/live/`, so tiles and the latest-repos row change by
+themselves when you create a repo. Each image URL carries a content hash (`?v=…`) so
+GitHub's image cache refreshes as soon as a card changes.
+
+To change a flagship card, edit `FLAGSHIPS` in `scripts/visuals.py`; to change the ledger,
+edit `LEDGER`. Push, and the README workflow rebuilds within a minute.
+
+The snake under "Live telemetry" comes from `.github/workflows/snake.yml` (Platane/snk),
+published to its own `snake` branch twice a day. Run it once by hand after the first push.
