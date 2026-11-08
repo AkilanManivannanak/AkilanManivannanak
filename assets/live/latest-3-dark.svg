@@ -1,15 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 150" width="400" height="150" role="img" aria-label="Latest repository ATLAS"><title>Latest repository ATLAS</title><rect width="400" height="150" fill="#07090c"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 150" width="400" height="150" role="img" aria-label="Latest repository costsim-ai"><title>Latest repository costsim-ai</title><rect width="400" height="150" fill="#07090c"/>
 <g opacity="0" transform="translate(0 12)">
   <animate attributeName="opacity" values="0;1" begin="0.6s" dur=".6s" fill="freeze"/>
   <animateTransform attributeName="transform" type="translate" values="0 12;0 0" begin="0.6s" dur=".6s" fill="freeze"/>
   <rect x="1" y="1" width="398" height="148" rx="14" fill="#0d1217" stroke="#1d2a34"/>
-  <rect x="1" y="1" width="5" height="148" rx="2" fill="#8b939c"/>
-  <rect x="24" y="20" width="46" height="20" rx="10" fill="#3fb8a6">
+  <rect x="1" y="1" width="5" height="148" rx="2" fill="#3fb8a6"/>
+  <rect x="24" y="20" width="62" height="20" rx="10" fill="#6f7b86">
     <animate attributeName="opacity" values="1;.45;1" dur="1.8s" repeatCount="indefinite"/>
   </rect>
-  <text x="47" y="34" text-anchor="middle" fill="#07090c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="700">NEW</text>
-  <text x="80" y="35" fill="#8b939c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" letter-spacing="1.4">CLASSICAL ML, COURSEWOR…</text>
-  <text x="24" y="74" fill="#f2efe9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="21" font-weight="700">ATLAS</text>
-  <text x="376" y="34" text-anchor="end" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">2026-11-02</text>
+  <text x="55" y="34" text-anchor="middle" fill="#07090c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="700">LATEST</text>
+  <text x="96" y="35" fill="#3fb8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" letter-spacing="1.4">AGENTIC AI · LLM · RAG</text>
+  <text x="24" y="74" fill="#f2efe9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="21" font-weight="700">costsim-ai</text>
+  <text x="376" y="34" text-anchor="end" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">2026-06-14</text>
   <text x="24" y="104" fill="#98a1ab" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13.5">Fresh repository, description on the way.</text>
 </g></svg>
