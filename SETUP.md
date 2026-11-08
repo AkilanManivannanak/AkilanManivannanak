@@ -98,24 +98,21 @@ Both were flagged by the repo audit and both weaken the profile the README point
 
 ## Repository catalog and auto-categorisation
 
-`scripts/update_readme.py` fills two extra marker blocks, `LATEST` and `CATALOG`, on every
-run (every six hours, plus immediately whenever the script or workflow changes).
+`scripts/portfolio.py` is the single source of truth for what each repo is:
 
-A new repository needs nothing from you to appear. To make sure it lands in the right
-group, give it **topics** when you create it; they are weighted three times higher than the
-name and description. Useful ones:
+1. `CURATED` holds a hand-checked category, one-line description and stack for every
+   existing repo. Edit a line there to change how a repo is shown.
+2. A repo that is not in `CURATED` (any new repo) is categorised from its topics, name,
+   GitHub description and README, and its description is the first real sentence of its
+   README. Write a clear first paragraph in a new repo's README and it is listed properly
+   within six hours, with no edit here.
+3. Empty repos and anything in `HIDE` are left out of the catalog.
 
-| Group | Topics that route a repo there |
-|---|---|
-| Autonomous driving & BEV | `autonomous-driving`, `bev`, `perception`, `nuscenes`, `lidar`, `carla` |
-| Agentic AI · LLM · RAG | `llm`, `rag`, `agents`, `langgraph`, `genai` |
-| Retrieval & ranking | `recommender-system`, `retrieval`, `faiss`, `embeddings` |
-| Healthcare & biomedical | `healthcare`, `medical`, `clinical` |
-| Speech · vision · signal | `computer-vision`, `speech`, `audio`, `image-classification` |
+Categories: autonomous driving, agentic AI, retrieval and ranking, healthcare, speech and
+vision, finance, classical ML, software and web apps, and forks.
 
-Anything that scores below the threshold goes to "Classical ML, coursework & forks". To pin
-a repo to a group regardless of keywords, add it to `DOMAIN_MAP` in the script; to give it a
-metric-first one-liner, add it to `NOTES`.
+`scripts/sync_github_metadata.py` pushes the curated descriptions and category topics to
+GitHub itself, so each repo's own page matches the profile. Run it from your Mac with `gh`.
 
 ## Inline video
 
@@ -139,4 +136,10 @@ To change a flagship card, edit `FLAGSHIPS` in `scripts/visuals.py`; to change t
 edit `LEDGER`. Push, and the README workflow rebuilds within a minute.
 
 The snake under "Live telemetry" comes from `.github/workflows/snake.yml` (Platane/snk),
-published to its own `snake` branch twice a day. Run it once by hand after the first push.
+published to its own `snake` branch twice a day.
+
+## Perception deck hosting
+
+`.github/workflows/pages.yml` deploys `docs/` to GitHub Pages on every change and after each
+README rebuild. Pages must be set to "GitHub Actions" as its source (Settings, Pages), which
+the push script does for you with `gh api`.

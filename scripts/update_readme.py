@@ -21,6 +21,7 @@ import hashlib
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import visuals  # noqa: E402
+import portfolio  # noqa: E402
 
 USER = os.environ.get("GH_USER", "AkilanManivannanak")
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
@@ -183,153 +184,58 @@ def block_stats(user, repos, contrib, stars, total, prs):
     return "\n".join(out)
 
 
-DOMAIN_LABELS = {
-    "av": "Autonomous driving & BEV", "agentic": "Agentic AI · LLM · RAG",
-    "rank": "Retrieval & ranking", "health": "Healthcare & biomedical",
-    "signal": "Speech · vision · signal", "archive": "Coursework, forks, meta",
-}
-
-
 def plural(n, word):
     return f"{n} {word}" + ("" if n == 1 else "s")
 
 
-def block_audit(repos, prs):
-    findings = []
+# ----------------------------------------------------------------- repo knowledge
+#
+# Categories, descriptions and stacks come from scripts/portfolio.py: hand-checked entries
+# for existing repos, and each repo's own topics, description and README for new ones.
 
-    missing = [r for r in repos if not (r.get("description") or "").strip() and not r.get("fork")]
-    if missing:
-        findings.append(f"- **{len(missing)} {'repository has' if len(missing) == 1 else 'repositories have'} "
-                        f"no description.** Invisible to GitHub search. "
-                        f"Worst offenders: {', '.join('`' + r['name'] + '`' for r in missing[:4])}.")
-
-    empty = [r for r in repos if (r.get("size") or 0) < 2 and not r.get("fork")]
-    if empty:
-        findings.append(f"- **{len(empty)} {'repository is' if len(empty) == 1 else 'repositories are'} effectively empty**: "
-                        f"{', '.join('`' + r['name'] + '`' for r in empty[:4])}.")
-
-    nolicense = [r for r in repos if not r.get("license") and not r.get("fork")
-                 and (r.get("stargazers_count") or 0) > 0]
-    if nolicense:
-        findings.append(f"- **{len(nolicense)} starred {'repository carries' if len(nolicense) == 1 else 'repositories carry'} no LICENSE**, "
-                        f"so they read as all-rights-reserved: "
-                        f"{', '.join('`' + r['name'] + '`' for r in nolicense[:3])}.")
-
-    now = datetime.now(timezone.utc)
-    for repo, num, title, created in prs["open_external"]:
-        age = (now - datetime.strptime(created, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)).days
-        findings.append(f"- **Upstream PR open {age} days**: "
-                        f"[{repo}#{num}](https://github.com/{repo}/pull/{num}) — {title}")
-
-    merged_external = [p for p in prs["external"] if p.get("state") == "closed"]
-    findings.append(f"- **External pull requests: {len(prs['external'])} opened, "
-                    f"{len(merged_external)} closed.** Landing merged code in an upstream "
-                    f"AV repository is the current priority.")
-
-    return "\n".join(findings) if findings else "_Nothing outstanding._"
+DOMAIN_ORDER = portfolio.DOMAIN_ORDER
+CATALOG_LABELS = portfolio.LABELS
+DOMAIN_LABELS = portfolio.LABELS
+DOMAIN_ICON = portfolio.ICONS
+NEW_DAYS = 30
+_README_CACHE = {}
 
 
-# ----------------------------------------------------------------- deck data
-
-DOMAIN_MAP = {
-    "opendrivefm": "av", "guardian-drive": "av", "autonomy-vision": "av",
-    "Self-Driving-cars-Specialization": "av", "Traffic-Sense-Ideathon": "av",
-    "nuscenes-devkit": "av", "Opendrivefm-1": "av", "vehicle-command": "av",
-    "light-show": "av",
-    "talentra_copilot": "agentic", "neurapilot": "agentic", "phamilyops": "agentic",
-    "attentive-flow": "agentic", "stock-forecasting-aapl-LSTM-RAG": "agentic",
-    "costsim-ai": "agentic",
-    "two-stage-recommender-als-ranker-api": "rank", "FashionFinder": "rank",
-    "Esophageal-Cancer-Detection": "health",
-    "AI-Powered-Multi-Disease-Health-Risk-Prediction": "health",
-    "Heart_disease_linear-regression": "health", "Alcohol_prediction": "health",
-    "noise-robust-kws-distress-detection": "signal",
-    "ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN": "signal",
-    "Image-Classification-using-CNN": "signal",
-}
-
-NOTES = {
-    "opendrivefm": "BEV occupancy + fault harness \u00b7 AUROC 0.764",
-    "guardian-drive": "8 hazard detectors fused with BEV",
-    "autonomy-vision": "SafeTruck-AV2 trucking stack \u00b7 ADE 18.78 m",
-    "talentra_copilot": "5-agent hiring intelligence \u00b7 p95 4.81 ms",
-    "neurapilot": "Agentic RAG tutor",
-    "phamilyops": "17 AI modules, live deploy",
-    "two-stage-recommender-als-ranker-api": "CineWave \u00b7 NDCG@10 0.1409",
-    "FashionFinder": "44,419 items \u00b7 FAISS 1.79 ms",
-    "noise-robust-kws-distress-detection": "77.02% at 0 dB SNR \u00b7 recall 0.02",
-    "Esophageal-Cancer-Detection": "EfficientNet-B3 \u00b7 95.44%",
-}
-
-
-# Keyword rules for repos that are not hand-mapped above. A new repository lands in the
-# right cluster on the next run as long as its name, description or topics say what it
-# is. Topics are the most reliable signal, so they are weighted highest: tag a new repo
-# with e.g. `autonomous-driving` or `rag` and it is categorised correctly first time.
-RULES = {
-    "av": ["bev", "birds-eye", "nuscenes", "waymo", "carla", "autonom", "self-driving",
-           "selfdriving", "driving", "drive", "lidar", "occupancy", "trajectory", "adas",
-           "vehicle", "traffic", "truck", "slam", "lane", "perception", "planning",
-           "robot", "robotics", "nuplan", "kitti", "pointpillars", "bevformer"],
-    "agentic": ["agent", "agents", "agentic", "llm", "llms", "rag", "langgraph", "langchain",
-                "copilot", "gpt", "chatbot", "openai", "ollama", "prompt", "assistant",
-                "genai", "generative", "claude", "anthropic", "mcp", "tutor", "automation"],
-    "rank": ["recommend", "recommender", "recsys", "ranker", "ranking", "retrieval",
-             "search", "faiss", "embedding", "embeddings", "als", "finder", "similarity",
-             "vector", "bandit", "bandits", "ctr"],
-    "health": ["health", "healthcare", "cancer", "disease", "medical", "clinical", "heart",
-               "patient", "biobert", "biomedical", "alcohol", "diabetes", "ecg", "eeg",
-               "radiology", "tumor", "covid", "drug"],
-    "signal": ["speech", "audio", "kws", "keyword", "asl", "sign", "image", "images",
-               "cnn", "vision", "webcam", "ocr", "gesture", "classification", "detection",
-               "segmentation", "opencv", "yolo", "voice", "spectrogram"],
-}
-# Below this score a repo is treated as coursework / misc rather than guessed at.
-MIN_SCORE = 2
-
-
-def _tokens(text):
-    text = re.sub(r"([a-z])([A-Z])", r"\1 \2", text or "")
-    return [t for t in re.split(r"[^a-z0-9]+", text.lower()) if t]
-
-
-def _score(tokens, words):
-    hits = 0
-    for w in words:
-        if len(w) <= 4:
-            hits += sum(1 for t in tokens if t == w)          # exact: rag, llm, bev, cnn
-        else:
-            hits += sum(1 for t in tokens if t.startswith(w))  # stem: autonom*, recommend*
-    return hits
+def readme_of(repo):
+    """Raw README text of a repo, cached per run. Empty string when there is none."""
+    name = repo["name"]
+    if name not in _README_CACHE:
+        text = ""
+        try:
+            req = urllib.request.Request(
+                f"{API}/repos/{USER}/{name}/readme",
+                headers=dict(HEAD, Accept="application/vnd.github.raw"))
+            with urllib.request.urlopen(req, timeout=20) as r:
+                text = r.read().decode("utf-8", "replace")
+        except Exception:
+            text = ""
+        _README_CACHE[name] = text
+    return _README_CACHE[name]
 
 
 def classify(repo):
     name = repo["name"]
-    if name in DOMAIN_MAP:
-        return DOMAIN_MAP[name]
-    name_t = _tokens(name)
-    desc_t = _tokens(repo.get("description") or "")
-    topic_t = _tokens(" ".join(repo.get("topics") or []))
-    best, best_score = "archive", 0
-    for domain, words in RULES.items():
-        sc = 3 * _score(topic_t, words) + 2 * _score(name_t, words) + _score(desc_t, words)
-        if sc > best_score:
-            best, best_score = domain, sc
-    return best if best_score >= MIN_SCORE else "archive"
+    if name in portfolio.CURATED or repo.get("fork"):
+        return portfolio.classify(repo)
+    return portfolio.classify(repo, readme_of(repo))
+
+
+def describe(repo):
+    if repo["name"] in portfolio.CURATED:
+        return portfolio.describe(repo)
+    return portfolio.describe(repo, readme_of(repo))
+
+
+def visible(repos):
+    return [r for r in repos if not portfolio.hidden(r, USER)]
 
 
 # ----------------------------------------------------------------- catalog
-
-DOMAIN_ORDER = ["av", "agentic", "rank", "health", "signal", "archive"]
-DOMAIN_ICON = {"av": "🚗", "agentic": "🤖", "rank": "🔎", "health": "🩺",
-               "signal": "🎙️", "archive": "🗂️"}
-CATALOG_LABELS = dict(DOMAIN_LABELS, archive="Classical ML, coursework & forks")
-NEW_DAYS = 30
-
-
-def _humanise(name):
-    return re.sub(r"[-_]+", " ", name).strip()
-
 
 def _age_days(iso):
     if not iso:
@@ -338,39 +244,33 @@ def _age_days(iso):
     return (datetime.now(timezone.utc) - t).days
 
 
-def _blurb(r):
-    text = NOTES.get(r["name"]) or (r.get("description") or "").strip()
-    if not text:
-        return "<sub><i>description pending</i></sub>"
-    text = text.replace("|", "\\|")
-    return text if len(text) <= 110 else text[:107].rstrip() + "…"
+def _month(iso):
+    try:
+        return datetime.strptime(iso[:10], "%Y-%m-%d").strftime("%b %Y")
+    except (TypeError, ValueError):
+        return ""
 
 
 def _row(r):
-    tags = []
-    if _age_days(r.get("created_at")) <= NEW_DAYS:
-        tags.append("![new](https://img.shields.io/badge/new-3fb8a6?style=flat-square)")
-    if r.get("fork"):
-        tags.append("<sub>fork</sub>")
+    desc, stack = describe(r)
     name = f"**[{r['name']}]({r['html_url']})**"
-    if tags:
-        name += " " + " ".join(tags)
-    lang = f"`{r['language']}`" if r.get("language") else "–"
+    if _age_days(r.get("created_at")) <= NEW_DAYS:
+        name += " <kbd>new</kbd>"
     stars = r.get("stargazers_count") or 0
-    pushed = (r.get("pushed_at") or "")[:10]
-    return f"| {name} | {_blurb(r)} | {lang} | {stars if stars else '·'} | {pushed} |"
+    if stars:
+        name += f" <sub>★ {stars}</sub>"
+    desc = desc.replace("|", "\\|")
+    return f"| {name} | {desc} | {stack} | {_month(r.get('pushed_at'))} |"
 
 
 def _sort_key(r):
-    return (r.get("fork", False), -(r.get("stargazers_count") or 0), _age_days(r.get("pushed_at")))
+    return (-(r.get("stargazers_count") or 0), _age_days(r.get("pushed_at")))
 
 
 def group_repos(repos):
     groups = {d: [] for d in DOMAIN_ORDER}
-    for r in repos:
-        if r["name"].lower() == USER.lower():
-            continue  # this profile repo
-        groups[classify(r)].append(r)
+    for r in visible(repos):
+        groups.setdefault(classify(r), []).append(r)
     for d in groups:
         groups[d].sort(key=_sort_key)
     return groups
@@ -382,58 +282,37 @@ def block_mindmap(groups):
         t = re.sub(r"[()\[\]{}\"<>]", "", t).replace("&", "and")
         return t if len(t) <= n else t[:n - 1].rstrip("-_ ") + "…"
 
-    lines = ["```mermaid", "mindmap", f"  root((Akilan · {sum(len(v) for v in groups.values())} repos))"]
+    total = sum(len(v) for v in groups.values())
+    lines = ["```mermaid", "mindmap", f"  root((Akilan · {total} projects))"]
     for d in DOMAIN_ORDER:
-        rs = [r for r in groups[d] if not r.get("fork")]
-        if not rs:
+        rs = groups.get(d) or []
+        if not rs or d == "forks":
             continue
-        lines.append(f"    {d}[{safe(CATALOG_LABELS[d], 60)} · {len(groups[d])}]")
-        shown = rs[:4]
-        for r in shown:
+        lines.append(f"    {d}[{safe(CATALOG_LABELS[d], 60)} · {len(rs)}]")
+        for r in rs[:4]:
             lines.append(f"      {safe(r['name'])}")
-        if len(groups[d]) > len(shown):
-            lines.append(f"      +{len(groups[d]) - len(shown)} more")
+        if len(rs) > 4:
+            lines.append(f"      +{len(rs) - 4} more")
     lines.append("```")
     return "\n".join(lines)
 
 
-def block_latest(repos):
-    fresh = [r for r in repos if not r.get("fork") and r["name"].lower() != USER.lower()]
-    fresh.sort(key=lambda r: r.get("created_at") or "", reverse=True)
-    out = []
-    for r in fresh[:3]:
-        d = classify(r)
-        out.append(f"- {DOMAIN_ICON[d]} **[{r['name']}]({r['html_url']})** "
-                   f"<sub>· {CATALOG_LABELS[d]} · created {(r.get('created_at') or '')[:10]}</sub><br/>"
-                   f"  {_blurb(r)}")
-    return "\n".join(out) if out else "_No repositories yet._"
-
-
 def block_catalog(repos):
     groups = group_repos(repos)
-    out = ["<details>", "<summary><b>Full repository list</b> <sub>· every repo as a table, "
-           "click to expand</sub></summary>", ""]
+    out = []
     for d in DOMAIN_ORDER:
-        rs = groups[d]
+        rs = groups.get(d) or []
         if not rs:
             continue
-        # `open` keeps every category expanded by default: visible without a click,
-        # still collapsible for anyone skimming.
-        out.append(f"<details {'open' if d != 'archive' else ''}>")
-        out.append(f"<summary><b>{DOMAIN_ICON[d]} {CATALOG_LABELS[d]}</b> "
-                   f"<sub>· {plural(len(rs), 'repo')}</sub></summary>")
+        out.append(f"#### {DOMAIN_ICON[d]} {CATALOG_LABELS[d]} <sub>· {plural(len(rs), 'repo')}</sub>")
         out.append("")
-        out.append("| Repository | What it is | Lang | ★ | Last push |")
-        out.append("|---|---|---|---|---|")
+        out.append("| Repository | What it is | Built with | Updated |")
+        out.append("|---|---|---|---|")
         out += [_row(r) for r in rs]
         out.append("")
-        out.append("</details>")
-        out.append("")
-    out.append("</details>")
-    out.append("")
-    out.append(f"<sub>Auto-sorted from repo topics, names and descriptions. "
-               f"Repos created in the last {NEW_DAYS} days are tagged "
-               f"<b>new</b>. Recomputed {datetime.now(timezone.utc):%d %b %Y, %H:%M} UTC.</sub>")
+    out.append(f"<sub>Sorted automatically from each repo's topics, description and README. "
+               f"Repos created in the last {NEW_DAYS} days are tagged <b>new</b>. "
+               f"Recomputed {datetime.now(timezone.utc):%d %b %Y, %H:%M} UTC.</sub>")
     return "\n".join(out)
 
 
@@ -443,7 +322,7 @@ def write_deck_data(repos, contrib):
     data_dir.mkdir(parents=True, exist_ok=True)
 
     nodes = []
-    for r in repos:
+    for r in visible(repos):
         stars = r.get("stargazers_count") or 0
         kb = r.get("size") or 0
         weight = 0.7 + min(2.4, (kb ** 0.5) / 26.0) + min(1.2, stars * 0.18)
@@ -456,8 +335,7 @@ def write_deck_data(repos, contrib):
             "lang": r.get("language") or "",
             "fork": bool(r.get("fork")),
             "pushed": (r.get("pushed_at") or "")[:10],
-            "note": NOTES.get(r["name"]) or (r.get("description") or "").strip()
-                    or ("fork" if r.get("fork") else "no description set"),
+            "note": describe(r)[0],
             "url": r.get("html_url", ""),
         })
     nodes.sort(key=lambda n: -n["size"])
@@ -503,7 +381,7 @@ RAW = f"https://raw.githubusercontent.com/{USER}/{USER}/main"
 
 
 def plain_blurb(r):
-    return (NOTES.get(r["name"]) or (r.get("description") or "").strip())
+    return describe(r)[0]
 
 
 def _ver(name):
@@ -521,7 +399,7 @@ def pic(name, alt, href, width):
 
 
 def latest_repos(repos, n=3):
-    fresh = [r for r in repos if not r.get("fork") and r["name"].lower() != USER.lower()]
+    fresh = [r for r in visible(repos) if not r.get("fork")]
     fresh.sort(key=lambda r: r.get("created_at") or "", reverse=True)
     return fresh[:n]
 
@@ -549,7 +427,7 @@ def block_domains(groups):
     for d in DOMAIN_ORDER:
         if groups[d]:
             out.append(pic(f"domain-{d}", f"{CATALOG_LABELS[d]}: {len(groups[d])} repositories",
-                           "#-repository-catalog", "32%"))
+                           "#-every-repository", "32%"))
     out.append("</p>")
     return "\n".join(out)
 
@@ -558,6 +436,20 @@ def block_ledger():
     return ("<p align=\"center\">\n"
             + pic("ledger", "Regression ledger: published versus fixed numbers",
                   f"https://github.com/{USER}/opendrivefm", "100%")
+            + "\n</p>")
+
+
+def block_header():
+    return ("<p align=\"center\">\n"
+            + pic("headline", "Camera-only BEV perception. Safety-critical autonomy. Agentic AI systems.",
+                  DECK, "760") + "<br/>\n"
+            + pic("stats", "Live account statistics", f"https://github.com/{USER}?tab=repositories", "620")
+            + "\n</p>")
+
+
+def block_drive():
+    return ("<p align=\"center\">\n"
+            + pic("drive", "Open the interactive perception deck: drive with W A S D", DECK, "560")
             + "\n</p>")
 
 
@@ -617,13 +509,14 @@ def main():
     readme_path = ROOT / "README.md"
     text = readme_path.read_text()
     text = splice(text, "STATS", block_stats(user, repos, contrib, stars, total, prs))
-    text = splice(text, "AUDIT", block_audit(repos, prs))
     groups = render_visuals(repos, contrib, stars, total, prs)
     text = splice(text, "LATEST", block_latest_visual(repos))
     text = splice(text, "FLAGSHIPS", block_flagships())
     text = splice(text, "DOMAINS", block_domains(groups))
     text = splice(text, "PULSE", block_pulse())
     text = splice(text, "LEDGER", block_ledger())
+    text = splice(text, "HEADER", block_header())
+    text = splice(text, "DRIVE", block_drive())
     text = splice(text, "MINDMAP", block_mindmap(groups))
     text = splice(text, "CATALOG", block_catalog(repos))
     readme_path.write_text(text)

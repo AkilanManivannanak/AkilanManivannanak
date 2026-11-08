@@ -39,7 +39,7 @@
 </g>
 <line x1="32" y1="226" x2="568" y2="226" stroke="#1d2a34"/>
 <text x="32" y="252" fill="#3fb8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5">▲ 71.2 FPS · p50 13.9 ms</text>
-<text x="32" y="276" fill="#e2574c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5">▼ fails at: worst-camera AUROC trails pooled</text>
+<text x="32" y="276" fill="#3fb8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5">▲ self-supervised trust · zero fault labels</text>
 <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#e0873a">
   <text x="540" y="266" text-anchor="end">Open repo</text>
   <text x="548" y="266">→

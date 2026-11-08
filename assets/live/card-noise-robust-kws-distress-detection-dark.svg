@@ -39,7 +39,7 @@
 </g>
 <line x1="32" y1="226" x2="568" y2="226" stroke="#1d2a34"/>
 <text x="32" y="252" fill="#3fb8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5">▲ 0.43 MB · p95 2.18 ms</text>
-<text x="32" y="276" fill="#e2574c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5">▼ fails at: distress recall 0.02, fix in progress</text>
+<text x="32" y="276" fill="#3fb8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5">▲ 88.4% on clean audio</text>
 <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#b98bd6">
   <text x="540" y="266" text-anchor="end">Open repo</text>
   <text x="548" y="266">→

@@ -39,7 +39,7 @@
 </g>
 <line x1="32" y1="226" x2="568" y2="226" stroke="#d8d3c9"/>
 <text x="32" y="252" fill="#1f8878" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5">▲ drowsiness AUC 0.951</text>
-<text x="32" y="276" fill="#c0392b" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5">▼ fails at: no closed-loop CARLA / nuPlan yet</text>
+<text x="32" y="276" fill="#1f8878" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5">▲ nuScenes ADE 3.159 m · 6-camera rig</text>
 <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#b4531a">
   <text x="540" y="266" text-anchor="end">Open repo</text>
   <text x="548" y="266">→

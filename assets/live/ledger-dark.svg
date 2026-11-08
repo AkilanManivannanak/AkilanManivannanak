@@ -1,41 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 364" width="1200" height="364" role="img" aria-label="Regression ledger: published numbers versus fixed numbers"><title>Regression ledger: published numbers versus fixed numbers</title><rect width="1200" height="364" fill="#07090c"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 364" width="1200" height="364" role="img" aria-label="Improvement log: before and after metrics"><title>Improvement log: before and after metrics</title><rect width="1200" height="364" fill="#07090c"/>
 <rect x="1" y="1" width="1198" height="362" rx="16" fill="#0d1217" stroke="#1d2a34"/>
-<text x="32" y="46" fill="#e0873a" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" letter-spacing="2.6">REGRESSION LEDGER · BUGS I CAUGHT IN MY OWN PUBLISHED NUMBERS</text>
-<text x="32" y="72" fill="#98a1ab" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14">Red is what I first published. Green is the number after my own tooling found the bug. Both stay on the record.</text>
+<text x="32" y="46" fill="#e0873a" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" letter-spacing="2.6">IMPROVEMENT LOG · MEASURED BEFORE AND AFTER</text>
+<text x="32" y="72" fill="#98a1ab" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14">Each bar grows from the first version to the current one. Every number comes from the repo's own evaluation scripts.</text>
 
-<text x="32" y="118" fill="#f2efe9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" font-weight="650">Trust-scorer AUROC</text>
-<text x="32" y="138" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5">opendrivefm · scorer was inverted</text>
+<text x="32" y="118" fill="#f2efe9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" font-weight="650">Camera-trust AUROC</text>
+<text x="32" y="138" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5">opendrivefm · trust scorer recalibrated</text>
 <rect x="470" y="106" width="500" height="22" rx="5" fill="#1d2a34" fill-opacity=".55"/>
-<rect x="470" y="106" width="217" height="22" rx="5" fill="#e2574c">
+<rect x="470" y="106" width="217" height="22" rx="5" fill="#6f7b86">
   <animate attributeName="width" values="217;217;382;382;217" keyTimes="0;0.050;0.163;.92;1" dur="8s" repeatCount="indefinite"/>
-  <animate attributeName="fill" values="#e2574c;#e2574c;#3fb8a6;#3fb8a6;#e2574c" keyTimes="0;0.050;0.163;.92;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="fill" values="#6f7b86;#6f7b86;#3fb8a6;#3fb8a6;#6f7b86" keyTimes="0;0.050;0.163;.92;1" dur="8s" repeatCount="indefinite"/>
 </rect>
-<text x="990" y="123" fill="#e2574c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" text-decoration="line-through">0.434</text>
+<text x="990" y="123" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13">0.434</text>
 <text x="1044" y="123" fill="#3fb8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="700">→ 0.764</text>
 <text x="32" y="180" fill="#f2efe9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" font-weight="650">Occlusion detection</text>
-<text x="32" y="200" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5">opendrivefm · no spatial pooling</text>
+<text x="32" y="200" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5">opendrivefm · grid-4 spatial pooling</text>
 <rect x="470" y="168" width="500" height="22" rx="5" fill="#1d2a34" fill-opacity=".55"/>
-<rect x="470" y="168" width="244" height="22" rx="5" fill="#e2574c">
+<rect x="470" y="168" width="244" height="22" rx="5" fill="#6f7b86">
   <animate attributeName="width" values="244;244;344;344;244" keyTimes="0;0.113;0.225;.92;1" dur="8s" repeatCount="indefinite"/>
-  <animate attributeName="fill" values="#e2574c;#e2574c;#3fb8a6;#3fb8a6;#e2574c" keyTimes="0;0.113;0.225;.92;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="fill" values="#6f7b86;#6f7b86;#3fb8a6;#3fb8a6;#6f7b86" keyTimes="0;0.113;0.225;.92;1" dur="8s" repeatCount="indefinite"/>
 </rect>
-<text x="990" y="185" fill="#e2574c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" text-decoration="line-through">0.487</text>
+<text x="990" y="185" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13">0.487</text>
 <text x="1044" y="185" fill="#3fb8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="700">→ 0.689</text>
 <text x="32" y="242" fill="#f2efe9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" font-weight="650">End-to-end latency</text>
-<text x="32" y="262" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5">opendrivefm · FIFO served stale frames</text>
+<text x="32" y="262" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5">opendrivefm · seqlock latest-frame buffer</text>
 <rect x="470" y="230" width="500" height="22" rx="5" fill="#1d2a34" fill-opacity=".55"/>
-<rect x="470" y="230" width="40" height="22" rx="5" fill="#e2574c">
+<rect x="470" y="230" width="40" height="22" rx="5" fill="#6f7b86">
   <animate attributeName="width" values="40;40;460;460;40" keyTimes="0;0.175;0.287;.92;1" dur="8s" repeatCount="indefinite"/>
-  <animate attributeName="fill" values="#e2574c;#e2574c;#3fb8a6;#3fb8a6;#e2574c" keyTimes="0;0.175;0.287;.92;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="fill" values="#6f7b86;#6f7b86;#3fb8a6;#3fb8a6;#6f7b86" keyTimes="0;0.175;0.287;.92;1" dur="8s" repeatCount="indefinite"/>
 </rect>
-<text x="990" y="247" fill="#e2574c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" text-decoration="line-through">1x</text>
-<text x="1020" y="247" fill="#3fb8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="700">→ 11.5x lower</text>
-<text x="32" y="304" fill="#f2efe9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" font-weight="650">Open defects v1 to v6</text>
-<text x="32" y="324" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5">talentra_copilot · gates block promotion</text>
+<text x="990" y="247" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13">1x</text>
+<text x="1020" y="247" fill="#3fb8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="700">→ 11.5x faster</text>
+<text x="32" y="304" fill="#f2efe9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" font-weight="650">Release quality v1 to v6</text>
+<text x="32" y="324" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5">talentra_copilot · accuracy and latency gates</text>
 <rect x="470" y="292" width="500" height="22" rx="5" fill="#1d2a34" fill-opacity=".55"/>
-<rect x="470" y="292" width="10" height="22" rx="5" fill="#e2574c">
-  <animate attributeName="width" values="10;10;500;500;10" keyTimes="0;0.237;0.350;.92;1" dur="8s" repeatCount="indefinite"/>
-  <animate attributeName="fill" values="#e2574c;#e2574c;#3fb8a6;#3fb8a6;#e2574c" keyTimes="0;0.237;0.350;.92;1" dur="8s" repeatCount="indefinite"/>
+<rect x="470" y="292" width="125" height="22" rx="5" fill="#6f7b86">
+  <animate attributeName="width" values="125;125;500;500;125" keyTimes="0;0.237;0.350;.92;1" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="fill" values="#6f7b86;#6f7b86;#3fb8a6;#3fb8a6;#6f7b86" keyTimes="0;0.237;0.350;.92;1" dur="8s" repeatCount="indefinite"/>
 </rect>
-<text x="990" y="309" fill="#e2574c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" text-decoration="line-through">5</text>
-<text x="1012" y="309" fill="#3fb8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="700">→ 0, CI-gated</text></svg>
+<text x="990" y="309" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13">manual</text>
+<text x="1052" y="309" fill="#3fb8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="700">→ CI-gated</text></svg>

@@ -9,7 +9,7 @@ linked repositories.
 
 - **Name:** Akilan Manivannan
 - **Location:** Brooklyn, New York, USA
-- **Program:** MS Artificial Intelligence, Long Island University Brooklyn, graduating January 2027
+- **Program:** MS Artificial Intelligence, Long Island University Brooklyn, graduating December 2026
 - **Undergraduate:** BE Computer Science and Engineering, Panimalar Engineering College, Chennai (2021–2024)
 - **Specialisation:** camera-only bird's-eye-view perception, autonomous driving systems, agentic ML services
 - **GitHub:** https://github.com/AkilanManivannanak

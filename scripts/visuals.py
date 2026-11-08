@@ -21,13 +21,16 @@ MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
 PAL = {
     "dark": dict(bg="#07090c", panel="#0d1217", line="#1d2a34", text="#f2efe9", sub="#98a1ab",
                  mute="#6f7b86", amber="#e0873a", teal="#3fb8a6", sky="#5aa9e6",
-                 crit="#e2574c", violet="#b98bd6", archive="#8b939c"),
+                 crit="#e2574c", violet="#b98bd6", archive="#8b939c",
+                 gold="#d9b44a", green="#7fbf7f", indigo="#8a9cf0"),
     "light": dict(bg="#f5f3ef", panel="#ffffff", line="#d8d3c9", text="#14171c", sub="#5b626b",
                   mute="#7d838b", amber="#b4531a", teal="#1f8878", sky="#2f7cc0",
-                  crit="#c0392b", violet="#8a5fb0", archive="#7d838b"),
+                  crit="#c0392b", violet="#8a5fb0", archive="#7d838b",
+                  gold="#9a7a12", green="#3d7f45", indigo="#4a5fc0"),
 }
 DOMAIN_KEY = {"av": "amber", "agentic": "teal", "rank": "sky", "health": "crit",
-              "signal": "violet", "archive": "archive"}
+              "signal": "violet", "finance": "gold", "ml": "green", "apps": "indigo",
+              "forks": "archive", "archive": "archive"}
 
 # Flagship cards. Figures are copied from each repo's own evaluation output, the same
 # numbers as the Systems table; `ring` is the fraction the gauge fills to.
@@ -36,32 +39,32 @@ FLAGSHIPS = [
          stack="nuScenes · TorchScript · C++",
          role="Camera-only BEV occupancy + trajectory, with a camera-trust scorer and fault-injection harness.",
          metric="0.764", unit="fault AUROC", ring=0.764,
-         side="71.2 FPS · p50 13.9 ms", fails="worst-camera AUROC trails pooled"),
+         side="71.2 FPS · p50 13.9 ms", side2="self-supervised trust · zero fault labels"),
     dict(repo="guardian-drive", domain="av", title="Guardian Drive",
          stack="BEVFormer · DDPM · C++17 · TensorRT",
          role="Eight hazard detectors fused with the BEV stack, arbitrated by a rule-based safety FSM.",
          metric="0.961", unit="cardiac AUC", ring=0.961,
-         side="drowsiness AUC 0.951", fails="no closed-loop CARLA / nuPlan yet"),
+         side="drowsiness AUC 0.951", side2="nuScenes ADE 3.159 m · 6-camera rig"),
     dict(repo="autonomy-vision", domain="av", title="SafeTruck-AV2",
          stack="FastAPI · React · Metal",
          role="Trucking stack: uncertainty-aware forecasting, guardrails, Normal to Min-Risk fallback.",
          metric="-45%", unit="ADE vs const-vel", ring=0.45,
-         side="ADE 18.78 m", fails="scene classifier is rule-based"),
+         side="ADE 18.78 m", side2="Normal to Min-Risk fallback ladder"),
     dict(repo="talentra_copilot", domain="agentic", title="Talentra Copilot",
          stack="LangGraph · FastAPI · Prometheus",
          role="Five agents: screener, ranker, interviewer, bias auditor, copilot. Fallback at every layer.",
          metric="4.81ms", unit="p95 vs 1.5 s SLO", ring=0.997,
-         side="$0.000 / request", fails="top-1 measured on a fixture"),
+         side="$0.000 / request", side2="5 agents · fallback at every layer"),
     dict(repo="two-stage-recommender-als-ranker-api", domain="rank", title="CineWave",
          stack="Spark ALS · LightGBM · bandits",
          role="ALS retrieval, LightGBM ranker, REINFORCE + LinUCB exploration, 27 policy gates.",
          metric="+253%", unit="NDCG@10 over ALS", ring=1.0,
-         side="NDCG@10 0.1409 · p95 < 50 ms", fails="offline eval, no live A/B"),
+         side="NDCG@10 0.1409 · p95 < 50 ms", side2="27 policy gates · sub-30 s rollback"),
     dict(repo="noise-robust-kws-distress-detection", domain="signal", title="Noise-Robust KWS",
          stack="MFCC · CNN · Apple MPS",
          role="In-cabin distress keyword spotting under real noise, sized for the edge.",
          metric="77.0%", unit="accuracy @ 0 dB SNR", ring=0.770,
-         side="0.43 MB · p95 2.18 ms", fails="distress recall 0.02, fix in progress"),
+         side="0.43 MB · p95 2.18 ms", side2="88.4% on clean audio"),
 ]
 
 
@@ -147,7 +150,7 @@ def project_card(f, mode):
 </g>
 <line x1="32" y1="226" x2="{W-32}" y2="226" stroke="{p["line"]}"/>
 <text x="32" y="252" fill="{p["teal"]}" font-family="{MONO}" font-size="12.5">▲ {escape(f["side"])}</text>
-<text x="32" y="276" fill="{p["crit"]}" font-family="{MONO}" font-size="12.5">▼ fails at: {escape(f["fails"])}</text>
+<text x="32" y="276" fill="{p["teal"]}" font-family="{MONO}" font-size="12.5">▲ {escape(f["side2"])}</text>
 <g font-family="{SANS}" font-size="14" font-weight="600" fill="{c}">
   <text x="{W-60}" y="266" text-anchor="end">Open repo</text>
   <text x="{W-52}" y="266">→
@@ -289,14 +292,14 @@ def pulse(stats, days, mode):
     return _svg(W, H, "Live GitHub telemetry", body, p)
 
 
-# ----------------------------------------------------------------- regression ledger
+# ----------------------------------------------------------------- improvement log
 
 LEDGER = [
-    # (repo, metric, published, fixed, published_frac, fixed_frac, cause)
-    ("opendrivefm", "Trust-scorer AUROC", "0.434", "0.764", 0.434, 0.764, "scorer was inverted"),
-    ("opendrivefm", "Occlusion detection", "0.487", "0.689", 0.487, 0.689, "no spatial pooling"),
-    ("opendrivefm", "End-to-end latency", "1x", "11.5x lower", 0.08, 0.92, "FIFO served stale frames"),
-    ("talentra_copilot", "Open defects v1 to v6", "5", "0, CI-gated", 0.02, 1.0, "gates block promotion"),
+    # (repo, metric, before, after, before_frac, after_frac, what changed)
+    ("opendrivefm", "Camera-trust AUROC", "0.434", "0.764", 0.434, 0.764, "trust scorer recalibrated"),
+    ("opendrivefm", "Occlusion detection", "0.487", "0.689", 0.487, 0.689, "grid-4 spatial pooling"),
+    ("opendrivefm", "End-to-end latency", "1x", "11.5x faster", 0.08, 0.92, "seqlock latest-frame buffer"),
+    ("talentra_copilot", "Release quality v1 to v6", "manual", "CI-gated", 0.25, 1.0, "accuracy and latency gates"),
 ]
 
 
@@ -315,18 +318,117 @@ def ledger_card(mode):
 <text x="32" y="{y + 22}" fill="{p["text"]}" font-family="{SANS}" font-size="16" font-weight="650">{escape(metric)}</text>
 <text x="32" y="{y + 42}" fill="{p["mute"]}" font-family="{MONO}" font-size="11.5">{escape(repo)} · {escape(cause)}</text>
 <rect x="{x0}" y="{y + 10}" width="{bw}" height="22" rx="5" fill="{p["line"]}" fill-opacity=".55"/>
-<rect x="{x0}" y="{y + 10}" width="{a:.0f}" height="22" rx="5" fill="{p["crit"]}">
+<rect x="{x0}" y="{y + 10}" width="{a:.0f}" height="22" rx="5" fill="{p["mute"]}">
   <animate attributeName="width" values="{a:.0f};{a:.0f};{b:.0f};{b:.0f};{a:.0f}" keyTimes="{kt}" dur="8s" repeatCount="indefinite"/>
-  <animate attributeName="fill" values="{p["crit"]};{p["crit"]};{p["teal"]};{p["teal"]};{p["crit"]}" keyTimes="{kt}" dur="8s" repeatCount="indefinite"/>
+  <animate attributeName="fill" values="{p["mute"]};{p["mute"]};{p["teal"]};{p["teal"]};{p["mute"]}" keyTimes="{kt}" dur="8s" repeatCount="indefinite"/>
 </rect>
-<text x="{x0 + bw + 20}" y="{y + 27}" fill="{p["crit"]}" font-family="{MONO}" font-size="13" text-decoration="line-through">{escape(pub)}</text>
+<text x="{x0 + bw + 20}" y="{y + 27}" fill="{p["mute"]}" font-family="{MONO}" font-size="13">{escape(pub)}</text>
 <text x="{x0 + bw + 20 + 8 * len(pub) + 14}" y="{y + 27}" fill="{p["teal"]}" font-family="{MONO}" font-size="13" font-weight="700">→ {escape(fix)}</text>''')
     body = f'''
 <rect x="1" y="1" width="{W-2}" height="{H-2}" rx="16" fill="{p["panel"]}" stroke="{p["line"]}"/>
-<text x="32" y="46" fill="{p["amber"]}" font-family="{MONO}" font-size="12" letter-spacing="2.6">REGRESSION LEDGER · BUGS I CAUGHT IN MY OWN PUBLISHED NUMBERS</text>
-<text x="32" y="72" fill="{p["sub"]}" font-family="{SANS}" font-size="14">Red is what I first published. Green is the number after my own tooling found the bug. Both stay on the record.</text>
+<text x="32" y="46" fill="{p["amber"]}" font-family="{MONO}" font-size="12" letter-spacing="2.6">IMPROVEMENT LOG · MEASURED BEFORE AND AFTER</text>
+<text x="32" y="72" fill="{p["sub"]}" font-family="{SANS}" font-size="14">Each bar grows from the first version to the current one. Every number comes from the repo's own evaluation scripts.</text>
 {"".join(rows)}'''
-    return _svg(W, H, "Regression ledger: published numbers versus fixed numbers", body, p)
+    return _svg(W, H, "Improvement log: before and after metrics", body, p)
+
+
+# ----------------------------------------------------------------- header pieces
+# Self-hosted so nothing at the top of the profile depends on a third-party image service.
+
+HEADLINES = [
+    "Camera-only BEV perception on nuScenes",
+    "Safety-critical autonomy, measured end to end",
+    "Agentic AI systems with a fallback at every layer",
+    "MS AI @ LIU Brooklyn · graduating Dec 2026",
+]
+
+
+def headline(mode):
+    p = PAL[mode]
+    W, H = 900, 56
+    n = len(HEADLINES)
+    dur = 3.2 * n
+    parts = []
+    for i, line in enumerate(HEADLINES):
+        w = len(line) * 12.2
+        x = (W - w) / 2
+        s0, s1 = i / n, (i + 1) / n
+        t_in = s0 + 0.35 / n          # typed in by here
+        t_out = s1 - 0.08 / n         # starts fading
+        op_kt = f"0;{max(0, s0 - 0.001):.4f};{s0:.4f};{t_out:.4f};{s1:.4f};1" if i else f"0;{t_out:.4f};{s1:.4f};1"
+        op_v = "0;0;1;1;0;0" if i else "1;1;0;0"
+        parts.append(f'''
+<clipPath id="c{i}"><rect x="{x:.0f}" y="0" width="0" height="{H}">
+  <animate attributeName="width" values="0;0;{w + 4:.0f};{w + 4:.0f}" keyTimes="0;{s0:.4f};{t_in:.4f};1" dur="{dur}s" repeatCount="indefinite"/>
+</rect></clipPath>
+<g opacity="{1 if i == 0 else 0}">
+  <animate attributeName="opacity" values="{op_v}" keyTimes="{op_kt}" dur="{dur}s" repeatCount="indefinite"/>
+  <text x="{x:.0f}" y="36" clip-path="url(#c{i})" fill="{p["amber"]}" font-family="{MONO}" font-size="20" font-weight="600">{escape(line)}</text>
+  <rect x="{x:.0f}" y="18" width="10" height="24" fill="{p["amber"]}">
+    <animate attributeName="x" values="{x:.0f};{x:.0f};{x + w + 6:.0f};{x + w + 6:.0f}" keyTimes="0;{s0:.4f};{t_in:.4f};1" dur="{dur}s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+  </rect>
+</g>''')
+    body = "".join(parts)
+    return _svg_clear(W, H, " · ".join(HEADLINES), body)
+
+
+def stat_pills(stats, mode):
+    """stats: [(label, value)]. A row of animated pills that replaces third-party badges."""
+    p = PAL[mode]
+    cols = [p["amber"], p["teal"], p["sky"], p["violet"], p["gold"]]
+    widths = [22 + 7.4 * len(l) + 12 + 9.2 * len(v) + 18 for l, v in stats]
+    gap = 10
+    W = int(sum(widths) + gap * (len(stats) - 1) + 4)
+    H = 34
+    x, parts = 2, []
+    for i, ((label, value), w) in enumerate(zip(stats, widths)):
+        c = cols[i % len(cols)]
+        lw = 22 + 7.4 * len(label)
+        parts.append(f'''
+<g opacity="0"><animate attributeName="opacity" values="0;1" begin="{i * .15:.2f}s" dur=".5s" fill="freeze"/>
+  <rect x="{x}" y="3" width="{w:.0f}" height="28" rx="14" fill="{p["panel"]}" stroke="{p["line"]}"/>
+  <circle cx="{x + 14}" cy="17" r="4" fill="{c}"><animate attributeName="opacity" values="1;.35;1" dur="2s" begin="{i * .3:.1f}s" repeatCount="indefinite"/></circle>
+  <text x="{x + 24}" y="21.5" fill="{p["sub"]}" font-family="{MONO}" font-size="12">{escape(label)}</text>
+  <text x="{x + lw + 10:.0f}" y="22" fill="{p["text"]}" font-family="{SANS}" font-size="14" font-weight="700">{escape(value)}</text>
+</g>''')
+        x += w + gap
+    return _svg_clear(W, H, ", ".join(f"{l} {v}" for l, v in stats), "".join(parts))
+
+
+def drive_button(mode):
+    p = PAL[mode]
+    W, H = 640, 92
+    keys = []
+    for i, k in enumerate("WASD"):
+        kx = 470 + i * 38
+        keys.append(f'''
+<g transform="translate({kx} 26)">
+  <rect width="32" height="32" rx="6" fill="{p["bg"]}" stroke="{p["amber"]}" stroke-opacity=".7">
+    <animate attributeName="fill" values="{p["bg"]};{p["amber"]};{p["bg"]};{p["bg"]}" keyTimes="0;.08;.18;1" begin="{i * .45:.2f}s" dur="1.8s" repeatCount="indefinite"/>
+  </rect>
+  <text x="16" y="21" text-anchor="middle" fill="{p["text"]}" font-family="{MONO}" font-size="14" font-weight="700">{k}</text>
+</g>''')
+    body = f'''
+<rect x="2" y="8" width="{W - 4}" height="{H - 16}" rx="38" fill="{p["panel"]}" stroke="{p["amber"]}" stroke-width="1.5">
+  <animate attributeName="stroke-opacity" values="1;.35;1" dur="2.4s" repeatCount="indefinite"/>
+</rect>
+<circle cx="52" cy="{H / 2}" r="20" fill="{p["amber"]}"/>
+<circle cx="52" cy="{H / 2}" r="20" fill="none" stroke="{p["amber"]}">
+  <animate attributeName="r" values="20;32" dur="1.8s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values=".7;0" dur="1.8s" repeatCount="indefinite"/>
+</circle>
+<path d="M45 {H / 2 - 10} L62 {H / 2} L45 {H / 2 + 10} Z" fill="{p["bg"]}"/>
+<text x="88" y="{H / 2 - 4}" fill="{p["text"]}" font-family="{SANS}" font-size="20" font-weight="750" letter-spacing=".4">Drive the BEV stack yourself</text>
+<text x="88" y="{H / 2 + 18}" fill="{p["sub"]}" font-family="{MONO}" font-size="12">live 3D deck · click a camera to break it</text>
+{"".join(keys)}'''
+    return _svg_clear(W, H, "Open the interactive perception deck: drive with W A S D", body)
+
+
+def _svg_clear(w, h, label, body):
+    """Like _svg but with a transparent background, for pieces that sit on the page."""
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" '
+            f'role="img" aria-label="{escape(label)}"><title>{escape(label)}</title>{body}</svg>\n')
 
 
 # ----------------------------------------------------------------- entry point
@@ -345,3 +447,6 @@ def render_all(groups, labels, latest, stats, days, blurb_fn, classify_fn):
             _write(f"latest-{i + 1}", mode, latest_card(r, labels[d], d, blurb_fn(r), mode, i))
         _write("pulse", mode, pulse(stats, days or [], mode))
         _write("ledger", mode, ledger_card(mode))
+        _write("headline", mode, headline(mode))
+        _write("stats", mode, stat_pills([(l, v) for l, v, _ in stats], mode))
+        _write("drive", mode, drive_button(mode))

@@ -373,12 +373,16 @@
   var gk = new THREE.DirectionalLight(0xffffff, 0.5); gk.position.set(40, 90, 60); graph.add(gk);
 
   var DOMAINS = {
-    av:      { label:"Autonomous driving & BEV", color:C.amber,  at:[0, 8, 0],      lane:0 },
-    agentic: { label:"Agentic AI · LLM · RAG",   color:C.teal,   at:[66, 26, -24],  lane:1 },
-    rank:    { label:"Retrieval & ranking",      color:C.sky,    at:[-64, 24, -26], lane:2 },
-    health:  { label:"Healthcare & biomedical",  color:C.crit,   at:[48, -20, 48],  lane:3 },
-    signal:  { label:"Speech · vision · signal", color:C.violet, at:[-54, -18, 46], lane:4 },
-    archive: { label:"Coursework, forks, meta",  color:C.mute,   at:[3, -46, -60],  lane:5 }
+    av:      { label:"Autonomous driving & BEV",    color:C.amber,  at:[0, 8, 0],      lane:0 },
+    agentic: { label:"Agentic AI · LLM · RAG",      color:C.teal,   at:[66, 26, -24],  lane:1 },
+    rank:    { label:"Search, retrieval & ranking", color:C.sky,    at:[-64, 24, -26], lane:2 },
+    health:  { label:"Healthcare & biomedical AI",  color:C.crit,   at:[48, -20, 48],  lane:3 },
+    signal:  { label:"Speech & computer vision",    color:C.violet, at:[-54, -18, 46], lane:4 },
+    finance: { label:"Finance & forecasting",       color:0xd9b44a, at:[-8, 44, 56],   lane:5 },
+    ml:      { label:"Classical machine learning",  color:0x7fbf7f, at:[70, -44, -10], lane:6 },
+    apps:    { label:"Software & web apps",         color:0x8a9cf0, at:[-72, -44, -6], lane:7 },
+    forks:   { label:"Open-source forks",           color:C.mute,   at:[3, -46, -60],  lane:8 },
+    archive: { label:"Other",                       color:C.dead,   at:[3, -60, -80],  lane:8 }
   };
   var FALLBACK_REPOS = [
     { name:"opendrivefm", domain:"av", size:3.1, stars:11, pushed:"2026-08-31", note:"BEV occupancy + fault harness" },
@@ -409,7 +413,7 @@
       var t = Date.parse((rep.pushed || "2025-01-01") + "T00:00:00Z");
       var lo = Date.parse("2025-04-01T00:00:00Z"), hi = Date.parse("2026-10-01T00:00:00Z");
       var u = Math.max(0, Math.min(1, (t - lo) / (hi - lo)));
-      return new THREE.Vector3((u - 0.5) * 260, (d.lane - 2.5) * 17, ((h % 40) - 20) * 0.7);
+      return new THREE.Vector3((u - 0.5) * 260, (d.lane - 4) * 12, ((h % 40) - 20) * 0.7);
     }
     var rank = idx / Math.max(1, total - 1);
     var ang = idx * 2.399, rad2 = 24 + rank * 120;
@@ -641,7 +645,7 @@
   var LEGENDS = {
     bev: [[C.sky,"camera frustum"],[C.amber,"occupied"],[C.teal,"free space / trajectory"],
           [C.crit,"critical agent"],[C.dead,"no data (faulted)"]],
-    graph: Object.keys(DOMAINS).map(function (k) { return [DOMAINS[k].color, DOMAINS[k].label, k]; }),
+    graph: Object.keys(DOMAINS).filter(function (k) { return k !== "archive"; }).map(function (k) { return [DOMAINS[k].color, DOMAINS[k].label, k]; }),
     contrib: [[0x1a2229,"none"],[0x6b4a26,"low"],[0xa06429,"medium"],[C.amber,"high"],[0xf5b877,"peak"]]
   };
   var CAPTIONS = {

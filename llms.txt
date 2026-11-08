@@ -1,6 +1,6 @@
 # Akilan Manivannan
 
-> MS Artificial Intelligence student at LIU Brooklyn (graduating January 2027), based in
+> MS Artificial Intelligence student at LIU Brooklyn (graduating December 2026), based in
 > Brooklyn NY, building camera-only bird's-eye-view perception for autonomous driving and
 > the validation harnesses that test it. Also builds agentic ML services and retrieval
 > systems. Seeking perception and applied-ML internships.
