@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-08T21:33:38+00:00",
- "count": 36,
+ "generated": "2026-11-08T23:49:33+00:00",
+ "count": 33,
  "repos": [
   {
    "name": "opendrivefm",
@@ -11,7 +11,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-11-07",
-   "note": "BEV occupancy + fault harness \u00b7 AUROC 0.764",
+   "note": "Camera-only BEV occupancy and 6 s trajectory prediction on nuScenes with per-camera trust scoring. Fault AUROC 0.764 at 71.2 FPS.",
    "url": "https://github.com/AkilanManivannanak/opendrivefm"
   },
   {
@@ -23,7 +23,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-11-04",
-   "note": "8 hazard detectors fused with BEV",
+   "note": "Driver-safety stack: eight hazard detectors fused with BEV perception under a safety state machine. Cardiac AUC 0.961.",
    "url": "https://github.com/AkilanManivannanak/guardian-drive"
   },
   {
@@ -35,19 +35,19 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-09-11",
-   "note": "CineWave \u00b7 NDCG@10 0.1409",
+   "note": "CineWave: ALS retrieval plus a LightGBM LambdaRank ranker with bandit exploration. NDCG@10 0.1409, +253% over ALS.",
    "url": "https://github.com/AkilanManivannanak/two-stage-recommender-als-ranker-api"
   },
   {
    "name": "nuscenes-devkit",
-   "domain": "av",
+   "domain": "forks",
    "size": 3.28,
    "stars": 1,
    "kb": 5012,
    "lang": "",
    "fork": true,
    "pushed": "2026-05-26",
-   "note": "The devkit of the nuScenes dataset.",
+   "note": "Fork of the nuScenes devkit, used across the BEV perception work.",
    "url": "https://github.com/AkilanManivannanak/nuscenes-devkit"
   },
   {
@@ -59,31 +59,31 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-05-11",
-   "note": "44,419 items \u00b7 FAISS 1.79 ms",
+   "note": "Visual search for fashion: CLIP and ResNet18 embeddings indexed in FAISS for Pinterest-style similarity search. Live demo.",
    "url": "https://github.com/AkilanManivannanak/FashionFinder"
   },
   {
    "name": "Opendrivefm-1",
-   "domain": "av",
+   "domain": "forks",
    "size": 3.28,
    "stars": 1,
    "kb": 4128,
    "lang": "Python",
    "fork": true,
    "pushed": "2026-04-20",
-   "note": "fork",
+   "note": "Mirror of OpenDriveFM, the camera-only BEV perception system.",
    "url": "https://github.com/AkilanManivannanak/Opendrivefm-1"
   },
   {
    "name": "neurapilot",
-   "domain": "agentic",
+   "domain": "forks",
    "size": 3.28,
    "stars": 1,
    "kb": 64211,
    "lang": "",
    "fork": true,
    "pushed": "2026-04-12",
-   "note": "Agentic RAG tutor",
+   "note": "NeuraPilot: compound AI tutor with LangGraph routing, semantic caching and observability.",
    "url": "https://github.com/AkilanManivannanak/neurapilot"
   },
   {
@@ -95,19 +95,19 @@
    "lang": "Jupyter Notebook",
    "fork": false,
    "pushed": "2026-04-07",
-   "note": "77.02% at 0 dB SNR \u00b7 recall 0.02",
+   "note": "Distress keyword spotting in noisy cabin audio. 77.0% accuracy at 0 dB SNR from a 0.43 MB model.",
    "url": "https://github.com/AkilanManivannanak/noise-robust-kws-distress-detection"
   },
   {
    "name": "AkilanPortfolio",
-   "domain": "archive",
+   "domain": "apps",
    "size": 3.28,
    "stars": 1,
    "kb": 20077,
    "lang": "Vue",
    "fork": false,
    "pushed": "2026-02-22",
-   "note": "Source for my portfolio site.",
+   "note": "AkilanFlix: Netflix-style AI/ML portfolio site with live search, carousels and a built-in chatbot.",
    "url": "https://github.com/AkilanManivannanak/AkilanPortfolio"
   },
   {
@@ -119,19 +119,19 @@
    "lang": "Jupyter Notebook",
    "fork": false,
    "pushed": "2026-09-06",
-   "note": "EfficientNet-B3 \u00b7 95.44%",
+   "note": "Multi-task EfficientNet-B3 that flags gastrointestinal abnormalities in endoscopy images in real time.",
    "url": "https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection"
   },
   {
    "name": "light-show",
-   "domain": "av",
+   "domain": "forks",
    "size": 3.1,
    "stars": 0,
    "kb": 260004,
    "lang": "",
    "fork": true,
    "pushed": "2024-12-29",
-   "note": "Tesla Light Show",
+   "note": "Fork of Tesla's light-show guide for custom xLights shows on Tesla vehicles.",
    "url": "https://github.com/AkilanManivannanak/light-show"
   },
   {
@@ -143,7 +143,7 @@
    "lang": "",
    "fork": false,
    "pushed": "2026-02-22",
-   "note": "Traffic-sensing concept submission for an ideathon.",
+   "note": "TrafficSense: forecasts congestion 5 to 15 minutes ahead and turns it into constraint-aware adaptive signal timing.",
    "url": "https://github.com/AkilanManivannanak/Traffic-Sense-Ideathon"
   },
   {
@@ -155,31 +155,19 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-06-09",
-   "note": "CARLA motion planning: behavioural state machine, polynomial spiral path optimisation and collision checking. Zero collisions in evaluation.",
+   "note": "Full CARLA motion-planning stack: behavioural planner, polynomial spiral paths, collision checking and velocity profiles.",
    "url": "https://github.com/AkilanManivannanak/Self-Driving-cars-Specialization"
   },
   {
-   "name": "AkilanManivannanak",
-   "domain": "archive",
-   "size": 2.74,
-   "stars": 1,
-   "kb": 2348,
-   "lang": "Python",
-   "fork": false,
-   "pushed": "2026-11-08",
-   "note": "My GitHub profile: the perception deck, the animated hero, and the workflows that keep both current.",
-   "url": "https://github.com/AkilanManivannanak/AkilanManivannanak"
-  },
-  {
    "name": "stock-forecasting-aapl-LSTM-RAG",
-   "domain": "agentic",
+   "domain": "finance",
    "size": 2.73,
    "stars": 1,
    "kb": 2326,
    "lang": "Python",
    "fork": false,
    "pushed": "2026-04-10",
-   "note": "Multi-horizon AAPL forecasting with LSTM and moving-average baselines, served behind FastAPI with a strictly grounded RAG copilot.",
+   "note": "AAPL forecasting with LSTM and baselines, plus a strictly grounded RAG copilot. MAPE 3.34%, 0% hallucination.",
    "url": "https://github.com/AkilanManivannanak/stock-forecasting-aapl-LSTM-RAG"
   },
   {
@@ -191,7 +179,7 @@
    "lang": "",
    "fork": false,
    "pushed": "2026-02-21",
-   "note": "no description set",
+   "note": "Research paper: a CNN and LSTM pipeline that translates sign-language video into text and audio.",
    "url": "https://github.com/AkilanManivannanak/Sign-Language-Regonization-using-CNN-Algorithm-with-Meachine-Learning-Techniques-Paper"
   },
   {
@@ -203,7 +191,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-04-07",
-   "note": "Screening pipeline across 17 clinical conditions: Random Forest on tabular data, CNN on chest X-rays, SHAP explanations. Educational use only.",
+   "note": "Screens 17 chronic and genetic conditions from clinical data and chest X-rays. 87.3% average test accuracy.",
    "url": "https://github.com/AkilanManivannanak/AI-Powered-Multi-Disease-Health-Risk-Prediction"
   },
   {
@@ -215,31 +203,31 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-02-18",
-   "note": "Real-time webcam CNN classifying the ASL fingerspelling alphabet.",
+   "note": "Real-time ASL fingerspelling recognition, A to Z, from a webcam feed.",
    "url": "https://github.com/AkilanManivannanak/ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN"
   },
   {
    "name": "Pharmacy-management-system",
-   "domain": "archive",
+   "domain": "apps",
    "size": 2.18,
    "stars": 0,
    "kb": 1483,
    "lang": "Python",
    "fork": false,
    "pushed": "2026-02-18",
-   "note": "Undergraduate project: pharmacy management system in Python.",
+   "note": "Pharmacy operations system: inventory, suppliers, sales and prescriptions through a CLI and a FastAPI REST API.",
    "url": "https://github.com/AkilanManivannanak/Pharmacy-management-system"
   },
   {
    "name": "Library-Management-System-in-Python",
-   "domain": "archive",
+   "domain": "apps",
    "size": 2.09,
    "stars": 0,
    "kb": 1305,
    "lang": "Python",
    "fork": false,
    "pushed": "2026-02-18",
-   "note": "Undergraduate project: library management system in Python.",
+   "note": "Library management CLI with multi-copy inventory, borrowers and loans.",
    "url": "https://github.com/AkilanManivannanak/Library-Management-System-in-Python"
   },
   {
@@ -251,7 +239,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-09-11",
-   "note": "5-agent hiring intelligence \u00b7 p95 4.81 ms",
+   "note": "Compound AI hiring platform: five LangGraph agents with semantic retrieval, PII redaction and fallbacks. p95 4.81 ms.",
    "url": "https://github.com/AkilanManivannanak/talentra_copilot"
   },
   {
@@ -263,32 +251,20 @@
    "lang": "HTML",
    "fork": false,
    "pushed": "2026-05-31",
-   "note": "17 AI modules, live deploy",
+   "note": "AI-native care operations platform: HR workflow automation plus a RAG copilot over Supabase and pgvector.",
    "url": "https://github.com/AkilanManivannanak/phamilyops"
   },
   {
    "name": "vehicle-command",
-   "domain": "av",
+   "domain": "forks",
    "size": 1.58,
    "stars": 0,
    "kb": 520,
    "lang": "",
    "fork": true,
    "pushed": "2026-02-04",
-   "note": "fork",
+   "note": "Fork of Tesla's Vehicle Command SDK for authenticated vehicle commands.",
    "url": "https://github.com/AkilanManivannanak/vehicle-command"
-  },
-  {
-   "name": "Initialize-this-repository",
-   "domain": "archive",
-   "size": 1.46,
-   "stars": 0,
-   "kb": 387,
-   "lang": "",
-   "fork": false,
-   "pushed": "2026-06-09",
-   "note": "no description set",
-   "url": "https://github.com/AkilanManivannanak/Initialize-this-repository"
   },
   {
    "name": "attentive-flow",
@@ -299,7 +275,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-05-31",
-   "note": "Turns a marketing brief into a compliant multi-channel campaign, with a validate-and-auto-repair loop and a deterministic fallback when no LLM key is present.",
+   "note": "AttentiveFlow: agentic lifecycle marketing, from brief to audience, messages, compliance checks, scoring and auto-repair.",
    "url": "https://github.com/AkilanManivannanak/attentive-flow"
   },
   {
@@ -311,32 +287,20 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-06-05",
-   "note": "SafeTruck-AV2 trucking stack \u00b7 ADE 18.78 m",
+   "note": "SafeTruck-AV2: autonomous trucking prototype with BEV perception, uncertainty-aware forecasting and safety guardrails. ADE 18.78 m.",
    "url": "https://github.com/AkilanManivannanak/autonomy-vision"
   },
   {
    "name": "ATLAS",
-   "domain": "archive",
+   "domain": "finance",
    "size": 1.05,
    "stars": 0,
    "kb": 84,
    "lang": "Python",
    "fork": false,
    "pushed": "2026-11-02",
-   "note": "no description set",
+   "note": "ATLAS-\u03a3: research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions.",
    "url": "https://github.com/AkilanManivannanak/ATLAS"
-  },
-  {
-   "name": "costsim-ai",
-   "domain": "agentic",
-   "size": 0.88,
-   "stars": 1,
-   "kb": 0,
-   "lang": "",
-   "fork": false,
-   "pushed": "2026-06-14",
-   "note": "no description set",
-   "url": "https://github.com/AkilanManivannanak/costsim-ai"
   },
   {
    "name": "Alcohol_prediction",
@@ -347,19 +311,19 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "Coursework: classification exercise on alcohol-consumption data.",
+   "note": "Predicts alcohol use from personality and demographic traits on the UCI drug-consumption data with XGBoost and random forests.",
    "url": "https://github.com/AkilanManivannanak/Alcohol_prediction"
   },
   {
    "name": "Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-",
-   "domain": "archive",
+   "domain": "finance",
    "size": 0.78,
    "stars": 0,
    "kb": 4,
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "Undergraduate project: stock forecasting with LSTM.",
+   "note": "Stock-price forecasting with an LSTM network.",
    "url": "https://github.com/AkilanManivannanak/Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-"
   },
   {
@@ -371,55 +335,55 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "Coursework: regression on the heart-disease dataset.",
+   "note": "Heart-disease prediction with PCA and logistic regression on clinical features.",
    "url": "https://github.com/AkilanManivannanak/Heart_disease_linear-regression"
   },
   {
    "name": "Android-App-for-Recycling-and-Donation-app",
-   "domain": "archive",
+   "domain": "apps",
    "size": 0.77,
    "stars": 0,
    "kb": 3,
    "lang": "Java",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "Undergraduate project: Android app for recycling and donation.",
+   "note": "Android app that connects people with recycling centres and donation drives.",
    "url": "https://github.com/AkilanManivannanak/Android-App-for-Recycling-and-Donation-app"
   },
   {
    "name": "Wine-Quality-using-Neural-Networks",
-   "domain": "archive",
+   "domain": "ml",
    "size": 0.77,
    "stars": 0,
    "kb": 3,
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "Coursework: neural network on the wine-quality dataset.",
+   "note": "Neural network written from scratch in NumPy that grades red-wine quality on the UCI dataset.",
    "url": "https://github.com/AkilanManivannanak/Wine-Quality-using-Neural-Networks"
   },
   {
    "name": "Student-Performance-Using-Neural-Network",
-   "domain": "archive",
+   "domain": "ml",
    "size": 0.75,
    "stars": 0,
    "kb": 2,
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "Coursework: neural network on student-performance data.",
+   "note": "Neural-network classifier that predicts student performance bands.",
    "url": "https://github.com/AkilanManivannanak/Student-Performance-Using-Neural-Network"
   },
   {
    "name": "Bayesian-Network-Inference-Problem",
-   "domain": "archive",
+   "domain": "ml",
    "size": 0.75,
    "stars": 0,
    "kb": 2,
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "Coursework: Bayesian network inference.",
+   "note": "Bayesian network with exact inference by variable elimination.",
    "url": "https://github.com/AkilanManivannanak/Bayesian-Network-Inference-Problem"
   },
   {
@@ -431,7 +395,7 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2025-05-22",
-   "note": "Coursework: baseline CNN image classification.",
+   "note": "CNN image classifier trained on CIFAR-10.",
    "url": "https://github.com/AkilanManivannanak/Image-Classification-using-CNN"
   }
  ]
