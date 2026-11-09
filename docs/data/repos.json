@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09T07:12:15+00:00",
+ "generated": "2026-11-09T22:43:00+00:00",
  "count": 33,
  "repos": [
   {
@@ -267,6 +267,18 @@
    "url": "https://github.com/AkilanManivannanak/vehicle-command"
   },
   {
+   "name": "ATLAS",
+   "domain": "finance",
+   "size": 1.37,
+   "stars": 0,
+   "kb": 302,
+   "lang": "Python",
+   "fork": false,
+   "pushed": "2026-11-09",
+   "note": "ATLAS-\u03a3: research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions.",
+   "url": "https://github.com/AkilanManivannanak/ATLAS"
+  },
+  {
    "name": "attentive-flow",
    "domain": "agentic",
    "size": 1.36,
@@ -289,18 +301,6 @@
    "pushed": "2026-06-05",
    "note": "SafeTruck-AV2: autonomous trucking prototype with BEV perception, uncertainty-aware forecasting and safety guardrails. ADE 18.78 m.",
    "url": "https://github.com/AkilanManivannanak/autonomy-vision"
-  },
-  {
-   "name": "ATLAS",
-   "domain": "finance",
-   "size": 1.05,
-   "stars": 0,
-   "kb": 84,
-   "lang": "Python",
-   "fork": false,
-   "pushed": "2026-11-09",
-   "note": "ATLAS-\u03a3: research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions.",
-   "url": "https://github.com/AkilanManivannanak/ATLAS"
   },
   {
    "name": "Alcohol_prediction",
