@@ -238,7 +238,7 @@ mindmap
 | **[vehicle-command](https://github.com/AkilanManivannanak/vehicle-command)** | Fork of Tesla's Vehicle Command SDK for authenticated vehicle commands. | Go | Feb 2026 |
 | **[light-show](https://github.com/AkilanManivannanak/light-show)** | Fork of Tesla's light-show guide for custom xLights shows on Tesla vehicles. | xLights | Dec 2024 |
 
-<sub>Sorted automatically from each repo's topics, description and README. Repos created in the last 30 days are tagged <b>new</b>. Recomputed 10 Nov 2026, 07:44 UTC.</sub>
+<sub>Sorted automatically from each repo's topics, description and README. Repos created in the last 30 days are tagged <b>new</b>. Recomputed 10 Nov 2026, 20:00 UTC.</sub>
 <!-- CATALOG:END -->
 
 <br/>
@@ -268,7 +268,7 @@ mindmap
 | Repos carrying a description | 34 / 36 |
 | Primary languages | Python (22), Jupyter Notebook (2), HTML (1), Vue (1), Java (1) |
 
-<sub>Recomputed 10 Nov 2026, 07:44 UTC from the GitHub API.</sub>
+<sub>Recomputed 10 Nov 2026, 20:00 UTC from the GitHub API.</sub>
 <!-- STATS:END -->
 
 <br/>
