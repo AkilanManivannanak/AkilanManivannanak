@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T20:00:27+00:00",
+ "generated": "2026-11-11T07:08:47+00:00",
  "count": 33,
  "repos": [
   {
@@ -121,6 +121,18 @@
    "pushed": "2026-09-06",
    "note": "Multi-task EfficientNet-B3 that flags gastrointestinal abnormalities in endoscopy images in real time.",
    "url": "https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection"
+  },
+  {
+   "name": "ATLAS",
+   "domain": "finance",
+   "size": 3.1,
+   "stars": 0,
+   "kb": 5742,
+   "lang": "Python",
+   "fork": false,
+   "pushed": "2026-11-11",
+   "note": "ATLAS-\u03a3: research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions.",
+   "url": "https://github.com/AkilanManivannanak/ATLAS"
   },
   {
    "name": "light-show",
@@ -265,18 +277,6 @@
    "pushed": "2026-02-04",
    "note": "Fork of Tesla's Vehicle Command SDK for authenticated vehicle commands.",
    "url": "https://github.com/AkilanManivannanak/vehicle-command"
-  },
-  {
-   "name": "ATLAS",
-   "domain": "finance",
-   "size": 1.37,
-   "stars": 0,
-   "kb": 302,
-   "lang": "Python",
-   "fork": false,
-   "pushed": "2026-11-09",
-   "note": "ATLAS-\u03a3: research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions.",
-   "url": "https://github.com/AkilanManivannanak/ATLAS"
   },
   {
    "name": "attentive-flow",
