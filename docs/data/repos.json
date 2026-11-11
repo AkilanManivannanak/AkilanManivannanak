@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T07:08:47+00:00",
+ "generated": "2026-11-11T19:52:04+00:00",
  "count": 33,
  "repos": [
   {
@@ -13,6 +13,30 @@
    "pushed": "2026-11-07",
    "note": "Camera-only BEV occupancy and 6 s trajectory prediction on nuScenes with per-camera trust scoring. Fault AUROC 0.764 at 71.2 FPS.",
    "url": "https://github.com/AkilanManivannanak/opendrivefm"
+  },
+  {
+   "name": "noise-robust-kws-distress-detection",
+   "domain": "signal",
+   "size": 3.28,
+   "stars": 1,
+   "kb": 9056,
+   "lang": "Jupyter Notebook",
+   "fork": false,
+   "pushed": "2026-11-11",
+   "note": "Distress keyword spotting in noisy cabin audio. 77.0% accuracy at 0 dB SNR from a 0.43 MB model.",
+   "url": "https://github.com/AkilanManivannanak/noise-robust-kws-distress-detection"
+  },
+  {
+   "name": "FashionFinder",
+   "domain": "rank",
+   "size": 3.28,
+   "stars": 1,
+   "kb": 390831,
+   "lang": "Python",
+   "fork": false,
+   "pushed": "2026-11-11",
+   "note": "Visual search for fashion: CLIP and ResNet18 embeddings indexed in FAISS for Pinterest-style similarity search. Live demo.",
+   "url": "https://github.com/AkilanManivannanak/FashionFinder"
   },
   {
    "name": "guardian-drive",
@@ -51,18 +75,6 @@
    "url": "https://github.com/AkilanManivannanak/nuscenes-devkit"
   },
   {
-   "name": "FashionFinder",
-   "domain": "rank",
-   "size": 3.28,
-   "stars": 1,
-   "kb": 390777,
-   "lang": "Python",
-   "fork": false,
-   "pushed": "2026-05-11",
-   "note": "Visual search for fashion: CLIP and ResNet18 embeddings indexed in FAISS for Pinterest-style similarity search. Live demo.",
-   "url": "https://github.com/AkilanManivannanak/FashionFinder"
-  },
-  {
    "name": "Opendrivefm-1",
    "domain": "forks",
    "size": 3.28,
@@ -87,18 +99,6 @@
    "url": "https://github.com/AkilanManivannanak/neurapilot"
   },
   {
-   "name": "noise-robust-kws-distress-detection",
-   "domain": "signal",
-   "size": 3.28,
-   "stars": 1,
-   "kb": 9046,
-   "lang": "Jupyter Notebook",
-   "fork": false,
-   "pushed": "2026-04-07",
-   "note": "Distress keyword spotting in noisy cabin audio. 77.0% accuracy at 0 dB SNR from a 0.43 MB model.",
-   "url": "https://github.com/AkilanManivannanak/noise-robust-kws-distress-detection"
-  },
-  {
    "name": "AkilanPortfolio",
    "domain": "apps",
    "size": 3.28,
@@ -115,10 +115,10 @@
    "domain": "health",
    "size": 3.12,
    "stars": 1,
-   "kb": 3384,
+   "kb": 3401,
    "lang": "Jupyter Notebook",
    "fork": false,
-   "pushed": "2026-09-06",
+   "pushed": "2026-11-11",
    "note": "Multi-task EfficientNet-B3 that flags gastrointestinal abnormalities in endoscopy images in real time.",
    "url": "https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection"
   },
@@ -127,7 +127,7 @@
    "domain": "finance",
    "size": 3.1,
    "stars": 0,
-   "kb": 5742,
+   "kb": 5745,
    "lang": "Python",
    "fork": false,
    "pushed": "2026-11-11",
@@ -209,12 +209,12 @@
   {
    "name": "ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN",
    "domain": "signal",
-   "size": 2.33,
+   "size": 2.34,
    "stars": 1,
-   "kb": 1427,
+   "kb": 1442,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-02-18",
+   "pushed": "2026-11-11",
    "note": "Real-time ASL fingerspelling recognition, A to Z, from a webcam feed.",
    "url": "https://github.com/AkilanManivannanak/ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN"
   },
@@ -305,24 +305,24 @@
   {
    "name": "Alcohol_prediction",
    "domain": "health",
-   "size": 0.8,
+   "size": 0.88,
    "stars": 0,
-   "kb": 7,
+   "kb": 23,
    "lang": "Python",
    "fork": false,
-   "pushed": "2025-05-22",
+   "pushed": "2026-11-11",
    "note": "Predicts alcohol use from personality and demographic traits on the UCI drug-consumption data with XGBoost and random forests.",
    "url": "https://github.com/AkilanManivannanak/Alcohol_prediction"
   },
   {
    "name": "Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-",
    "domain": "finance",
-   "size": 0.78,
+   "size": 0.86,
    "stars": 0,
-   "kb": 4,
+   "kb": 17,
    "lang": "Python",
    "fork": false,
-   "pushed": "2025-05-22",
+   "pushed": "2026-11-11",
    "note": "Stock-price forecasting with an LSTM network.",
    "url": "https://github.com/AkilanManivannanak/Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-"
   },

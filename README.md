@@ -12,7 +12,7 @@
 <!-- HEADER:START -->
 <p align="center">
 <a href="https://akilanmanivannanak.github.io/AkilanManivannanak/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/headline-dark.svg?v=f6617134" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/headline-light.svg?v=f6617134" alt="Camera-only BEV perception. Safety-critical autonomy. Agentic AI systems." width="760" /></picture></a><br/>
-<a href="https://github.com/AkilanManivannanak?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-dark.svg?v=bcf174e1" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-light.svg?v=bcf174e1" alt="Live account statistics" width="620" /></picture></a>
+<a href="https://github.com/AkilanManivannanak?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-dark.svg?v=bb343fb5" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-light.svg?v=bb343fb5" alt="Live account statistics" width="620" /></picture></a>
 </p>
 <!-- HEADER:END -->
 
@@ -85,10 +85,10 @@
 <p align="center">
 <a href="#-every-repository"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-av-dark.svg?v=f15e46e3" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-av-light.svg?v=f15e46e3" alt="Autonomous driving & BEV: 5 repositories" width="32%" /></picture></a>
 <a href="#-every-repository"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-agentic-dark.svg?v=e0394227" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-agentic-light.svg?v=e0394227" alt="Agentic AI · LLM · RAG: 3 repositories" width="32%" /></picture></a>
-<a href="#-every-repository"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-rank-dark.svg?v=cec7d1d8" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-rank-light.svg?v=cec7d1d8" alt="Search, retrieval & ranking: 2 repositories" width="32%" /></picture></a>
+<a href="#-every-repository"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-rank-dark.svg?v=fbc3aabe" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-rank-light.svg?v=fbc3aabe" alt="Search, retrieval & ranking: 2 repositories" width="32%" /></picture></a>
 <a href="#-every-repository"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-health-dark.svg?v=61cd669e" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-health-light.svg?v=61cd669e" alt="Healthcare & biomedical AI: 4 repositories" width="32%" /></picture></a>
-<a href="#-every-repository"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-signal-dark.svg?v=a4eabdf7" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-signal-light.svg?v=a4eabdf7" alt="Speech & computer vision: 4 repositories" width="32%" /></picture></a>
-<a href="#-every-repository"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-finance-dark.svg?v=40cc425f" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-finance-light.svg?v=40cc425f" alt="Finance & forecasting: 3 repositories" width="32%" /></picture></a>
+<a href="#-every-repository"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-signal-dark.svg?v=4bf5512d" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-signal-light.svg?v=4bf5512d" alt="Speech & computer vision: 4 repositories" width="32%" /></picture></a>
+<a href="#-every-repository"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-finance-dark.svg?v=2cb58525" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-finance-light.svg?v=2cb58525" alt="Finance & forecasting: 3 repositories" width="32%" /></picture></a>
 <a href="#-every-repository"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-ml-dark.svg?v=50881ab1" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-ml-light.svg?v=50881ab1" alt="Classical machine learning: 3 repositories" width="32%" /></picture></a>
 <a href="#-every-repository"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-apps-dark.svg?v=9085fc4b" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-apps-light.svg?v=9085fc4b" alt="Software & web apps: 4 repositories" width="32%" /></picture></a>
 <a href="#-every-repository"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-forks-dark.svg?v=6352c85a" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/domain-forks-light.svg?v=6352c85a" alt="Open-source forks: 5 repositories" width="32%" /></picture></a>
@@ -110,22 +110,22 @@ mindmap
       attentive-flow
       phamilyops
     rank[Search, retrieval and ranking · 2]
-      two-stage-recommender-als-ran…
       FashionFinder
+      two-stage-recommender-als-ran…
     health[Healthcare and biomedical AI · 4]
       Esophageal-Cancer-Detection
       AI-Powered-Multi-Disease-Heal…
       Alcohol_prediction
       Heart_disease_linear-regressi…
     signal[Speech and computer vision · 4]
+      ASL-Alphabet-Recognition_A-Z…
       noise-robust-kws-distress-det…
       Sign-Language-Regonization-us…
-      ASL-Alphabet-Recognition_A-Z…
       Image-Classification-using-CNN
     finance[Finance and forecasting · 3]
       stock-forecasting-aapl-LSTM-R…
-      ATLAS
       Forecasting-and-Predicting-of…
+      ATLAS
     ml[Classical machine learning · 3]
       Student-Performance-Using-Neu…
       Bayesian-Network-Inference-Pr…
@@ -146,7 +146,7 @@ mindmap
 
 <!-- PULSE:START -->
 <p align="center">
-<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-dark.svg?v=d5a5c08d" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-light.svg?v=d5a5c08d" alt="Live GitHub telemetry" width="100%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-dark.svg?v=b5935060" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-light.svg?v=b5935060" alt="Live GitHub telemetry" width="100%" /></picture></a>
 </p>
 <!-- PULSE:END -->
 
@@ -182,25 +182,25 @@ mindmap
 
 | Repository | What it is | Built with | Updated |
 |---|---|---|---|
+| **[FashionFinder](https://github.com/AkilanManivannanak/FashionFinder)** <sub>★ 1</sub> | Visual search for fashion: CLIP and ResNet18 embeddings indexed in FAISS for Pinterest-style similarity search. Live demo. | CLIP · FAISS · PyTorch | Nov 2026 |
 | **[two-stage-recommender-als-ranker-api](https://github.com/AkilanManivannanak/two-stage-recommender-als-ranker-api)** <sub>★ 1</sub> | CineWave: ALS retrieval plus a LightGBM LambdaRank ranker with bandit exploration. NDCG@10 0.1409, +253% over ALS. | Spark ALS · LightGBM · GraphQL | Sep 2026 |
-| **[FashionFinder](https://github.com/AkilanManivannanak/FashionFinder)** <sub>★ 1</sub> | Visual search for fashion: CLIP and ResNet18 embeddings indexed in FAISS for Pinterest-style similarity search. Live demo. | CLIP · FAISS · PyTorch | May 2026 |
 
 #### 🩺 Healthcare & biomedical AI <sub>· 4 repos</sub>
 
 | Repository | What it is | Built with | Updated |
 |---|---|---|---|
-| **[Esophageal-Cancer-Detection](https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection)** <sub>★ 1</sub> | Multi-task EfficientNet-B3 that flags gastrointestinal abnormalities in endoscopy images in real time. | EfficientNet-B3 · PyTorch | Sep 2026 |
+| **[Esophageal-Cancer-Detection](https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection)** <sub>★ 1</sub> | Multi-task EfficientNet-B3 that flags gastrointestinal abnormalities in endoscopy images in real time. | EfficientNet-B3 · PyTorch | Nov 2026 |
 | **[AI-Powered-Multi-Disease-Health-Risk-Prediction](https://github.com/AkilanManivannanak/AI-Powered-Multi-Disease-Health-Risk-Prediction)** <sub>★ 1</sub> | Screens 17 chronic and genetic conditions from clinical data and chest X-rays. 87.3% average test accuracy. | EfficientNetB0 · TensorFlow | Apr 2026 |
-| **[Alcohol_prediction](https://github.com/AkilanManivannanak/Alcohol_prediction)** | Predicts alcohol use from personality and demographic traits on the UCI drug-consumption data with XGBoost and random forests. | XGBoost · scikit-learn | May 2025 |
+| **[Alcohol_prediction](https://github.com/AkilanManivannanak/Alcohol_prediction)** | Predicts alcohol use from personality and demographic traits on the UCI drug-consumption data with XGBoost and random forests. | XGBoost · scikit-learn | Nov 2026 |
 | **[Heart_disease_linear-regression](https://github.com/AkilanManivannanak/Heart_disease_linear-regression)** | Heart-disease prediction with PCA and logistic regression on clinical features. | scikit-learn | May 2025 |
 
 #### 🎙️ Speech & computer vision <sub>· 4 repos</sub>
 
 | Repository | What it is | Built with | Updated |
 |---|---|---|---|
-| **[noise-robust-kws-distress-detection](https://github.com/AkilanManivannanak/noise-robust-kws-distress-detection)** <sub>★ 1</sub> | Distress keyword spotting in noisy cabin audio. 77.0% accuracy at 0 dB SNR from a 0.43 MB model. | MFCC · CNN · PyTorch | Apr 2026 |
+| **[ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN](https://github.com/AkilanManivannanak/ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN)** <sub>★ 1</sub> | Real-time ASL fingerspelling recognition, A to Z, from a webcam feed. | TensorFlow · OpenCV | Nov 2026 |
+| **[noise-robust-kws-distress-detection](https://github.com/AkilanManivannanak/noise-robust-kws-distress-detection)** <sub>★ 1</sub> | Distress keyword spotting in noisy cabin audio. 77.0% accuracy at 0 dB SNR from a 0.43 MB model. | MFCC · CNN · PyTorch | Nov 2026 |
 | **[Sign-Language-Regonization-using-CNN-Algorithm-with-Meachine-Learning-Techniques-Paper](https://github.com/AkilanManivannanak/Sign-Language-Regonization-using-CNN-Algorithm-with-Meachine-Learning-Techniques-Paper)** <sub>★ 1</sub> | Research paper: a CNN and LSTM pipeline that translates sign-language video into text and audio. | Research paper | Feb 2026 |
-| **[ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN](https://github.com/AkilanManivannanak/ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN)** <sub>★ 1</sub> | Real-time ASL fingerspelling recognition, A to Z, from a webcam feed. | TensorFlow · OpenCV | Feb 2026 |
 | **[Image-Classification-using-CNN](https://github.com/AkilanManivannanak/Image-Classification-using-CNN)** | CNN image classifier trained on CIFAR-10. | TensorFlow · Keras | May 2025 |
 
 #### 📈 Finance & forecasting <sub>· 3 repos</sub>
@@ -208,8 +208,8 @@ mindmap
 | Repository | What it is | Built with | Updated |
 |---|---|---|---|
 | **[stock-forecasting-aapl-LSTM-RAG](https://github.com/AkilanManivannanak/stock-forecasting-aapl-LSTM-RAG)** <sub>★ 1</sub> | AAPL forecasting with LSTM and baselines, plus a strictly grounded RAG copilot. MAPE 3.34%, 0% hallucination. | LSTM · ChromaDB · FastAPI | Apr 2026 |
+| **[Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-](https://github.com/AkilanManivannanak/Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-)** | Stock-price forecasting with an LSTM network. | LSTM · Python | Nov 2026 |
 | **[ATLAS](https://github.com/AkilanManivannanak/ATLAS)** <kbd>new</kbd> | ATLAS-Σ: research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions. | Python 3.12 | Nov 2026 |
-| **[Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-](https://github.com/AkilanManivannanak/Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-)** | Stock-price forecasting with an LSTM network. | LSTM · Python | May 2025 |
 
 #### 🧮 Classical machine learning <sub>· 3 repos</sub>
 
@@ -238,7 +238,7 @@ mindmap
 | **[vehicle-command](https://github.com/AkilanManivannanak/vehicle-command)** | Fork of Tesla's Vehicle Command SDK for authenticated vehicle commands. | Go | Feb 2026 |
 | **[light-show](https://github.com/AkilanManivannanak/light-show)** | Fork of Tesla's light-show guide for custom xLights shows on Tesla vehicles. | xLights | Dec 2024 |
 
-<sub>Sorted automatically from each repo's topics, description and README. Repos created in the last 30 days are tagged <b>new</b>. Recomputed 11 Nov 2026, 07:08 UTC.</sub>
+<sub>Sorted automatically from each repo's topics, description and README. Repos created in the last 30 days are tagged <b>new</b>. Recomputed 11 Nov 2026, 19:52 UTC.</sub>
 <!-- CATALOG:END -->
 
 <br/>
@@ -263,12 +263,12 @@ mindmap
 |---|---|
 | Public repositories | 36  ·  31 original, 5 forks |
 | Stars earned | 34 |
-| Contributions, rolling 365 days | 1,049 |
-| Pull requests authored | 40 |
+| Contributions, rolling 365 days | 1,202 |
+| Pull requests authored | 76 |
 | Repos carrying a description | 34 / 36 |
 | Primary languages | Python (22), Jupyter Notebook (2), HTML (1), Vue (1), Java (1) |
 
-<sub>Recomputed 11 Nov 2026, 07:08 UTC from the GitHub API.</sub>
+<sub>Recomputed 11 Nov 2026, 19:52 UTC from the GitHub API.</sub>
 <!-- STATS:END -->
 
 <br/>
