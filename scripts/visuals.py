@@ -431,6 +431,118 @@ def _svg_clear(w, h, label, body):
             f'role="img" aria-label="{escape(label)}"><title>{escape(label)}</title>{body}</svg>\n')
 
 
+# ----------------------------------------------------------------- repository cards
+
+def section_banner(domain, label, count, mode):
+    p = PAL[mode]
+    c = p[DOMAIN_KEY.get(domain, "archive")]
+    W, H = 1200, 64
+    tw = 13 * len(label) + 40
+    body = f'''
+<circle cx="18" cy="32" r="7" fill="{c}"/>
+<circle cx="18" cy="32" r="7" fill="none" stroke="{c}">
+  <animate attributeName="r" values="7;18" dur="2.2s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values=".8;0" dur="2.2s" repeatCount="indefinite"/>
+</circle>
+<text x="40" y="40" fill="{p["text"]}" font-family="{SANS}" font-size="24" font-weight="750" letter-spacing="-.3">{escape(label)}</text>
+<rect x="{40 + tw}" y="18" width="{30 + 10 * len(str(count)) + 50}" height="28" rx="14" fill="{c}" fill-opacity=".14" stroke="{c}" stroke-opacity=".5"/>
+<text x="{54 + tw}" y="37" fill="{c}" font-family="{MONO}" font-size="13" font-weight="700">{count} {"repo" if count == 1 else "repos"}</text>
+<line x1="{40 + tw + 110 + 10 * len(str(count))}" y1="32" x2="{W - 4}" y2="32" stroke="{p["line"]}" stroke-width="2"/>
+<line x1="{40 + tw + 110 + 10 * len(str(count))}" y1="32" x2="{40 + tw + 110 + 10 * len(str(count))}" y2="32" stroke="{c}" stroke-width="2">
+  <animate attributeName="x2" values="{40 + tw + 110 + 10 * len(str(count))};{W - 4}" dur="1.4s" fill="freeze"/>
+</line>
+<circle cx="{W - 4}" cy="32" r="3" fill="{c}" opacity="0">
+  <animate attributeName="opacity" values="0;1" begin="1.3s" dur=".3s" fill="freeze"/>
+</circle>'''
+    return _svg_clear(W, H, f"{label}: {count} repositories", body)
+
+
+def repo_card(title, slug, domain, desc, stack, stars, updated, is_new, is_fork, mode, idx):
+    p = PAL[mode]
+    c = p[DOMAIN_KEY.get(domain, "archive")]
+    W, H = 400, 178
+    lines = _wrap(desc, 47)
+    if len(lines) > 3:
+        lines = lines[:3]
+        lines[2] = _trunc(lines[2], 44).rstrip(".,;: ") + "…"
+    desc_svg = "".join(
+        f'<text x="22" y="{86 + i * 19}" fill="{p["sub"]}" font-family="{SANS}" font-size="13.2">{escape(l)}</text>'
+        for i, l in enumerate(lines))
+    chips, x = [], 22
+    for t in [s.strip() for s in stack.split("·") if s.strip()][:3]:
+        t = _trunc(t, 16)
+        w = 16 + 6.9 * len(t)
+        if x + w > W - 96:
+            break
+        chips.append(f'<rect x="{x:.0f}" y="{H - 38}" width="{w:.0f}" height="22" rx="11" fill="{c}" fill-opacity=".13" stroke="{c}" stroke-opacity=".4"/>'
+                     f'<text x="{x + 8:.0f}" y="{H - 23}" fill="{p["text"]}" font-family="{MONO}" font-size="11">{escape(t)}</text>')
+        x += w + 6
+    meta = []
+    if stars:
+        meta.append(f"★ {stars}")
+    if updated:
+        meta.append(updated)
+    tag = ""
+    if is_new:
+        tag = (f'<rect x="{W - 64}" y="18" width="44" height="20" rx="10" fill="{p["teal"]}">'
+               f'<animate attributeName="opacity" values="1;.4;1" dur="1.6s" repeatCount="indefinite"/></rect>'
+               f'<text x="{W - 42}" y="32" text-anchor="middle" fill="{p["bg"]}" font-family="{MONO}" font-size="10.5" font-weight="700">NEW</text>')
+    elif is_fork:
+        tag = (f'<text x="{W - 20}" y="32" text-anchor="end" fill="{p["mute"]}" font-family="{MONO}" font-size="10.5" letter-spacing="1.4">FORK</text>')
+    delay = (idx % 9) * 0.12
+    sweep = 3.6 + (idx % 5) * 0.4
+    body = f'''
+<defs>
+  <linearGradient id="g" x1="0" x2="1">
+    <stop offset="0" stop-color="{c}" stop-opacity="0"/><stop offset=".5" stop-color="{c}"/><stop offset="1" stop-color="{c}" stop-opacity="0"/>
+  </linearGradient>
+  <clipPath id="k"><rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="14"/></clipPath>
+</defs>
+<g opacity="0">
+  <animate attributeName="opacity" values="0;1" begin="{delay:.2f}s" dur=".55s" fill="freeze"/>
+  <rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="14" fill="{p["panel"]}" stroke="{p["line"]}"/>
+  <g clip-path="url(#k)">
+    <rect x="0" y="0" width="5" height="{H}" fill="{c}"/>
+    <rect x="-160" y="0" width="160" height="2.5" fill="url(#g)">
+      <animate attributeName="x" from="-160" to="{W}" begin="{delay + .4:.2f}s" dur="{sweep:.1f}s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  <text x="22" y="38" fill="{p["text"]}" font-family="{SANS}" font-size="19" font-weight="750" letter-spacing="-.2">{escape(_trunc(title, 28))}</text>
+  <text x="22" y="58" fill="{p["mute"]}" font-family="{MONO}" font-size="10.5">{escape(_trunc(slug, 52))}</text>
+  {tag}
+  {desc_svg}
+  {"".join(chips)}
+  <text x="{W - 20}" y="{H - 22}" text-anchor="end" fill="{p["mute"]}" font-family="{MONO}" font-size="11">{escape("  ·  ".join(meta))}</text>
+</g>'''
+    return _svg(W, H, f"{title}: {desc}", body, p)
+
+
+def render_catalog(cards):
+    """cards: list of dicts with key, title, slug, domain, desc, stack, stars, updated, new, fork.
+    Rewrites every repo card and section banner and removes cards for repos that are gone."""
+    for f in LIVE.glob("repo-*.svg"):
+        f.unlink()
+    for f in LIVE.glob("section-*.svg"):
+        f.unlink()
+    counts = {}
+    for c in cards:
+        counts[c["domain"]] = counts.get(c["domain"], 0) + 1
+    for mode in PAL:
+        for i, c in enumerate(cards):
+            _write(f"repo-{c['key']}", mode, repo_card(
+                c["title"], c["slug"], c["domain"], c["desc"], c["stack"], c["stars"],
+                c["updated"], c["new"], c["fork"], mode, i))
+        for d, n in counts.items():
+            _write(f"section-{d}", mode, section_banner(d, c_label(d), n, mode))
+
+
+_LABELS = {}
+
+
+def c_label(d):
+    return _LABELS.get(d, d)
+
+
 # ----------------------------------------------------------------- entry point
 
 def render_all(groups, labels, latest, stats, days, blurb_fn, classify_fn):

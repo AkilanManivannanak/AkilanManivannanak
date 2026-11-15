@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 178" width="400" height="178" role="img" aria-label="Bayesian Inference: Bayesian network with exact inference by variable elimination."><title>Bayesian Inference: Bayesian network with exact inference by variable elimination.</title><rect width="400" height="178" fill="#07090c"/>
+<defs>
+  <linearGradient id="g" x1="0" x2="1">
+    <stop offset="0" stop-color="#7fbf7f" stop-opacity="0"/><stop offset=".5" stop-color="#7fbf7f"/><stop offset="1" stop-color="#7fbf7f" stop-opacity="0"/>
+  </linearGradient>
+  <clipPath id="k"><rect x="1" y="1" width="398" height="176" rx="14"/></clipPath>
+</defs>
+<g opacity="0">
+  <animate attributeName="opacity" values="0;1" begin="0.60s" dur=".55s" fill="freeze"/>
+  <rect x="1" y="1" width="398" height="176" rx="14" fill="#0d1217" stroke="#1d2a34"/>
+  <g clip-path="url(#k)">
+    <rect x="0" y="0" width="5" height="178" fill="#7fbf7f"/>
+    <rect x="-160" y="0" width="160" height="2.5" fill="url(#g)">
+      <animate attributeName="x" from="-160" to="400" begin="1.00s" dur="4.8s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  <text x="22" y="38" fill="#f2efe9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="19" font-weight="750" letter-spacing="-.2">Bayesian Inference</text>
+  <text x="22" y="58" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5">AkilanManivannanak/Bayesian-Network-Inference-Probl…</text>
+  
+  <text x="22" y="86" fill="#98a1ab" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13.2">Bayesian network with exact inference by</text><text x="22" y="105" fill="#98a1ab" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13.2">variable elimination.</text>
+  <rect x="22" y="140" width="50" height="22" rx="11" fill="#7fbf7f" fill-opacity=".13" stroke="#7fbf7f" stroke-opacity=".4"/><text x="30" y="155" fill="#f2efe9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">pgmpy</text>
+  <text x="380" y="156" text-anchor="end" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">May 2025</text>
+</g></svg>

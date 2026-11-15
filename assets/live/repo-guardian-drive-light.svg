@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 178" width="400" height="178" role="img" aria-label="Guardian Drive: Driver-safety stack: eight hazard detectors fused with BEV perception under a safety state machine. Cardiac AUC 0.961."><title>Guardian Drive: Driver-safety stack: eight hazard detectors fused with BEV perception under a safety state machine. Cardiac AUC 0.961.</title><rect width="400" height="178" fill="#f5f3ef"/>
+<defs>
+  <linearGradient id="g" x1="0" x2="1">
+    <stop offset="0" stop-color="#b4531a" stop-opacity="0"/><stop offset=".5" stop-color="#b4531a"/><stop offset="1" stop-color="#b4531a" stop-opacity="0"/>
+  </linearGradient>
+  <clipPath id="k"><rect x="1" y="1" width="398" height="176" rx="14"/></clipPath>
+</defs>
+<g opacity="0">
+  <animate attributeName="opacity" values="0;1" begin="0.12s" dur=".55s" fill="freeze"/>
+  <rect x="1" y="1" width="398" height="176" rx="14" fill="#ffffff" stroke="#d8d3c9"/>
+  <g clip-path="url(#k)">
+    <rect x="0" y="0" width="5" height="178" fill="#b4531a"/>
+    <rect x="-160" y="0" width="160" height="2.5" fill="url(#g)">
+      <animate attributeName="x" from="-160" to="400" begin="0.52s" dur="4.0s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  <text x="22" y="38" fill="#14171c" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="19" font-weight="750" letter-spacing="-.2">Guardian Drive</text>
+  <text x="22" y="58" fill="#7d838b" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5">AkilanManivannanak/guardian-drive</text>
+  
+  <text x="22" y="86" fill="#5b626b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13.2">Driver-safety stack: eight hazard detectors</text><text x="22" y="105" fill="#5b626b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13.2">fused with BEV perception under a safety state</text><text x="22" y="124" fill="#5b626b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13.2">machine. Cardiac AUC 0.961.</text>
+  <rect x="22" y="140" width="78" height="22" rx="11" fill="#b4531a" fill-opacity=".13" stroke="#b4531a" stroke-opacity=".4"/><text x="30" y="155" fill="#14171c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">BEVFormer</text><rect x="106" y="140" width="71" height="22" rx="11" fill="#b4531a" fill-opacity=".13" stroke="#b4531a" stroke-opacity=".4"/><text x="114" y="155" fill="#14171c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">TensorRT</text><rect x="183" y="140" width="50" height="22" rx="11" fill="#b4531a" fill-opacity=".13" stroke="#b4531a" stroke-opacity=".4"/><text x="191" y="155" fill="#14171c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">C++17</text>
+  <text x="380" y="156" text-anchor="end" fill="#7d838b" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">Nov 2026</text>
+</g></svg>

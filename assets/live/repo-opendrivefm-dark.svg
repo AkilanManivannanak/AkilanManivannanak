@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 178" width="400" height="178" role="img" aria-label="OpenDriveFM: Camera-only BEV occupancy and 6 s trajectory prediction on nuScenes with per-camera trust scoring. Fault AUROC 0.764 at 71.2 FPS."><title>OpenDriveFM: Camera-only BEV occupancy and 6 s trajectory prediction on nuScenes with per-camera trust scoring. Fault AUROC 0.764 at 71.2 FPS.</title><rect width="400" height="178" fill="#07090c"/>
+<defs>
+  <linearGradient id="g" x1="0" x2="1">
+    <stop offset="0" stop-color="#e0873a" stop-opacity="0"/><stop offset=".5" stop-color="#e0873a"/><stop offset="1" stop-color="#e0873a" stop-opacity="0"/>
+  </linearGradient>
+  <clipPath id="k"><rect x="1" y="1" width="398" height="176" rx="14"/></clipPath>
+</defs>
+<g opacity="0">
+  <animate attributeName="opacity" values="0;1" begin="0.00s" dur=".55s" fill="freeze"/>
+  <rect x="1" y="1" width="398" height="176" rx="14" fill="#0d1217" stroke="#1d2a34"/>
+  <g clip-path="url(#k)">
+    <rect x="0" y="0" width="5" height="178" fill="#e0873a"/>
+    <rect x="-160" y="0" width="160" height="2.5" fill="url(#g)">
+      <animate attributeName="x" from="-160" to="400" begin="0.40s" dur="3.6s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  <text x="22" y="38" fill="#f2efe9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="19" font-weight="750" letter-spacing="-.2">OpenDriveFM</text>
+  <text x="22" y="58" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5">AkilanManivannanak/opendrivefm</text>
+  
+  <text x="22" y="86" fill="#98a1ab" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13.2">Camera-only BEV occupancy and 6 s trajectory</text><text x="22" y="105" fill="#98a1ab" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13.2">prediction on nuScenes with per-camera trust</text><text x="22" y="124" fill="#98a1ab" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13.2">scoring. Fault AUROC 0.764 at 71.2 FPS.</text>
+  <rect x="22" y="140" width="64" height="22" rx="11" fill="#e0873a" fill-opacity=".13" stroke="#e0873a" stroke-opacity=".4"/><text x="30" y="155" fill="#f2efe9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">PyTorch</text><rect x="92" y="140" width="71" height="22" rx="11" fill="#e0873a" fill-opacity=".13" stroke="#e0873a" stroke-opacity=".4"/><text x="100" y="155" fill="#f2efe9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">nuScenes</text><rect x="170" y="140" width="37" height="22" rx="11" fill="#e0873a" fill-opacity=".13" stroke="#e0873a" stroke-opacity=".4"/><text x="178" y="155" fill="#f2efe9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">C++</text>
+  <text x="380" y="156" text-anchor="end" fill="#6f7b86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">★ 13  ·  Nov 2026</text>
+</g></svg>

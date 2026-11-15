@@ -135,8 +135,16 @@ GitHub's image cache refreshes as soon as a card changes.
 To change a flagship card, edit `FLAGSHIPS` in `scripts/visuals.py`; to change the ledger,
 edit `LEDGER`. Push, and the README workflow rebuilds within a minute.
 
-The snake under "Live telemetry" comes from `.github/workflows/snake.yml` (Platane/snk),
-published to its own `snake` branch twice a day.
+The 3D contribution chart and the snake under "Live telemetry" come from
+`.github/workflows/snake.yml` (yoshi389111/github-profile-3d-contrib and Platane/snk). Both are
+published to the `snake` branch twice a day with a plain retrying `git push`.
+
+## Repository cards
+
+"Every repository" is one animated card per repo (`assets/live/repo-*.svg`) under an animated
+banner per category (`assets/live/section-*.svg`). Cards are rebuilt on every run and cards
+for deleted repos are removed. A card's title comes from `TITLES` in `scripts/portfolio.py`,
+or from the repo name for a new repo.
 
 ## Perception deck hosting
 

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 64" width="1200" height="64" role="img" aria-label="Open-source forks: 5 repositories"><title>Open-source forks: 5 repositories</title>
+<circle cx="18" cy="32" r="7" fill="#7d838b"/>
+<circle cx="18" cy="32" r="7" fill="none" stroke="#7d838b">
+  <animate attributeName="r" values="7;18" dur="2.2s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values=".8;0" dur="2.2s" repeatCount="indefinite"/>
+</circle>
+<text x="40" y="40" fill="#14171c" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" font-weight="750" letter-spacing="-.3">Open-source forks</text>
+<rect x="301" y="18" width="90" height="28" rx="14" fill="#7d838b" fill-opacity=".14" stroke="#7d838b" stroke-opacity=".5"/>
+<text x="315" y="37" fill="#7d838b" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="700">5 repos</text>
+<line x1="421" y1="32" x2="1196" y2="32" stroke="#d8d3c9" stroke-width="2"/>
+<line x1="421" y1="32" x2="421" y2="32" stroke="#7d838b" stroke-width="2">
+  <animate attributeName="x2" values="421;1196" dur="1.4s" fill="freeze"/>
+</line>
+<circle cx="1196" cy="32" r="3" fill="#7d838b" opacity="0">
+  <animate attributeName="opacity" values="0;1" begin="1.3s" dur=".3s" fill="freeze"/>
+</circle></svg>

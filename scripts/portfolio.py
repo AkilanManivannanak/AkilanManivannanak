@@ -135,6 +135,57 @@ CURATED = {
     "vehicle-command": ("forks", "Fork of Tesla's Vehicle Command SDK for authenticated vehicle commands.", "Go"),
 }
 
+# The same entry under the name the repo would get if renamed, so a rename keeps its card.
+CURATED["sign-language-recognition-cnn"] = CURATED[
+    "Sign-Language-Regonization-using-CNN-Algorithm-with-Meachine-Learning-Techniques-Paper"]
+
+# Display titles for repo cards, where the repo name is long or not the product name.
+TITLES = {
+    "opendrivefm": "OpenDriveFM",
+    "guardian-drive": "Guardian Drive",
+    "autonomy-vision": "SafeTruck-AV2",
+    "Self-Driving-cars-Specialization": "CARLA Motion Planner",
+    "Traffic-Sense-Ideathon": "TrafficSense",
+    "talentra_copilot": "Talentra Copilot",
+    "phamilyops": "PhamilyOps",
+    "attentive-flow": "AttentiveFlow",
+    "two-stage-recommender-als-ranker-api": "CineWave",
+    "FashionFinder": "FashionFinder",
+    "Esophageal-Cancer-Detection": "Endoscopy Abnormality AI",
+    "AI-Powered-Multi-Disease-Health-Risk-Prediction": "Multi-Disease Risk AI",
+    "Heart_disease_linear-regression": "Heart Disease Risk",
+    "Alcohol_prediction": "Alcohol Use Prediction",
+    "noise-robust-kws-distress-detection": "Noise-Robust KWS",
+    "ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN": "Real-Time ASL Recognition",
+    "Sign-Language-Regonization-using-CNN-Algorithm-with-Meachine-Learning-Techniques-Paper": "Sign Language to Text",
+    "sign-language-recognition-cnn": "Sign Language to Text",
+    "Image-Classification-using-CNN": "CIFAR-10 CNN",
+    "ATLAS": "ATLAS-Σ",
+    "stock-forecasting-aapl-LSTM-RAG": "AAPL Forecast + RAG",
+    "Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-": "Stock LSTM Forecaster",
+    "Wine-Quality-using-Neural-Networks": "Wine Quality NN",
+    "Student-Performance-Using-Neural-Network": "Student Performance NN",
+    "Bayesian-Network-Inference-Problem": "Bayesian Inference",
+    "AkilanPortfolio": "AkilanFlix",
+    "Pharmacy-management-system": "Pharmacy Manager",
+    "Library-Management-System-in-Python": "Library Manager",
+    "Android-App-for-Recycling-and-Donation-app": "Recycle & Donate",
+    "nuscenes-devkit": "nuScenes devkit",
+    "Opendrivefm-1": "OpenDriveFM mirror",
+    "neurapilot": "NeuraPilot",
+    "light-show": "Tesla Light Show",
+    "vehicle-command": "Tesla Vehicle Command",
+}
+
+
+def title(repo):
+    name = repo["name"]
+    if name in TITLES:
+        return TITLES[name]
+    t = humanise(name)
+    return t if len(t) <= 26 else t[:25].rstrip() + "…"
+
+
 # Keyword rules for repos not in CURATED. Topics count 3x, the repo name 2x, the GitHub
 # description 2x and the README 1x (capped), so a short README cannot drown the name.
 RULES = {

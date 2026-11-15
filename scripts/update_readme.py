@@ -18,6 +18,7 @@ import urllib.error
 import urllib.request
 from datetime import datetime, timedelta, timezone
 import hashlib
+import html
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import visuals  # noqa: E402
@@ -297,23 +298,47 @@ def block_mindmap(groups):
     return "\n".join(lines)
 
 
+def _card_key(name):
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")[:60]
+
+
 def block_catalog(repos):
+    """One animated card per repository, grouped by category. Every card links to its repo."""
     groups = group_repos(repos)
-    out = []
+    cards, out = [], []
+    visuals._LABELS.update(CATALOG_LABELS)
     for d in DOMAIN_ORDER:
         rs = groups.get(d) or []
         if not rs:
             continue
-        out.append(f"#### {DOMAIN_ICON[d]} {CATALOG_LABELS[d]} <sub>· {plural(len(rs), 'repo')}</sub>")
+        out.append(f'<p align="center">{pic(f"section-{d}", f"{CATALOG_LABELS[d]}: {plural(len(rs), 'repo')}", "#-every-repository", "100%", hashed=False)}</p>')
         out.append("")
-        out.append("| Repository | What it is | Built with | Updated |")
-        out.append("|---|---|---|---|")
-        out += [_row(r) for r in rs]
+        out.append('<p align="center">')
+        for r in rs:
+            desc, stack = describe(r)
+            t = portfolio.title(r)
+            for lead in (t, r["name"]):
+                if desc.lower().startswith(lead.lower() + ":"):
+                    desc = desc[len(lead) + 1:].strip()
+                    desc = desc[:1].upper() + desc[1:]
+            key = _card_key(r["name"])
+            cards.append(dict(
+                key=key, title=portfolio.title(r), slug=f"{USER}/{r['name']}", domain=d,
+                desc=desc, stack=stack, stars=(r.get("stargazers_count") or 0) if (r.get("stargazers_count") or 0) > 1 else 0,
+                updated=_month(r.get("pushed_at")), new=_age_days(r.get("created_at")) <= NEW_DAYS,
+                fork=bool(r.get("fork"))))
+            out.append(pic(f"repo-{key}", f"{portfolio.title(r)}: {desc}", r["html_url"], "32%", hashed=False))
+        out.append("</p>")
         out.append("")
-    out.append(f"<sub>Sorted automatically from each repo's topics, description and README. "
-               f"Repos created in the last {NEW_DAYS} days are tagged <b>new</b>. "
-               f"Recomputed {datetime.now(timezone.utc):%d %b %Y, %H:%M} UTC.</sub>")
-    return "\n".join(out)
+    visuals.render_catalog(cards)
+    # hash after the files exist so GitHub's image cache refreshes on change
+    text = "\n".join(out)
+    text = re.sub(r'assets/live/((?:repo|section)-[^"?]+)-(dark|light)\.svg\?v=0',
+                  lambda m: f'assets/live/{m.group(1)}-{m.group(2)}.svg?v={_ver(m.group(1))}', text)
+    text += (f"\n<p align=\"center\"><sub>Every card opens its repository. Sorted automatically from each "
+             f"repo's topics, description and README; new repositories appear here within six hours. "
+             f"Recomputed {datetime.now(timezone.utc):%d %b %Y, %H:%M} UTC.</sub></p>")
+    return text
 
 
 def write_deck_data(repos, contrib):
@@ -390,8 +415,9 @@ def _ver(name):
     return hashlib.sha1(f.read_bytes()).hexdigest()[:8] if f.exists() else "0"
 
 
-def pic(name, alt, href, width):
-    v = _ver(name)
+def pic(name, alt, href, width, hashed=True):
+    v = _ver(name) if hashed else "0"
+    alt = html.escape(alt, quote=True)
     return (f'<a href="{href}"><picture>'
             f'<source media="(prefers-color-scheme: dark)" srcset="{RAW}/assets/live/{name}-dark.svg?v={v}" />'
             f'<img src="{RAW}/assets/live/{name}-light.svg?v={v}" alt="{alt}" width="{width}" />'
