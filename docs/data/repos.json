@@ -1,6 +1,62 @@
 {
- "generated": "2026-11-15T20:27:41+00:00",
+ "generated": "2026-11-15T20:43:35+00:00",
  "count": 33,
+ "domains": [
+  {
+   "key": "av",
+   "label": "Autonomous driving & BEV",
+   "dark": "#e0873a",
+   "light": "#b4531a"
+  },
+  {
+   "key": "agentic",
+   "label": "Agentic AI · LLM · RAG",
+   "dark": "#3fb8a6",
+   "light": "#1f8878"
+  },
+  {
+   "key": "rank",
+   "label": "Search, retrieval & ranking",
+   "dark": "#5aa9e6",
+   "light": "#2f7cc0"
+  },
+  {
+   "key": "health",
+   "label": "Healthcare & biomedical AI",
+   "dark": "#e2574c",
+   "light": "#c0392b"
+  },
+  {
+   "key": "signal",
+   "label": "Speech & computer vision",
+   "dark": "#b98bd6",
+   "light": "#8a5fb0"
+  },
+  {
+   "key": "finance",
+   "label": "Finance & forecasting",
+   "dark": "#d9b44a",
+   "light": "#9a7a12"
+  },
+  {
+   "key": "ml",
+   "label": "Classical machine learning",
+   "dark": "#7fbf7f",
+   "light": "#3d7f45"
+  },
+  {
+   "key": "apps",
+   "label": "Software & web apps",
+   "dark": "#8a9cf0",
+   "light": "#4a5fc0"
+  },
+  {
+   "key": "forks",
+   "label": "Open-source forks",
+   "dark": "#8b939c",
+   "light": "#7d838b"
+  }
+ ],
  "repos": [
   {
    "name": "opendrivefm",
@@ -14,7 +70,7 @@
    "note": "Camera-only BEV occupancy and 6 s trajectory prediction on nuScenes with per-camera trust scoring. Fault AUROC 0.764 at 71.2 FPS.",
    "url": "https://github.com/AkilanManivannanak/opendrivefm",
    "title": "OpenDriveFM",
-   "stack": "PyTorch \u00b7 nuScenes \u00b7 C++",
+   "stack": "PyTorch · nuScenes · C++",
    "created": "2026-03-25",
    "activity": [
     0,
@@ -83,7 +139,7 @@
    "note": "Distress keyword spotting in noisy cabin audio. 77.0% accuracy at 0 dB SNR from a 0.43 MB model.",
    "url": "https://github.com/AkilanManivannanak/noise-robust-kws-distress-detection",
    "title": "Noise-Robust KWS",
-   "stack": "MFCC \u00b7 CNN \u00b7 PyTorch",
+   "stack": "MFCC · CNN · PyTorch",
    "created": "2026-01-21",
    "activity": [
     0,
@@ -152,7 +208,7 @@
    "note": "Visual search for fashion: CLIP and ResNet18 embeddings indexed in FAISS for Pinterest-style similarity search. Live demo.",
    "url": "https://github.com/AkilanManivannanak/FashionFinder",
    "title": "FashionFinder",
-   "stack": "CLIP \u00b7 FAISS \u00b7 PyTorch",
+   "stack": "CLIP · FAISS · PyTorch",
    "created": "2026-04-21",
    "activity": [
     0,
@@ -205,7 +261,7 @@
     0,
     0,
     0,
-    22,
+    11,
     0
    ]
   },
@@ -221,7 +277,7 @@
    "note": "Driver-safety stack: eight hazard detectors fused with BEV perception under a safety state machine. Cardiac AUC 0.961.",
    "url": "https://github.com/AkilanManivannanak/guardian-drive",
    "title": "Guardian Drive",
-   "stack": "BEVFormer \u00b7 TensorRT \u00b7 C++17",
+   "stack": "BEVFormer · TensorRT · C++17",
    "created": "2026-02-19",
    "activity": [
     0,
@@ -290,7 +346,7 @@
    "note": "CineWave: ALS retrieval plus a LightGBM LambdaRank ranker with bandit exploration. NDCG@10 0.1409, +253% over ALS.",
    "url": "https://github.com/AkilanManivannanak/two-stage-recommender-als-ranker-api",
    "title": "CineWave",
-   "stack": "Spark ALS \u00b7 LightGBM \u00b7 GraphQL",
+   "stack": "Spark ALS · LightGBM · GraphQL",
    "created": "2026-01-19",
    "activity": [
     0,
@@ -359,7 +415,7 @@
    "note": "Fork of the nuScenes devkit, used across the BEV perception work.",
    "url": "https://github.com/AkilanManivannanak/nuscenes-devkit",
    "title": "nuScenes devkit",
-   "stack": "Python \u00b7 nuScenes",
+   "stack": "Python · nuScenes",
    "created": "2026-05-26",
    "activity": []
   },
@@ -375,7 +431,7 @@
    "note": "Mirror of OpenDriveFM, the camera-only BEV perception system.",
    "url": "https://github.com/AkilanManivannanak/Opendrivefm-1",
    "title": "OpenDriveFM mirror",
-   "stack": "PyTorch \u00b7 nuScenes",
+   "stack": "PyTorch · nuScenes",
    "created": "2026-04-20",
    "activity": []
   },
@@ -391,7 +447,7 @@
    "note": "NeuraPilot: compound AI tutor with LangGraph routing, semantic caching and observability.",
    "url": "https://github.com/AkilanManivannanak/neurapilot",
    "title": "NeuraPilot",
-   "stack": "LangGraph \u00b7 Ollama",
+   "stack": "LangGraph · Ollama",
    "created": "2026-04-20",
    "activity": []
   },
@@ -407,7 +463,7 @@
    "note": "AkilanFlix: Netflix-style AI/ML portfolio site with live search, carousels and a built-in chatbot.",
    "url": "https://github.com/AkilanManivannanak/AkilanPortfolio",
    "title": "AkilanFlix",
-   "stack": "Nuxt \u00b7 TypeScript \u00b7 Tailwind",
+   "stack": "Nuxt · TypeScript · Tailwind",
    "created": "2026-02-22",
    "activity": [
     0,
@@ -476,7 +532,7 @@
    "note": "Multi-task EfficientNet-B3 that flags gastrointestinal abnormalities in endoscopy images in real time.",
    "url": "https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection",
    "title": "Endoscopy Abnormality AI",
-   "stack": "EfficientNet-B3 \u00b7 PyTorch",
+   "stack": "EfficientNet-B3 · PyTorch",
    "created": "2026-09-06",
    "activity": [
     0,
@@ -542,9 +598,9 @@
    "lang": "Python",
    "fork": false,
    "pushed": "2026-11-11",
-   "note": "ATLAS-\u03a3: research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions.",
+   "note": "ATLAS-Σ: research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions.",
    "url": "https://github.com/AkilanManivannanak/ATLAS",
-   "title": "ATLAS-\u03a3",
+   "title": "ATLAS-Σ",
    "stack": "Python 3.12",
    "created": "2026-11-01",
    "activity": [
@@ -630,7 +686,7 @@
    "note": "TrafficSense: forecasts congestion 5 to 15 minutes ahead and turns it into constraint-aware adaptive signal timing.",
    "url": "https://github.com/AkilanManivannanak/Traffic-Sense-Ideathon",
    "title": "TrafficSense",
-   "stack": "ML \u00b7 smart-city pitch",
+   "stack": "ML · smart-city pitch",
    "created": "2026-02-22",
    "activity": [
     0,
@@ -699,7 +755,7 @@
    "note": "Full CARLA motion-planning stack: behavioural planner, polynomial spiral paths, collision checking and velocity profiles.",
    "url": "https://github.com/AkilanManivannanak/Self-Driving-cars-Specialization",
    "title": "CARLA Motion Planner",
-   "stack": "Python \u00b7 CARLA",
+   "stack": "Python · CARLA",
    "created": "2026-06-09",
    "activity": [
     0,
@@ -768,7 +824,7 @@
    "note": "AAPL forecasting with LSTM and baselines, plus a strictly grounded RAG copilot. MAPE 3.34%, 0% hallucination.",
    "url": "https://github.com/AkilanManivannanak/stock-forecasting-aapl-LSTM-RAG",
    "title": "AAPL Forecast + RAG",
-   "stack": "LSTM \u00b7 ChromaDB \u00b7 FastAPI",
+   "stack": "LSTM · ChromaDB · FastAPI",
    "created": "2026-01-13",
    "activity": [
     0,
@@ -906,7 +962,7 @@
    "note": "Screens 17 chronic and genetic conditions from clinical data and chest X-rays. 87.3% average test accuracy.",
    "url": "https://github.com/AkilanManivannanak/AI-Powered-Multi-Disease-Health-Risk-Prediction",
    "title": "Multi-Disease Risk AI",
-   "stack": "EfficientNetB0 \u00b7 TensorFlow",
+   "stack": "EfficientNetB0 · TensorFlow",
    "created": "2025-05-22",
    "activity": [
     0,
@@ -975,7 +1031,7 @@
    "note": "Real-time ASL fingerspelling recognition, A to Z, from a webcam feed.",
    "url": "https://github.com/AkilanManivannanak/ASL-Alphabet-Recognition_A-Z_-Real-Time-Webcam-CNN",
    "title": "Real-Time ASL Recognition",
-   "stack": "TensorFlow \u00b7 OpenCV",
+   "stack": "TensorFlow · OpenCV",
    "created": "2025-05-22",
    "activity": [
     0,
@@ -1044,7 +1100,7 @@
    "note": "Pharmacy operations system: inventory, suppliers, sales and prescriptions through a CLI and a FastAPI REST API.",
    "url": "https://github.com/AkilanManivannanak/Pharmacy-management-system",
    "title": "Pharmacy Manager",
-   "stack": "Python \u00b7 SQLite \u00b7 FastAPI",
+   "stack": "Python · SQLite · FastAPI",
    "created": "2025-05-22",
    "activity": [
     0,
@@ -1113,7 +1169,7 @@
    "note": "Library management CLI with multi-copy inventory, borrowers and loans.",
    "url": "https://github.com/AkilanManivannanak/Library-Management-System-in-Python",
    "title": "Library Manager",
-   "stack": "Python \u00b7 SQLite",
+   "stack": "Python · SQLite",
    "created": "2025-05-22",
    "activity": [
     0,
@@ -1182,7 +1238,7 @@
    "note": "Compound AI hiring platform: five LangGraph agents with semantic retrieval, PII redaction and fallbacks. p95 4.81 ms.",
    "url": "https://github.com/AkilanManivannanak/talentra_copilot",
    "title": "Talentra Copilot",
-   "stack": "LangGraph \u00b7 FastAPI \u00b7 Prometheus",
+   "stack": "LangGraph · FastAPI · Prometheus",
    "created": "2026-03-25",
    "activity": [
     0,
@@ -1251,7 +1307,7 @@
    "note": "AI-native care operations platform: HR workflow automation plus a RAG copilot over Supabase and pgvector.",
    "url": "https://github.com/AkilanManivannanak/phamilyops",
    "title": "PhamilyOps",
-   "stack": "Claude API \u00b7 FastAPI \u00b7 pgvector",
+   "stack": "Claude API · FastAPI · pgvector",
    "created": "2026-05-28",
    "activity": [
     0,
@@ -1336,7 +1392,7 @@
    "note": "AttentiveFlow: agentic lifecycle marketing, from brief to audience, messages, compliance checks, scoring and auto-repair.",
    "url": "https://github.com/AkilanManivannanak/attentive-flow",
    "title": "AttentiveFlow",
-   "stack": "LLM agents \u00b7 Streamlit",
+   "stack": "LLM agents · Streamlit",
    "created": "2026-05-25",
    "activity": [
     0,
@@ -1405,7 +1461,7 @@
    "note": "SafeTruck-AV2: autonomous trucking prototype with BEV perception, uncertainty-aware forecasting and safety guardrails. ADE 18.78 m.",
    "url": "https://github.com/AkilanManivannanak/autonomy-vision",
    "title": "SafeTruck-AV2",
-   "stack": "FastAPI \u00b7 React \u00b7 nuScenes",
+   "stack": "FastAPI · React · nuScenes",
    "created": "2026-06-05",
    "activity": [
     0,
@@ -1474,7 +1530,7 @@
    "note": "Predicts alcohol use from personality and demographic traits on the UCI drug-consumption data with XGBoost and random forests.",
    "url": "https://github.com/AkilanManivannanak/Alcohol_prediction",
    "title": "Alcohol Use Prediction",
-   "stack": "XGBoost \u00b7 scikit-learn",
+   "stack": "XGBoost · scikit-learn",
    "created": "2025-05-22",
    "activity": [
     0,
@@ -1543,7 +1599,7 @@
    "note": "Stock-price forecasting with an LSTM network.",
    "url": "https://github.com/AkilanManivannanak/Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-",
    "title": "Stock LSTM Forecaster",
-   "stack": "LSTM \u00b7 Python",
+   "stack": "LSTM · Python",
    "created": "2025-05-22",
    "activity": [
     0,
@@ -1681,7 +1737,7 @@
    "note": "Android app that connects people with recycling centres and donation drives.",
    "url": "https://github.com/AkilanManivannanak/Android-App-for-Recycling-and-Donation-app",
    "title": "Recycle & Donate",
-   "stack": "Java \u00b7 Android",
+   "stack": "Java · Android",
    "created": "2025-05-22",
    "activity": [
     0,
@@ -1819,7 +1875,7 @@
    "note": "Neural-network classifier that predicts student performance bands.",
    "url": "https://github.com/AkilanManivannanak/Student-Performance-Using-Neural-Network",
    "title": "Student Performance NN",
-   "stack": "TensorFlow \u00b7 Keras",
+   "stack": "TensorFlow · Keras",
    "created": "2025-05-22",
    "activity": [
     0,
@@ -1957,7 +2013,7 @@
    "note": "CNN image classifier trained on CIFAR-10.",
    "url": "https://github.com/AkilanManivannanak/Image-Classification-using-CNN",
    "title": "CIFAR-10 CNN",
-   "stack": "TensorFlow \u00b7 Keras",
+   "stack": "TensorFlow · Keras",
    "created": "2025-05-22",
    "activity": [
     0,
