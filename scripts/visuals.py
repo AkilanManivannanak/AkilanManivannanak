@@ -22,15 +22,28 @@ PAL = {
     "dark": dict(bg="#07090c", panel="#0d1217", line="#1d2a34", text="#f2efe9", sub="#98a1ab",
                  mute="#6f7b86", amber="#e0873a", teal="#3fb8a6", sky="#5aa9e6",
                  crit="#e2574c", violet="#b98bd6", archive="#8b939c",
-                 gold="#d9b44a", green="#7fbf7f", indigo="#8a9cf0"),
+                 gold="#d9b44a", green="#7fbf7f", indigo="#8a9cf0",
+                 x1="#4fc3d9", x2="#e27fb0", x3="#a7c957", x4="#f2a65a", x5="#9d8df1", x6="#5fd3a0"),
     "light": dict(bg="#f5f3ef", panel="#ffffff", line="#d8d3c9", text="#14171c", sub="#5b626b",
                   mute="#7d838b", amber="#b4531a", teal="#1f8878", sky="#2f7cc0",
                   crit="#c0392b", violet="#8a5fb0", archive="#7d838b",
-                  gold="#9a7a12", green="#3d7f45", indigo="#4a5fc0"),
+                  gold="#9a7a12", green="#3d7f45", indigo="#4a5fc0",
+                  x1="#1d8aa0", x2="#b0457a", x3="#5d7f1f", x4="#b8661a", x5="#5c4bc0", x6="#22906a"),
 }
 DOMAIN_KEY = {"av": "amber", "agentic": "teal", "rank": "sky", "health": "crit",
               "signal": "violet", "finance": "gold", "ml": "green", "apps": "indigo",
-              "forks": "archive", "archive": "archive"}
+              "forks": "archive", "archive": "archive",
+              # reserve categories that appear when a repo needs them
+              "robotics": "x1", "genmedia": "x2", "nlp": "x5", "data": "x4", "infra": "x6",
+              "security": "x3", "games": "x2", "edu": "x3"}
+
+
+def domain_color(p, domain):
+    """Palette colour for any category, including ones created at run time."""
+    key = DOMAIN_KEY.get(domain)
+    if key is None:
+        key = "x" + str(1 + sum(map(ord, domain)) % 6)
+    return p[key]
 
 # Flagship cards. Figures are copied from each repo's own evaluation output, the same
 # numbers as the Systems table; `ring` is the fraction the gauge fills to.
@@ -100,7 +113,7 @@ def _write(name, mode, svg):
 
 def project_card(f, mode):
     p = PAL[mode]
-    c = p[DOMAIN_KEY[f["domain"]]]
+    c = domain_color(p, f["domain"])
     W, H = 600, 300
     R = 56
     circ = 2 * 3.14159 * R
@@ -164,7 +177,7 @@ def project_card(f, mode):
 
 def domain_tile(domain, label, repos, total, mode, icon=""):
     p = PAL[mode]
-    c = p[DOMAIN_KEY[domain]]
+    c = domain_color(p, domain)
     W, H = 400, 200
     n = len(repos)
     share = n / total if total else 0
@@ -209,7 +222,7 @@ def domain_tile(domain, label, repos, total, mode, icon=""):
 
 def latest_card(repo, label, domain, blurb, mode, rank):
     p = PAL[mode]
-    c = p[DOMAIN_KEY[domain]]
+    c = domain_color(p, domain)
     W, H = 400, 150
     created = (repo.get("created_at") or "")[:10]
     try:
@@ -435,7 +448,7 @@ def _svg_clear(w, h, label, body):
 
 def section_banner(domain, label, count, mode):
     p = PAL[mode]
-    c = p[DOMAIN_KEY.get(domain, "archive")]
+    c = domain_color(p, domain)
     W, H = 1200, 64
     tw = 13 * len(label) + 40
     body = f'''
@@ -538,6 +551,11 @@ def glyph(domain, c, p, seed=0):
                 f'<line x1="1" y1="11" x2="75" y2="11" stroke="{c}" stroke-opacity=".3"/>'
                 f'<circle cx="8" cy="6" r="2" fill="{p["crit"]}"/><circle cx="15" cy="6" r="2" fill="{p["gold"]}"/>'
                 f'<circle cx="22" cy="6" r="2" fill="{p["teal"]}"/>{lines}')
+    if domain != "forks":   # any other category: dots orbiting a core
+        return (f'<circle cx="38" cy="26" r="20" fill="none" stroke="{c}" stroke-opacity=".3" stroke-dasharray="3 4"/>'
+                f'<circle cx="38" cy="26" r="6" fill="{c}"><animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite"/></circle>'
+                + "".join(f'<circle r="3.5" fill="{c}" opacity="{1 - k * .25:.2f}"><animateMotion dur="{3 + k}s" begin="{k * .4:.1f}s" repeatCount="indefinite" '
+                          f'path="M58 26 A20 20 0 1 1 18 26 A20 20 0 1 1 58 26"/></circle>' for k in range(3)))
     # forks: a branch leaving main
     return (f'<line x1="4" y1="38" x2="72" y2="38" stroke="{c}" stroke-width="2" stroke-opacity=".5"/>'
             f'<path d="M18 38 C30 38 28 14 42 14 L58 14" fill="none" stroke="{c}" stroke-width="2" stroke-dasharray="60" stroke-dashoffset="60">'
@@ -573,7 +591,7 @@ def sparkline(values, c, p, x, y, w, h, delay):
 
 def repo_card(title, slug, domain, desc, stack, stars, updated, is_new, is_fork, mode, idx, activity=None):
     p = PAL[mode]
-    c = p[DOMAIN_KEY.get(domain, "archive")]
+    c = domain_color(p, domain)
     W, H = 400, 212
     delay = (idx % 9) * 0.12
     lines = _wrap(desc, 47)
@@ -695,8 +713,6 @@ def render_all(groups, labels, latest, stats, days, blurb_fn, classify_fn):
     """Writes every card in both themes. Returns the names written, for the README."""
     total = sum(len(v) for v in groups.values())
     for mode in PAL:
-        for f in FLAGSHIPS:
-            _write(f"card-{f['repo']}", mode, project_card(f, mode))
         for d, rs in groups.items():
             if rs:
                 _write(f"domain-{d}", mode, domain_tile(d, labels[d], rs, total, mode))

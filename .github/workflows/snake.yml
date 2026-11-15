@@ -1,7 +1,7 @@
 name: Contribution visuals
 
-# Builds the contribution snake and the 3D contribution chart, then publishes both to
-# the `snake` branch, which the README reads from.
+# Builds the contribution snake and publishes it to the `snake` branch, which the README
+# reads from. The 3D contribution chart is drawn by scripts/showcase.py in the README job.
 on:
   schedule:
     - cron: "15 7,19 * * *"   # twice a day, 2:15 and 14:15 New York time
@@ -29,27 +29,18 @@ jobs:
             dist/github-snake.svg?palette=github-light&color_snake=#b4531a&color_dots=#ebe7df,#cfe8e2,#8fcfc2,#3fb8a6,#1f8878
             dist/github-snake-dark.svg?palette=github-dark&color_snake=#e0873a&color_dots=#11171d,#123a35,#1c5f55,#2c8f80,#3fb8a6
 
-      - name: 3D contribution chart
-        uses: yoshi389111/github-profile-3d-contrib@v0.9.3
-        env:
-          GITHUB_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
-          USERNAME: ${{ github.repository_owner }}
-
-      - name: Collect outputs
-        run: |
-          mkdir -p dist
-          cp profile-3d-contrib/profile-night-green.svg   dist/contrib-3d-dark.svg
-          cp profile-3d-contrib/profile-green-animate.svg dist/contrib-3d-light.svg
-          cp profile-3d-contrib/profile-night-rainbow.svg dist/contrib-3d-rainbow.svg
-          ls -la dist
-
       # Plain git instead of a publishing action: one fresh commit, force-pushed, with
       # retries, so a transient network error or a concurrent push cannot fail the run.
       - name: Publish to the snake branch
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd dist
+          # Work on a copy: files written by the snake action may not be owned by the runner user.
+          out="$RUNNER_TEMP/snake-out"
+          rm -rf "$out" && mkdir -p "$out"
+          cp dist/*.svg "$out"/
+          cd "$out"
+          ls -la
           git init -q -b snake
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

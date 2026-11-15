@@ -15,10 +15,13 @@ on:
       - "scripts/update_readme.py"
       - "scripts/visuals.py"
       - "scripts/portfolio.py"
+      - "scripts/showcase.py"
+      - "scripts/ai_classify.py"
       - ".github/workflows/readme.yml"
 
 permissions:
   contents: write
+  models: read      # GitHub Models, used to read and categorise brand-new repositories
 
 concurrency:
   group: readme
@@ -40,6 +43,8 @@ jobs:
           # Falls back to the default token, which cannot read the calendar.
           GITHUB_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
           GH_USER: AkilanManivannanak
+          # The workflow token can call GitHub Models; a personal token usually cannot.
+          MODELS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/update_readme.py
 
       - name: Commit README if it changed

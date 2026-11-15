@@ -163,3 +163,34 @@ can open it pre-filtered: `repos.html#cat=finance`, `#q=pytorch`, `#repo=opendri
 `.github/workflows/pages.yml` deploys `docs/` to GitHub Pages on every change and after each
 README rebuild. Pages must be set to "GitHub Actions" as its source (Settings, Pages), which
 the push script does for you with `gh api`.
+
+## How a new repository gets its category
+
+`update_readme.py` runs every six hours and handles any repo that is not hand-checked in
+`CURATED` (`scripts/portfolio.py`), in this order:
+
+1. **GitHub Models reads it.** `scripts/ai_classify.py` sends the repo's name, description,
+   topics and README to `openai/gpt-4.1-mini` through GitHub Models, using the workflow's own
+   token (the `models: read` permission in `readme.yml`). It picks one of the existing
+   categories, or says the repo belongs to a new field and names it, and writes a display
+   title, a one-sentence description using only facts from the README, and the stack. The
+   answer is cached in `docs/data/auto_meta.json` and refreshed only when the README or
+   description changes.
+2. **Keyword rules**, if the model is unavailable: topics count 3x, the name 2x, the
+   description 2x, the README 1x.
+3. **Hidden categories** wake up when a repo needs them: Robotics, Generative media, Language
+   AI, Data engineering, MLOps and cloud, Security, Games and simulation, Coursework.
+4. **Brand-new categories.** If the model names a new field, or nothing matches and the repo
+   has GitHub topics, a new category is created from that name, given its own colour, and
+   kept in `docs/data/categories.json` so later repos on the same topic join it. The README
+   cards, explorer page and 3D deck all pick it up automatically.
+
+To force a category for a repo, add it to `CURATED`. To make sure a new repo is understood,
+give it a clear README first paragraph and a couple of GitHub topics.
+
+## Flagship cards and the contribution city
+
+`scripts/showcase.py` draws the six flagship cards, each as a different picture of how the
+system works (camera rig, monitor wall, trajectories, agent pipeline, ranking funnel, noisy
+waveform), and the 3D contribution city from the same calendar data as the rest of the page.
+No third-party action is involved, so the chart cannot go blank when an outside service fails.

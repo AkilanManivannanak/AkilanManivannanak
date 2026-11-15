@@ -30,6 +30,118 @@ DOMAIN_ORDER = [d for d, _, _ in DOMAINS]
 LABELS = {d: l for d, l, _ in DOMAINS}
 ICONS = {d: i for d, _, i in DOMAINS}
 
+# What each category covers, given to the model so its choice matches how this page groups work.
+SCOPES = {
+    "av": "self-driving, BEV perception, motion planning, ADAS, traffic, vehicles",
+    "agentic": "LLM agents, RAG, copilots, prompt pipelines, generative-AI applications",
+    "rank": "search, recommendation, retrieval, ranking, embeddings, vector search",
+    "health": "medical, clinical, biomedical or health-risk models",
+    "signal": "speech, audio, image classification, gesture, sign language, general computer vision",
+    "finance": "markets, trading, forecasting prices, payments, banking, financial systems",
+    "ml": "classic ML or small neural-network coursework that fits no applied field above",
+    "apps": "software products, web or mobile apps, management systems, portfolios",
+    "forks": "repositories forked from someone else",
+}
+
+# Categories that exist but stay hidden until a repository needs them. A new repo about
+# robots, say, creates the Robotics group automatically the first time it appears.
+RESERVE = [
+    ("robotics", "Robotics & embodied AI", "🦾", "robot arms, manipulation, drones, ROS, embodied agents, SLAM for robots",
+     ["robot", "robotics", "ros", "ros2", "manipulat", "gripper", "drone", "uav", "quadruped", "humanoid",
+      "embodied", "isaac", "mujoco", "kinematics"]),
+    ("genmedia", "Generative media & video", "🎬", "image, video, audio or 3D generation, diffusion, gaussian splats, NeRF",
+     ["diffusion", "stable-diffusion", "comfyui", "video", "text-to-video", "text-to-image", "gan", "nerf",
+      "splat", "gaussian-splatting", "sora", "runway", "animation", "3d-generation"]),
+    ("nlp", "Language & text AI", "📝", "NLP that is not an agent: classification, NER, summarisation, translation, fine-tuning",
+     ["nlp", "bert", "transformer", "tokeniz", "sentiment", "ner", "summariz", "translation", "text-classification",
+      "fine-tun", "lora", "llama", "huggingface"]),
+    ("data", "Data engineering & analytics", "🗄️", "pipelines, ETL, warehouses, dashboards, analytics, SQL",
+     ["etl", "pipeline", "airflow", "dbt", "spark", "kafka", "warehouse", "snowflake", "bigquery", "dashboard",
+      "analytics", "tableau", "powerbi", "sql", "duckdb", "databricks"]),
+    ("infra", "MLOps, cloud & infrastructure", "☁️", "deployment, serving, Kubernetes, CI/CD, cloud, observability",
+     ["mlops", "kubernetes", "k8s", "terraform", "docker", "helm", "aws", "gcp", "azure", "serverless",
+      "ci-cd", "observability", "monitoring", "triton", "kserve", "inference-server"]),
+    ("security", "Security & privacy", "🛡️", "security tooling, privacy, cryptography, anomaly or intrusion detection",
+     ["security", "cyber", "malware", "intrusion", "phishing", "encryption", "cryptograph", "privacy",
+      "vulnerab", "pentest", "anomaly"]),
+    ("games", "Games & simulation", "🎮", "games, game AI, reinforcement-learning environments, simulators",
+     ["game", "games", "unity", "unreal", "godot", "gym", "reinforcement", "rl", "simulation", "simulator"]),
+    ("edu", "Learning & coursework notes", "📚", "course notes, tutorials, study material, competitive programming",
+     ["course", "coursework", "tutorial", "notes", "leetcode", "assignment", "homework", "lecture", "study"]),
+]
+for _k, _l, _i, _s, _w in RESERVE:
+    SCOPES[_k] = _s
+
+# Categories created on the fly for fields nobody predicted; persisted between runs.
+DYNAMIC = {}
+EXTRA_ICON = "✨"
+
+
+def _activate(key, label, icon):
+    """Make a category visible: it is placed before the forks group."""
+    if key in LABELS:
+        return key
+    LABELS[key] = label
+    ICONS[key] = icon
+    DOMAIN_ORDER.insert(DOMAIN_ORDER.index("forks"), key)
+    return key
+
+
+def activate_reserve(key):
+    for k, l, i, _s, _w in RESERVE:
+        if k == key:
+            return _activate(k, l, i)
+    return key
+
+
+def _slug(text):
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")[:32]
+
+
+def register_new(label):
+    """A brand-new field. Reuses a reserve or existing category if the label is a near match."""
+    norm = _slug(label)
+    for k, l, i, _s, words in RESERVE:
+        if norm == k or norm in _slug(l) or _slug(l).startswith(norm):
+            return activate_reserve(k)
+    for k, l in list(LABELS.items()):
+        if norm == _slug(l) or norm == k:
+            return k
+    key = "x-" + norm
+    DYNAMIC[key] = {"label": label, "icon": EXTRA_ICON}
+    SCOPES[key] = label
+    return _activate(key, label, EXTRA_ICON)
+
+
+def load_registry(path):
+    try:
+        import json
+        data = json.loads(path.read_text())
+    except Exception:
+        return
+    for key, meta in (data.get("dynamic") or {}).items():
+        DYNAMIC[key] = meta
+        SCOPES[key] = meta.get("label", key)
+        _activate(key, meta.get("label", key), meta.get("icon", EXTRA_ICON))
+
+
+def save_registry(path, used):
+    import json
+    path.write_text(json.dumps({"dynamic": {k: v for k, v in DYNAMIC.items() if k in used}}, indent=1) + "\n")
+
+
+def category_menu():
+    """(key, label, scope) for every category the model may choose from."""
+    menu = [(k, LABELS[k], SCOPES.get(k, "")) for k in DOMAIN_ORDER if k != "forks"]
+    shown = {k for k, _, _ in menu}
+    menu += [(k, l, s) for k, l, _i, s, _w in RESERVE if k not in shown]
+    menu += [(k, v["label"], v["label"]) for k, v in DYNAMIC.items() if k not in shown]
+    return menu
+
+
+# Model answers for repos not in CURATED, filled in by update_readme.py (see ai_classify.py).
+AUTO = {}
+
 # Never shown in the catalog. Empty repos are hidden automatically as well (see hidden()).
 HIDE = {"Initialize-this-repository"}
 
@@ -182,6 +294,8 @@ def title(repo):
     name = repo["name"]
     if name in TITLES:
         return TITLES[name]
+    if (AUTO.get(name) or {}).get("title"):
+        return AUTO[name]["title"]
     t = humanise(name)
     return t if len(t) <= 26 else t[:25].rstrip() + "…"
 
@@ -203,10 +317,10 @@ RULES = {
     "signal": ["speech", "audio", "kws", "keyword", "asl", "sign", "image", "images", "cnn", "vision",
                "webcam", "ocr", "gesture", "detection", "segmentation", "opencv", "yolo", "voice",
                "spectrogram", "cifar"],
-    "finance": ["stock", "stocks", "finance", "financial", "fintech", "trading", "trade", "quant",
-                "market", "markets", "portfolio-optimization", "payment", "payments", "settlement",
-                "bank", "banking", "credit", "fraud", "crypto", "forex", "risk", "aapl", "ticker",
-                "options", "hedge"],
+    "finance": ["stock", "stocks", "finance", "financial", "fintech", "trading", "trade$", "trades$", "quant$",
+                "quants$", "market$", "markets$", "portfolio-optimization", "payment", "payments", "settlement",
+                "bank", "banking", "credit-card", "credit-risk", "fraud", "crypto$", "cryptocurrency", "forex",
+                "aapl", "ticker", "options$", "hedge", "equity", "equities", "ledger"],
     "ml": ["regression", "classifier", "bayesian", "neural", "xgboost", "random-forest", "svm",
            "kmeans", "clustering", "sklearn", "scikit"],
     "apps": ["management", "system", "app", "android", "ios", "website", "portfolio", "frontend",
@@ -233,7 +347,9 @@ def tokens(text):
 def _score(toks, words):
     hits = 0
     for w in words:
-        if "-" in w:  # phrase: match on the joined text
+        if w.endswith("$"):  # exact word only: "quant$" must not match "quantum"
+            hits += toks.count(w[:-1])
+        elif "-" in w:  # phrase: match on the joined text
             hits += " ".join(toks).count(w.replace("-", " "))
         elif len(w) <= 4:
             hits += toks.count(w)
@@ -249,28 +365,59 @@ def hidden(repo, user):
     return (repo.get("size") or 0) == 0 and repo["name"] not in CURATED
 
 
+GENERIC_TOPICS = {"python", "machine-learning", "deep-learning", "ai", "artificial-intelligence", "ml",
+                  "data-science", "pytorch", "tensorflow", "jupyter-notebook", "javascript", "typescript",
+                  "project", "portfolio-project", "hacktoberfest", "opensource", "open-source", "github"}
+
+
+def _rule_scores(repo, readme):
+    parts = [
+        (tokens(" ".join(repo.get("topics") or [])), 3, None),
+        (tokens(repo["name"]), 2, None),
+        (tokens(repo.get("description") or ""), 2, None),
+        (tokens(readme[:6000]), 1, 6),
+    ]
+    rules = dict(RULES)
+    rules.update({k: w for k, _l, _i, _s, w in RESERVE})
+    scores = {}
+    for domain, words in rules.items():
+        sc = 0
+        for toks, weight, cap in parts:
+            if cap and domain not in RULES:
+                cap = 4  # passing mentions in a README count for less toward a hidden category
+            s = _score(toks, words)
+            sc += weight * (min(s, cap) if cap else s)
+        scores[domain] = sc
+    return scores
+
+
 def classify(repo, readme=""):
+    """Category key for a repo. Order: curated, fork, model answer, keyword rules, a new
+    category from the repo's own topics, then a language-based fallback."""
     name = repo["name"]
     if name in CURATED:
         return CURATED[name][0]
     if repo.get("fork"):
         return "forks"
-    parts = [
-        (tokens(" ".join(repo.get("topics") or [])), 3, None),
-        (tokens(name), 2, None),
-        (tokens(repo.get("description") or ""), 2, None),
-        (tokens(readme[:6000]), 1, 6),
-    ]
-    best, best_score = "ml", 0
-    for domain, words in RULES.items():
-        sc = 0
-        for toks, weight, cap in parts:
-            s = _score(toks, words)
-            sc += weight * (min(s, cap) if cap else s)
-        if sc > best_score:
-            best, best_score = domain, sc
-    if best_score >= MIN_SCORE:
-        return best
+    ai = AUTO.get(name)
+    if ai:
+        if ai["category"] == "new":
+            return register_new(ai["new_category"])
+        return activate_reserve(ai["category"])
+    scores = _rule_scores(repo, readme)
+    core = max(RULES, key=lambda k: scores[k])
+    extra = max((k for k, *_ in RESERVE), key=lambda k: scores[k])
+    # a hidden category has to clearly beat the main ones, so a perception repo whose
+    # README mentions Docker stays a perception repo
+    best = extra if scores[extra] >= max(MIN_SCORE + 1, 1.5 * scores[core]) else core
+    if scores[best] >= MIN_SCORE:
+        return activate_reserve(best)
+    topics = [t for t in (repo.get("topics") or []) if t not in GENERIC_TOPICS]
+    if topics:
+        label = " ".join(w.capitalize() for w in topics[0].replace("_", "-").split("-"))
+        return register_new(label)
+    if scores[best] >= 1:
+        return activate_reserve(best)
     return "apps" if (repo.get("language") or "") in ("JavaScript", "TypeScript", "Vue", "HTML", "Java", "Kotlin", "Swift") else "ml"
 
 
@@ -345,6 +492,9 @@ def describe(repo, readme=""):
     name = repo["name"]
     if name in CURATED:
         return CURATED[name][1], CURATED[name][2]
+    ai = AUTO.get(name) or {}
+    if ai.get("description"):
+        return ai["description"], ai.get("stack") or stack_from_readme(readme, repo.get("language"))
     desc = (repo.get("description") or "").strip() or description_from_readme(readme, name)
     if not desc:
         desc = f"{humanise(name)}."

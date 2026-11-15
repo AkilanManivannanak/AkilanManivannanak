@@ -153,7 +153,10 @@ var DOMAINS=[
  ["rank","Search, retrieval & ranking","--sky"],["health","Healthcare & biomedical AI","--crit"],
  ["signal","Speech & computer vision","--violet"],["finance","Finance & forecasting","--gold"],
  ["ml","Classical machine learning","--green"],["apps","Software & web apps","--indigo"],["forks","Open-source forks","--gray"]];
-var DMAP={};DOMAINS.forEach(function(d){DMAP[d[0]]={label:d[1],v:d[2]};});
+var DMAP={};
+function addDomain(key,label,col){if(!DMAP[key]){DMAP[key]={label:label,col:col};DOMAINS.push([key,label,col]);}}
+DOMAINS.forEach(function(d){d[2]="var("+d[2]+")";DMAP[d[0]]={label:d[1],col:d[2]};});
+function paint(col){return col.indexOf("var(")===0?css(col.slice(4,-1)):col;}
 var state={q:"",cats:new Set(),sort:"active",view:"grid",data:[],generated:null};
 var $=function(s){return document.querySelector(s);};
 var grid=$("#grid"),chipsEl=$("#chips"),statusEl=$("#status");
@@ -207,7 +210,7 @@ function weekLabel(i,n){
 function card(r,i){
   var dm=DMAP[r.domain]||DMAP.forks,acts=r.activity||[],total=sum(acts);
   var isNew=ago(r.created)<=30,el=document.createElement("article");
-  el.className="card";el.tabIndex=0;el.style.setProperty("--c","var("+dm.v+")");el.style.animationDelay=Math.min(i*35,600)+"ms";
+  el.className="card";el.tabIndex=0;el.style.setProperty("--c",dm.col);el.style.animationDelay=Math.min(i*35,600)+"ms";
   el.dataset.name=r.name;el.setAttribute("aria-label",(r.title||r.name)+". Press Enter to flip.");
   var stack=(r.stack||"").split("·").map(function(s){return s.trim();}).filter(Boolean).slice(0,4);
   el.innerHTML=
@@ -300,7 +303,7 @@ function render(){
 function buildChips(){
   var counts={};state.data.forEach(function(r){counts[r.domain]=(counts[r.domain]||0)+1;});
   var html='<button class="chip" data-cat="all" style="--c:var(--text)"><i></i>All<em>'+state.data.length+'</em></button>';
-  DOMAINS.forEach(function(d){if(counts[d[0]])html+='<button class="chip" data-cat="'+d[0]+'" style="--c:var('+d[2]+')"><i></i>'+esc(d[1])+'<em>'+counts[d[0]]+'</em></button>';});
+  DOMAINS.forEach(function(d){if(counts[d[0]])html+='<button class="chip" data-cat="'+d[0]+'" style="--c:'+d[2]+'"><i></i>'+esc(d[1])+'<em>'+counts[d[0]]+'</em></button>';});
   chipsEl.innerHTML=html;
   chipsEl.addEventListener("click",function(e){
     var c=e.target.closest(".chip");if(!c)return;
@@ -345,7 +348,7 @@ var galaxy=(function(){
     ctx.clearRect(0,0,W,H);
     var ng=nodes.ngroups||1;
     (nodes.keys||[]).forEach(function(k,gi){
-      var a=gi/ng*Math.PI*2-Math.PI/2+t*.0005,gx=cx+Math.cos(a)*RX*(ng>1?1:0),gy=cy+Math.sin(a)*RY*(ng>1?1:0),col=css(DMAP[k].v);
+      var a=gi/ng*Math.PI*2-Math.PI/2+t*.0005,gx=cx+Math.cos(a)*RX*(ng>1?1:0),gy=cy+Math.sin(a)*RY*(ng>1?1:0),col=paint(DMAP[k].col);
       var cnt=nodes.filter(function(n){return n.k===k;}).length,reach=(20+(cnt-1)*13)*sc;
       ctx.strokeStyle=col;ctx.globalAlpha=.12;ctx.lineWidth=dpr;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(gx,gy);ctx.stroke();
       ctx.globalAlpha=1;ctx.fillStyle=col;ctx.font=(12*dpr)+"px "+css("--mono");ctx.textAlign="center";
@@ -356,7 +359,7 @@ var galaxy=(function(){
     });
     ctx.globalAlpha=.25;ctx.fillStyle=css("--text");ctx.beginPath();ctx.arc(cx,cy,4*dpr,0,7);ctx.fill();ctx.globalAlpha=1;
     nodes.forEach(function(n){
-      var col=css(DMAP[n.k].v),s=n.size*dpr*(n===hover?1.5:1);
+      var col=paint(DMAP[n.k].col),s=n.size*dpr*(n===hover?1.5:1);
       var g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,s*2.6);g.addColorStop(0,col);g.addColorStop(1,"transparent");
       ctx.globalAlpha=n===hover?.5:.22;ctx.fillStyle=g;ctx.beginPath();ctx.arc(n.x,n.y,s*2.6,0,7);ctx.fill();
       ctx.globalAlpha=1;ctx.fillStyle=col;ctx.beginPath();ctx.arc(n.x,n.y,s*.55,0,7);ctx.fill();
@@ -412,6 +415,8 @@ try{var saved=localStorage.getItem("explorer-theme");if(saved)document.documentE
 
 fetch("data/repos.json",{cache:"no-store"}).then(function(r){return r.json();}).then(function(d){
   state.generated=d.generated;
+  var light=matchMedia("(prefers-color-scheme: light)").matches;
+  (d.domains||[]).forEach(function(x){addDomain(x.key,x.label,light?x.light:x.dark);});
   state.data=(d.repos||[]).map(function(r){r.stars=r.stars||0;r.activity=r.activity||[];return r;});
   buildChips();var open=readHash();countUp();render();
   $("#foot").innerHTML="Data rebuilt "+esc(new Date(d.generated).toLocaleString("en-US",{dateStyle:"medium",timeStyle:"short"}))+

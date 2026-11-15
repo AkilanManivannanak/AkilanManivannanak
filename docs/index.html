@@ -848,6 +848,13 @@
   buildContrib(sampleContrib());
   markSource();
   loadJSON("data/repos.json").then(function (d) {
+    // categories created at run time get a slot on the outer ring
+    (d.domains || []).forEach(function (x, i) {
+      if (DOMAINS[x.key]) return;
+      var n = Object.keys(DOMAINS).length, ang = n * 0.9;
+      DOMAINS[x.key] = { label: x.label, color: parseInt(x.dark.slice(1), 16),
+                         at: [Math.cos(ang) * 78, -30 + (n % 3) * 30, Math.sin(ang) * 78], lane: n % 9 };
+    });
     live.repos = true; buildGraph(d.repos); markSource();
     if (mode === "graph") paintHUD();
     if (PARAMS.get("repo")) focusRepo(PARAMS.get("repo"));

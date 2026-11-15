@@ -23,6 +23,8 @@ import html
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import visuals  # noqa: E402
+import showcase  # noqa: E402
+import ai_classify  # noqa: E402
 import portfolio  # noqa: E402
 
 USER = os.environ.get("GH_USER", "AkilanManivannanak")
@@ -284,6 +286,44 @@ def save_activity(repos):
     ACTIVITY_FILE.write_text(json.dumps({k: v for k, v in cache.items() if k in keep}, indent=0) + "\n")
 
 
+CATEGORIES_FILE = ROOT / "docs" / "data" / "categories.json"
+AUTO_FILE = ROOT / "docs" / "data" / "auto_meta.json"
+MODELS_TOKEN = os.environ.get("MODELS_TOKEN", "")
+RETRY_HOURS = 24
+
+
+def understand_new_repos(repos):
+    """Ask GitHub Models what each non-curated repo is, once per README version.
+    Answers are cached; failures are retried after a day instead of on every run."""
+    try:
+        cache = json.loads(AUTO_FILE.read_text())
+    except Exception:
+        cache = {}
+    now = datetime.now(timezone.utc)
+    keep = {}
+    for r in repos:
+        name = r["name"]
+        if r.get("fork") or name in portfolio.CURATED or portfolio.hidden(r, USER):
+            continue
+        readme = readme_of(r)
+        sig = ai_classify.signature(r, readme)
+        entry = cache.get(name) or {}
+        fresh = entry.get("sig") == sig
+        retry_ok = True
+        if fresh and entry.get("answer") is None and entry.get("asked"):
+            asked = datetime.fromisoformat(entry["asked"])
+            retry_ok = (now - asked).total_seconds() > RETRY_HOURS * 3600
+        if not fresh or (entry.get("answer") is None and retry_ok):
+            answer = ai_classify.ask(r, readme, portfolio.category_menu(), MODELS_TOKEN)
+            entry = {"sig": sig, "answer": answer, "asked": now.isoformat(timespec="seconds")}
+            print(f"  read {name}: {answer['category'] + (' / ' + answer['new_category'] if answer and answer['new_category'] else '') if answer else 'no model answer, using rules'}")
+        keep[name] = entry
+        if entry.get("answer"):
+            portfolio.AUTO[name] = entry["answer"]
+    AUTO_FILE.parent.mkdir(parents=True, exist_ok=True)
+    AUTO_FILE.write_text(json.dumps(keep, indent=1, ensure_ascii=False) + "\n")
+
+
 def visible(repos):
     return [r for r in repos if not portfolio.hidden(r, USER)]
 
@@ -425,9 +465,14 @@ def write_deck_data(repos, contrib):
             "activity": activity_of(r),
         })
     nodes.sort(key=lambda n: -n["size"])
+    used = {n["domain"] for n in nodes}
+    domains = [{"key": k, "label": CATALOG_LABELS[k],
+                "dark": visuals.domain_color(visuals.PAL["dark"], k),
+                "light": visuals.domain_color(visuals.PAL["light"], k)}
+               for k in DOMAIN_ORDER if k in used]
     (data_dir / "repos.json").write_text(json.dumps(
         {"generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-         "count": len(nodes), "repos": nodes}, indent=1) + "\n")
+         "count": len(nodes), "domains": domains, "repos": nodes}, indent=1, ensure_ascii=False) + "\n")
 
     windows = contribution_windows()
     if windows:
@@ -502,11 +547,16 @@ def block_latest_visual(repos):
 
 def block_flagships():
     out = ["<p align=\"center\">"]
-    for f in visuals.FLAGSHIPS:
-        out.append(pic(f"card-{f['repo']}", f"{f['title']}: {f['metric']} {f['unit']}",
-                       f"https://github.com/{USER}/{f['repo']}", "49%"))
+    for key, title, _ in showcase.FLAGSHIP_CARDS:
+        out.append(pic(f"flag-{key}", f"{title}: flagship system", f"https://github.com/{USER}/{key}", "49%"))
     out.append("</p>")
     return "\n".join(out)
+
+
+def block_city():
+    return ("<p align=\"center\">\n"
+            + pic("contrib-city", "A year of contributions as a 3D city of columns, with an activity radar and language mix",
+                  f"https://github.com/{USER}", "100%") + "\n</p>")
 
 
 def block_domains(groups):
@@ -574,6 +624,32 @@ def render_visuals(repos, contrib, stars, total, prs):
     ]
     visuals.render_all(groups, CATALOG_LABELS, latest_repos(repos), stats, days,
                        plain_blurb, classify)
+
+    # 3D contribution city: drawn here from the same calendar, no third-party action
+    try:
+        cj = json.loads((ROOT / "docs" / "data" / "contributions.json").read_text())
+    except Exception:
+        cj = {}
+    weights = {}
+    for r in visible(repos):
+        if r.get("fork"):
+            continue
+        lang = r.get("language") or "Other"
+        weights[lang] = weights.get(lang, 0) + max(1, sum(activity_of(r)))
+    total_w = sum(weights.values()) or 1
+    ranked = sorted(((k, w) for k, w in weights.items() if k != "Other"), key=lambda kv: -kv[1])
+    main = [(k, w) for k, w in ranked[:5] if w / total_w >= 0.01]
+    rest = total_w - sum(w for _, w in main)
+    langs = main + ([("Other", rest)] if rest > 0 else [])
+    busiest = cj.get("busiest") or {}
+    city_stats = dict(
+        total=contribs, commits=cj.get("commits", 0), prs=cj.get("prs", prs["total"]),
+        issues=cj.get("issues", 0), reviews=cj.get("reviews", 0),
+        repos=len(visible(repos)), stars=stars, streak=cj.get("longestStreak", 0),
+        busiest=f'{busiest.get("d", "")} · {busiest.get("c", 0)}' if busiest else "")
+    for f in visuals.LIVE.glob("card-*.svg"):
+        f.unlink()  # the old gauge cards, replaced by showcase.py
+    showcase.render(days, langs, city_stats)
     return groups
 
 
@@ -588,6 +664,8 @@ def splice(text, marker, body):
 def main():
     user = get(f"{API}/users/{USER}")
     repos = all_repos()
+    portfolio.load_registry(CATEGORIES_FILE)
+    understand_new_repos(repos)
     contrib = contributions_last_year()
     prs = pull_requests()
     stars, total = write_endpoints(user, repos, contrib, prs)
@@ -606,7 +684,9 @@ def main():
     text = splice(text, "DRIVE", block_drive())
     text = splice(text, "MINDMAP", block_mindmap(groups))
     text = splice(text, "CATALOG", block_catalog(repos))
+    text = splice(text, "CITY", block_city())
     save_activity(visible(repos))
+    portfolio.save_registry(CATEGORIES_FILE, {classify(r) for r in visible(repos)})
     readme_path.write_text(text)
 
     print(f"Updated README for {USER}: {len(repos)} repos, {stars} stars, "
