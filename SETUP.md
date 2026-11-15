@@ -146,6 +146,18 @@ banner per category (`assets/live/section-*.svg`). Cards are rebuilt on every ru
 for deleted repos are removed. A card's title comes from `TITLES` in `scripts/portfolio.py`,
 or from the repo name for a new repo.
 
+Each card also carries a looping animation for its category and a line of the repo's weekly
+commits over the last 12 months, read from GitHub's `stats/commit_activity` endpoint and
+cached in `docs/data/activity.json` so a slow API answer never blanks a card.
+
+## Repository explorer
+
+`docs/repos.html` is the interactive version of the catalog, deployed with the deck on
+GitHub Pages: search, domain filters, sort, flip cards with an hoverable weekly chart, and a
+Galaxy view. It reads `docs/data/repos.json`, so it updates with every README rebuild. Links
+can open it pre-filtered: `repos.html#cat=finance`, `#q=pytorch`, `#repo=opendrivefm`,
+`#view=galaxy`. Each category banner in the README links to its filtered view.
+
 ## Perception deck hosting
 
 `.github/workflows/pages.yml` deploys `docs/` to GitHub Pages on every change and after each

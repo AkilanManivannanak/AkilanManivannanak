@@ -457,10 +457,125 @@ def section_banner(domain, label, count, mode):
     return _svg_clear(W, H, f"{label}: {count} repositories", body)
 
 
-def repo_card(title, slug, domain, desc, stack, stars, updated, is_new, is_fork, mode, idx):
+def glyph(domain, c, p, seed=0):
+    """A small looping animation that says what kind of project a card is. 76 x 52 box."""
+    if domain == "av":   # bird's-eye view: range rings, radar sweep, tracked boxes
+        boxes = "".join(
+            f'<rect x="{x}" y="{y}" width="9" height="6" rx="1.5" fill="{c}" opacity=".25">'
+            f'<animate attributeName="opacity" values=".25;1;.25" dur="2.4s" begin="{i * .6:.1f}s" repeatCount="indefinite"/></rect>'
+            for i, (x, y) in enumerate([(46, 10), (14, 30), (52, 34), (20, 8)]))
+        return (f'<circle cx="38" cy="26" r="24" fill="none" stroke="{c}" stroke-opacity=".25"/>'
+                f'<circle cx="38" cy="26" r="13" fill="none" stroke="{c}" stroke-opacity=".25"/>'
+                f'<path d="M38 26 L62 26 A24 24 0 0 0 55 9 Z" fill="{c}" opacity=".35">'
+                f'<animateTransform attributeName="transform" type="rotate" from="0 38 26" to="360 38 26" dur="3s" repeatCount="indefinite"/></path>'
+                f'{boxes}<circle cx="38" cy="26" r="3.5" fill="{p["text"]}"/>')
+    if domain == "agentic":   # agents passing a message around
+        pts = [(10, 26), (38, 6), (66, 26), (38, 46)]
+        pairs = [(0, 1), (1, 2), (2, 3), (3, 0), (0, 2)]
+        edges = "".join(f'<line x1="{pts[a][0]}" y1="{pts[a][1]}" x2="{pts[b][0]}" y2="{pts[b][1]}" stroke="{c}" stroke-opacity=".3"/>'
+                        for a, b in pairs)
+        nodes = "".join(f'<circle cx="{x}" cy="{y}" r="5" fill="{p["panel"]}" stroke="{c}" stroke-width="2">'
+                        f'<animate attributeName="fill" values="{p["panel"]};{c};{p["panel"]}" dur="3.2s" begin="{i * .8:.1f}s" repeatCount="indefinite"/></circle>'
+                        for i, (x, y) in enumerate(pts))
+        return (edges + nodes + f'<circle r="2.6" fill="{p["text"]}">'
+                f'<animateMotion dur="3.2s" repeatCount="indefinite" path="M10 26 L38 6 L66 26 L38 46 Z"/></circle>')
+    if domain == "rank":   # results being re-ranked
+        ws = [60, 44, 52, 30, 38]
+        out = []
+        for i in range(5):
+            vals = ";".join(str(ws[(i + k) % 5]) for k in range(6))
+            out.append(f'<rect x="8" y="{4 + i * 9.5:.1f}" height="6" rx="3" width="{ws[i]}" fill="{c}" opacity="{1 - i * .16:.2f}">'
+                       f'<animate attributeName="width" values="{vals}" dur="6s" repeatCount="indefinite"/></rect>')
+        return "".join(out)
+    if domain == "health":   # ECG trace drawing itself
+        path = "M2 30 L18 30 L23 30 L27 14 L31 42 L35 22 L38 30 L52 30 L55 26 L58 30 L74 30"
+        return (f'<path d="{path}" fill="none" stroke="{c}" stroke-opacity=".2" stroke-width="2"/>'
+                f'<path d="{path}" fill="none" stroke="{c}" stroke-width="2.2" stroke-linejoin="round" stroke-dasharray="110" stroke-dashoffset="110">'
+                f'<animate attributeName="stroke-dashoffset" values="110;0;0;-110" keyTimes="0;.55;.7;1" dur="2.2s" repeatCount="indefinite"/></path>'
+                f'<circle cx="66" cy="10" r="4" fill="{c}"><animate attributeName="r" values="3;5;3" dur="1.1s" repeatCount="indefinite"/></circle>')
+    if domain == "signal":   # audio spectrum
+        hs = [10, 22, 34, 18, 40, 26, 44, 20, 30, 16, 8]
+        out = []
+        for i, h in enumerate(hs):
+            lo = max(4, h // 3)
+            dur = f"{0.7 + (i % 4) * .15:.2f}s"
+            out.append(f'<rect x="{4 + i * 6.6:.1f}" y="{26 - h / 2:.1f}" width="3.6" height="{h}" rx="1.8" fill="{c}">'
+                       f'<animate attributeName="height" values="{h};{lo};{h}" dur="{dur}" repeatCount="indefinite"/>'
+                       f'<animate attributeName="y" values="{26 - h / 2:.1f};{26 - lo / 2:.1f};{26 - h / 2:.1f}" dur="{dur}" repeatCount="indefinite"/></rect>')
+        return "".join(out)
+    if domain == "finance":   # candles with a price line drawing over them
+        spec = [(6, 30, 12, 1), (16, 24, 14, 0), (26, 28, 10, 1), (36, 18, 16, 1), (46, 22, 10, 0), (56, 12, 18, 1)]
+        out = []
+        for i, (x, y, h, up) in enumerate(spec):
+            col = p["teal"] if up else p["crit"]
+            pulse = f'<animate attributeName="height" values="{h};{h + 6};{h}" dur="1.4s" repeatCount="indefinite"/>' if i == 5 else ""
+            out.append(f'<line x1="{x + 3}" y1="{y - 4}" x2="{x + 3}" y2="{y + h + 4}" stroke="{col}" stroke-opacity=".6"/>'
+                       f'<rect x="{x}" y="{y}" width="6" height="{h}" rx="1" fill="{col}">{pulse}</rect>')
+        out.append(f'<path d="M2 40 L12 34 L22 38 L32 26 L42 30 L52 18 L72 10" fill="none" stroke="{c}" stroke-width="2" '
+                   f'stroke-dasharray="90" stroke-dashoffset="90"><animate attributeName="stroke-dashoffset" values="90;0;0" '
+                   f'keyTimes="0;.6;1" dur="3s" repeatCount="indefinite"/></path>')
+        return "".join(out)
+    if domain == "ml":   # a small network firing layer by layer
+        layers = [[10, 26, 42], [8, 20, 32, 44], [18, 34]]
+        xs = [8, 38, 68]
+        out = []
+        for li in range(2):
+            for y1 in layers[li]:
+                for y2 in layers[li + 1]:
+                    out.append(f'<line x1="{xs[li]}" y1="{y1}" x2="{xs[li + 1]}" y2="{y2}" stroke="{c}" stroke-opacity=".18"/>')
+        for li, ys in enumerate(layers):
+            for y in ys:
+                out.append(f'<circle cx="{xs[li]}" cy="{y}" r="4" fill="{p["panel"]}" stroke="{c}" stroke-width="1.6">'
+                           f'<animate attributeName="fill" values="{p["panel"]};{c};{p["panel"]};{p["panel"]}" keyTimes="0;.15;.35;1" '
+                           f'dur="2.4s" begin="{li * .45:.2f}s" repeatCount="indefinite"/></circle>')
+        return "".join(out)
+    if domain == "apps":   # a window with code being typed
+        lines = "".join(
+            f'<rect x="{8 + (4 if i % 2 else 0)}" y="{18 + i * 8}" height="3.5" rx="1.75" width="0" fill="{c}" opacity="{.9 - i * .15:.2f}">'
+            f'<animate attributeName="width" values="0;{w};{w};0" keyTimes="0;.3;.9;1" dur="4s" begin="{i * .5:.1f}s" repeatCount="indefinite"/></rect>'
+            for i, w in enumerate([40, 30, 46, 22]))
+        return (f'<rect x="1" y="1" width="74" height="50" rx="6" fill="none" stroke="{c}" stroke-opacity=".5"/>'
+                f'<line x1="1" y1="11" x2="75" y2="11" stroke="{c}" stroke-opacity=".3"/>'
+                f'<circle cx="8" cy="6" r="2" fill="{p["crit"]}"/><circle cx="15" cy="6" r="2" fill="{p["gold"]}"/>'
+                f'<circle cx="22" cy="6" r="2" fill="{p["teal"]}"/>{lines}')
+    # forks: a branch leaving main
+    return (f'<line x1="4" y1="38" x2="72" y2="38" stroke="{c}" stroke-width="2" stroke-opacity=".5"/>'
+            f'<path d="M18 38 C30 38 28 14 42 14 L58 14" fill="none" stroke="{c}" stroke-width="2" stroke-dasharray="60" stroke-dashoffset="60">'
+            f'<animate attributeName="stroke-dashoffset" values="60;0;0;60" keyTimes="0;.4;.85;1" dur="3.6s" repeatCount="indefinite"/></path>'
+            f'<circle cx="18" cy="38" r="4" fill="{c}"/><circle cx="58" cy="14" r="4" fill="{c}" opacity="0">'
+            f'<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.35;.42;.85;1" dur="3.6s" repeatCount="indefinite"/></circle>'
+            f'<circle cx="62" cy="38" r="4" fill="{p["panel"]}" stroke="{c}" stroke-width="2"/>')
+
+
+def sparkline(values, c, p, x, y, w, h, delay):
+    """Commit activity: a line that draws itself, an area that fades in, and a pulsing end dot."""
+    if not values or max(values) <= 0:
+        return ""
+    peak = max(values)
+    n = len(values)
+    pts = [(x + w * i / max(1, n - 1), y + h - h * v / peak) for i, v in enumerate(values)]
+    line = " ".join(f"{a:.1f},{b:.1f}" for a, b in pts)
+    length = sum(((pts[i + 1][0] - pts[i][0]) ** 2 + (pts[i + 1][1] - pts[i][1]) ** 2) ** 0.5 for i in range(n - 1)) + 2
+    area = f"M{x},{y + h} L" + " L".join(f"{a:.1f},{b:.1f}" for a, b in pts) + f" L{x + w},{y + h} Z"
+    lx, ly = pts[-1]
+    return (f'<defs><linearGradient id="sa" x1="0" y1="0" x2="0" y2="1">'
+            f'<stop offset="0" stop-color="{c}" stop-opacity=".35"/><stop offset="1" stop-color="{c}" stop-opacity="0"/></linearGradient></defs>'
+            f'<path d="{area}" fill="url(#sa)" opacity="0"><animate attributeName="opacity" values="0;1" begin="{delay + 1.2:.2f}s" dur=".8s" fill="freeze"/></path>'
+            f'<polyline points="{line}" fill="none" stroke="{c}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" '
+            f'stroke-dasharray="{length:.0f}" stroke-dashoffset="{length:.0f}">'
+            f'<animate attributeName="stroke-dashoffset" values="{length:.0f};0" begin="{delay + .3:.2f}s" dur="1.6s" fill="freeze"/></polyline>'
+            f'<circle cx="{lx:.1f}" cy="{ly:.1f}" r="3" fill="{c}" opacity="0">'
+            f'<animate attributeName="opacity" values="0;1" begin="{delay + 1.8:.2f}s" dur=".3s" fill="freeze"/></circle>'
+            f'<circle cx="{lx:.1f}" cy="{ly:.1f}" r="3" fill="none" stroke="{c}" opacity="0">'
+            f'<animate attributeName="r" values="3;10" begin="{delay + 1.9:.2f}s" dur="1.6s" repeatCount="indefinite"/>'
+            f'<animate attributeName="opacity" values=".8;0" begin="{delay + 1.9:.2f}s" dur="1.6s" repeatCount="indefinite"/></circle>')
+
+
+def repo_card(title, slug, domain, desc, stack, stars, updated, is_new, is_fork, mode, idx, activity=None):
     p = PAL[mode]
     c = p[DOMAIN_KEY.get(domain, "archive")]
-    W, H = 400, 178
+    W, H = 400, 212
+    delay = (idx % 9) * 0.12
     lines = _wrap(desc, 47)
     if len(lines) > 3:
         lines = lines[:3]
@@ -468,58 +583,88 @@ def repo_card(title, slug, domain, desc, stack, stars, updated, is_new, is_fork,
     desc_svg = "".join(
         f'<text x="22" y="{86 + i * 19}" fill="{p["sub"]}" font-family="{SANS}" font-size="13.2">{escape(l)}</text>'
         for i, l in enumerate(lines))
+    t = _trunc(title, 24)
+    tx = 22 + 10.6 * len(t) + 10
+    tag = ""
+    if is_new:
+        tag = (f'<rect x="{tx:.0f}" y="23" width="40" height="18" rx="9" fill="{p["teal"]}">'
+               f'<animate attributeName="opacity" values="1;.4;1" dur="1.6s" repeatCount="indefinite"/></rect>'
+               f'<text x="{tx + 20:.0f}" y="36" text-anchor="middle" fill="{p["bg"]}" font-family="{MONO}" font-size="10" font-weight="700">NEW</text>')
+    elif is_fork:
+        tag = (f'<rect x="{tx:.0f}" y="23" width="42" height="18" rx="9" fill="none" stroke="{p["mute"]}"/>'
+               f'<text x="{tx + 21:.0f}" y="36" text-anchor="middle" fill="{p["mute"]}" font-family="{MONO}" font-size="10">FORK</text>')
+    acts = activity or []
+    total = sum(acts)
+    if total > 0:
+        band = sparkline(acts, c, p, 22, 142, 236, 24, delay)
+        band_label = (f'<text x="{W - 20}" y="153" text-anchor="end" fill="{p["text"]}" font-family="{MONO}" font-size="13" font-weight="700">{total:,}</text>'
+                      f'<text x="{W - 20}" y="167" text-anchor="end" fill="{p["mute"]}" font-family="{MONO}" font-size="9.5">commits · 12 mo</text>')
+    else:
+        band = f'<line x1="22" y1="160" x2="258" y2="160" stroke="{p["line"]}" stroke-dasharray="3 5"/>'
+        band_label = (f'<text x="{W - 20}" y="164" text-anchor="end" fill="{p["mute"]}" font-family="{MONO}" font-size="9.5">'
+                      f'{"upstream project" if is_fork else "stable · 12 mo"}</text>')
     chips, x = [], 22
-    for t in [s.strip() for s in stack.split("·") if s.strip()][:3]:
-        t = _trunc(t, 16)
-        w = 16 + 6.9 * len(t)
-        if x + w > W - 96:
+    for tt in [s.strip() for s in stack.split("·") if s.strip()][:3]:
+        tt = _trunc(tt, 16)
+        w = 16 + 6.9 * len(tt)
+        if x + w > W - 104:
             break
-        chips.append(f'<rect x="{x:.0f}" y="{H - 38}" width="{w:.0f}" height="22" rx="11" fill="{c}" fill-opacity=".13" stroke="{c}" stroke-opacity=".4"/>'
-                     f'<text x="{x + 8:.0f}" y="{H - 23}" fill="{p["text"]}" font-family="{MONO}" font-size="11">{escape(t)}</text>')
+        chips.append(f'<rect x="{x:.0f}" y="{H - 34}" width="{w:.0f}" height="22" rx="11" fill="{c}" fill-opacity=".13" stroke="{c}" stroke-opacity=".4"/>'
+                     f'<text x="{x + 8:.0f}" y="{H - 19}" fill="{p["text"]}" font-family="{MONO}" font-size="11">{escape(tt)}</text>')
         x += w + 6
     meta = []
     if stars:
         meta.append(f"★ {stars}")
     if updated:
         meta.append(updated)
-    tag = ""
-    if is_new:
-        tag = (f'<rect x="{W - 64}" y="18" width="44" height="20" rx="10" fill="{p["teal"]}">'
-               f'<animate attributeName="opacity" values="1;.4;1" dur="1.6s" repeatCount="indefinite"/></rect>'
-               f'<text x="{W - 42}" y="32" text-anchor="middle" fill="{p["bg"]}" font-family="{MONO}" font-size="10.5" font-weight="700">NEW</text>')
-    elif is_fork:
-        tag = (f'<text x="{W - 20}" y="32" text-anchor="end" fill="{p["mute"]}" font-family="{MONO}" font-size="10.5" letter-spacing="1.4">FORK</text>')
-    delay = (idx % 9) * 0.12
     sweep = 3.6 + (idx % 5) * 0.4
-    body = f'''
-<defs>
-  <linearGradient id="g" x1="0" x2="1">
-    <stop offset="0" stop-color="{c}" stop-opacity="0"/><stop offset=".5" stop-color="{c}"/><stop offset="1" stop-color="{c}" stop-opacity="0"/>
-  </linearGradient>
-  <clipPath id="k"><rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="14"/></clipPath>
-</defs>
-<g opacity="0">
-  <animate attributeName="opacity" values="0;1" begin="{delay:.2f}s" dur=".55s" fill="freeze"/>
-  <rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="14" fill="{p["panel"]}" stroke="{p["line"]}"/>
-  <g clip-path="url(#k)">
-    <rect x="0" y="0" width="5" height="{H}" fill="{c}"/>
-    <rect x="-160" y="0" width="160" height="2.5" fill="url(#g)">
-      <animate attributeName="x" from="-160" to="{W}" begin="{delay + .4:.2f}s" dur="{sweep:.1f}s" repeatCount="indefinite"/>
-    </rect>
-  </g>
-  <text x="22" y="38" fill="{p["text"]}" font-family="{SANS}" font-size="19" font-weight="750" letter-spacing="-.2">{escape(_trunc(title, 28))}</text>
-  <text x="22" y="58" fill="{p["mute"]}" font-family="{MONO}" font-size="10.5">{escape(_trunc(slug, 52))}</text>
-  {tag}
-  {desc_svg}
-  {"".join(chips)}
-  <text x="{W - 20}" y="{H - 22}" text-anchor="end" fill="{p["mute"]}" font-family="{MONO}" font-size="11">{escape("  ·  ".join(meta))}</text>
-</g>'''
+    body = (
+        f'<defs><linearGradient id="g" x1="0" x2="1">'
+        f'<stop offset="0" stop-color="{c}" stop-opacity="0"/><stop offset=".5" stop-color="{c}"/><stop offset="1" stop-color="{c}" stop-opacity="0"/></linearGradient>'
+        f'<radialGradient id="glow" cx=".85" cy=".1" r=".6"><stop offset="0" stop-color="{c}" stop-opacity=".16"/>'
+        f'<stop offset="1" stop-color="{c}" stop-opacity="0"/></radialGradient>'
+        f'<clipPath id="k"><rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="14"/></clipPath></defs>'
+        f'<g opacity="0"><animate attributeName="opacity" values="0;1" begin="{delay:.2f}s" dur=".55s" fill="freeze"/>'
+        f'<rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="14" fill="{p["panel"]}" stroke="{p["line"]}"/>'
+        f'<g clip-path="url(#k)">'
+        f'<rect x="0" y="0" width="{W}" height="{H}" fill="url(#glow)"><animate attributeName="opacity" values=".6;1;.6" dur="4s" repeatCount="indefinite"/></rect>'
+        f'<rect x="0" y="0" width="5" height="{H}" fill="{c}"/>'
+        f'<rect x="-160" y="0" width="160" height="2.5" fill="url(#g)">'
+        f'<animate attributeName="x" from="-160" to="{W}" begin="{delay + .4:.2f}s" dur="{sweep:.1f}s" repeatCount="indefinite"/></rect></g>'
+        f'<g transform="translate({W - 96} 14)">{glyph(domain, c, p, idx)}</g>'
+        f'<text x="22" y="38" fill="{p["text"]}" font-family="{SANS}" font-size="19" font-weight="750" letter-spacing="-.2">{escape(t)}</text>'
+        f'{tag}'
+        f'<text x="22" y="58" fill="{p["mute"]}" font-family="{MONO}" font-size="10.5">{escape(_trunc(slug, 40))}</text>'
+        f'{desc_svg}{band}{band_label}{"".join(chips)}'
+        f'<text x="{W - 20}" y="{H - 18}" text-anchor="end" fill="{p["mute"]}" font-family="{MONO}" font-size="11">{escape("  ·  ".join(meta))}</text>'
+        f'</g>')
     return _svg(W, H, f"{title}: {desc}", body, p)
 
 
+def explore_button(mode, count):
+    p = PAL[mode]
+    W, H = 620, 96
+    cols = [p["amber"], p["teal"], p["sky"], p["crit"], p["violet"], p["gold"], p["green"], p["indigo"]]
+    dots = "".join(
+        f'<circle cx="{436 + i * 19}" cy="{H / 2}" r="6" fill="{col}" opacity=".35">'
+        f'<animate attributeName="opacity" values=".35;1;.35" dur="2.4s" begin="{i * .3:.1f}s" repeatCount="indefinite"/>'
+        f'<animate attributeName="r" values="6;8;6" dur="2.4s" begin="{i * .3:.1f}s" repeatCount="indefinite"/></circle>'
+        for i, col in enumerate(cols))
+    body = (
+        f'<rect x="2" y="8" width="{W - 4}" height="{H - 16}" rx="40" fill="{p["panel"]}" stroke="{p["teal"]}" stroke-width="1.5">'
+        f'<animate attributeName="stroke-opacity" values="1;.35;1" dur="2.4s" repeatCount="indefinite"/></rect>'
+        f'<g><animateTransform attributeName="transform" type="translate" values="0 0;3 -3;0 0" dur="2s" repeatCount="indefinite"/>'
+        f'<circle cx="47" cy="{H / 2 - 3}" r="10" fill="none" stroke="{p["teal"]}" stroke-width="3"/>'
+        f'<line x1="54" y1="{H / 2 + 4}" x2="62" y2="{H / 2 + 12}" stroke="{p["teal"]}" stroke-width="3.5" stroke-linecap="round"/></g>'
+        f'<text x="84" y="{H / 2 - 3}" fill="{p["text"]}" font-family="{SANS}" font-size="20" font-weight="750">Explore all {count} repositories</text>'
+        f'<text x="84" y="{H / 2 + 18}" fill="{p["sub"]}" font-family="{MONO}" font-size="12">search · filter · flip cards · live activity</text>'
+        f'{dots}')
+    return _svg_clear(W, H, f"Open the interactive explorer for all {count} repositories", body)
+
+
 def render_catalog(cards):
-    """cards: list of dicts with key, title, slug, domain, desc, stack, stars, updated, new, fork.
-    Rewrites every repo card and section banner and removes cards for repos that are gone."""
+    """cards: list of dicts with key, title, slug, domain, desc, stack, stars, updated, new, fork,
+    activity. Rewrites every card and banner, and removes cards for repos that are gone."""
     for f in LIVE.glob("repo-*.svg"):
         f.unlink()
     for f in LIVE.glob("section-*.svg"):
@@ -531,9 +676,10 @@ def render_catalog(cards):
         for i, c in enumerate(cards):
             _write(f"repo-{c['key']}", mode, repo_card(
                 c["title"], c["slug"], c["domain"], c["desc"], c["stack"], c["stars"],
-                c["updated"], c["new"], c["fork"], mode, i))
+                c["updated"], c["new"], c["fork"], mode, i, c.get("activity")))
         for d, n in counts.items():
             _write(f"section-{d}", mode, section_banner(d, c_label(d), n, mode))
+        _write("explore", mode, explore_button(mode, len(cards)))
 
 
 _LABELS = {}

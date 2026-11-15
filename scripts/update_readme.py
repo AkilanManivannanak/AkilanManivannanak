@@ -18,6 +18,7 @@ import urllib.error
 import urllib.request
 from datetime import datetime, timedelta, timezone
 import hashlib
+import time
 import html
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
@@ -232,6 +233,57 @@ def describe(repo):
     return portfolio.describe(repo, readme_of(repo))
 
 
+ACTIVITY_FILE = ROOT / "docs" / "data" / "activity.json"
+ACTIVITY_WEEKS = 52
+_ACTIVITY = None
+_ACTIVITY_DONE = set()
+
+
+def _load_activity():
+    global _ACTIVITY
+    if _ACTIVITY is None:
+        try:
+            _ACTIVITY = json.loads(ACTIVITY_FILE.read_text())
+        except Exception:
+            _ACTIVITY = {}
+    return _ACTIVITY
+
+
+def activity_of(repo):
+    """Weekly commit counts for the last 52 weeks, oldest first. GitHub computes these
+    statistics lazily and answers 202 while it does; the last good value is kept so a
+    slow answer never blanks a card."""
+    cache = _load_activity()
+    name = repo["name"]
+    if repo.get("fork"):
+        return []
+    if name in _ACTIVITY_DONE:
+        return cache.get(name, [])
+    _ACTIVITY_DONE.add(name)
+    for attempt in range(3):
+        try:
+            req = urllib.request.Request(f"{API}/repos/{USER}/{name}/stats/commit_activity", headers=HEAD)
+            with urllib.request.urlopen(req, timeout=20) as r:
+                if r.status == 200:
+                    data = json.load(r)
+                    if isinstance(data, list) and data:
+                        weeks = [int(w.get("total", 0)) for w in data][-ACTIVITY_WEEKS:]
+                        cache[name] = weeks
+                        return weeks
+        except Exception:
+            pass
+        if attempt < 2:
+            time.sleep(2 * (attempt + 1))
+    return cache.get(name, [])
+
+
+def save_activity(repos):
+    cache = _load_activity()
+    keep = {r["name"] for r in repos}
+    ACTIVITY_FILE.parent.mkdir(parents=True, exist_ok=True)
+    ACTIVITY_FILE.write_text(json.dumps({k: v for k, v in cache.items() if k in keep}, indent=0) + "\n")
+
+
 def visible(repos):
     return [r for r in repos if not portfolio.hidden(r, USER)]
 
@@ -302,16 +354,21 @@ def _card_key(name):
     return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")[:60]
 
 
+EXPLORER = f"https://{USER.lower()}.github.io/{USER}/repos.html"
+
+
 def block_catalog(repos):
     """One animated card per repository, grouped by category. Every card links to its repo."""
     groups = group_repos(repos)
-    cards, out = [], []
+    cards = []
+    out = ['<p align="center">' + pic("explore", "Open the interactive repository explorer: search, filter and flip every card",
+                                      EXPLORER, "620", hashed=False) + "</p>", ""]
     visuals._LABELS.update(CATALOG_LABELS)
     for d in DOMAIN_ORDER:
         rs = groups.get(d) or []
         if not rs:
             continue
-        out.append(f'<p align="center">{pic(f"section-{d}", f"{CATALOG_LABELS[d]}: {plural(len(rs), 'repo')}", "#-every-repository", "100%", hashed=False)}</p>')
+        out.append(f'<p align="center">{pic(f"section-{d}", f"{CATALOG_LABELS[d]}: {plural(len(rs), 'repo')}", f"{EXPLORER}#cat={d}", "100%", hashed=False)}</p>')
         out.append("")
         out.append('<p align="center">')
         for r in rs:
@@ -326,14 +383,14 @@ def block_catalog(repos):
                 key=key, title=portfolio.title(r), slug=f"{USER}/{r['name']}", domain=d,
                 desc=desc, stack=stack, stars=(r.get("stargazers_count") or 0) if (r.get("stargazers_count") or 0) > 1 else 0,
                 updated=_month(r.get("pushed_at")), new=_age_days(r.get("created_at")) <= NEW_DAYS,
-                fork=bool(r.get("fork"))))
+                fork=bool(r.get("fork")), activity=activity_of(r) if not r.get("fork") else []))
             out.append(pic(f"repo-{key}", f"{portfolio.title(r)}: {desc}", r["html_url"], "32%", hashed=False))
         out.append("</p>")
         out.append("")
     visuals.render_catalog(cards)
     # hash after the files exist so GitHub's image cache refreshes on change
     text = "\n".join(out)
-    text = re.sub(r'assets/live/((?:repo|section)-[^"?]+)-(dark|light)\.svg\?v=0',
+    text = re.sub(r'assets/live/((?:repo-|section-|explore)[^"?]*?)-(dark|light)\.svg\?v=0',
                   lambda m: f'assets/live/{m.group(1)}-{m.group(2)}.svg?v={_ver(m.group(1))}', text)
     text += (f"\n<p align=\"center\"><sub>Every card opens its repository. Sorted automatically from each "
              f"repo's topics, description and README; new repositories appear here within six hours. "
@@ -362,6 +419,10 @@ def write_deck_data(repos, contrib):
             "pushed": (r.get("pushed_at") or "")[:10],
             "note": describe(r)[0],
             "url": r.get("html_url", ""),
+            "title": portfolio.title(r),
+            "stack": describe(r)[1],
+            "created": (r.get("created_at") or "")[:10],
+            "activity": activity_of(r),
         })
     nodes.sort(key=lambda n: -n["size"])
     (data_dir / "repos.json").write_text(json.dumps(
@@ -545,6 +606,7 @@ def main():
     text = splice(text, "DRIVE", block_drive())
     text = splice(text, "MINDMAP", block_mindmap(groups))
     text = splice(text, "CATALOG", block_catalog(repos))
+    save_activity(visible(repos))
     readme_path.write_text(text)
 
     print(f"Updated README for {USER}: {len(repos)} repos, {stars} stars, "
