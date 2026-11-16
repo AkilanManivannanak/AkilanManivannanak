@@ -12,7 +12,7 @@
 <!-- HEADER:START -->
 <p align="center">
 <a href="https://akilanmanivannanak.github.io/AkilanManivannanak/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/headline-dark.svg?v=f6617134" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/headline-light.svg?v=f6617134" alt="Camera-only BEV perception. Safety-critical autonomy. Agentic AI systems." width="760" /></picture></a><br/>
-<a href="https://github.com/AkilanManivannanak?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-dark.svg?v=25a9cf5c" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-light.svg?v=25a9cf5c" alt="Live account statistics" width="620" /></picture></a>
+<a href="https://github.com/AkilanManivannanak?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-dark.svg?v=a8c7aced" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-light.svg?v=a8c7aced" alt="Live account statistics" width="620" /></picture></a>
 </p>
 <!-- HEADER:END -->
 
@@ -146,13 +146,13 @@ mindmap
 
 <!-- PULSE:START -->
 <p align="center">
-<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-dark.svg?v=2b0a13b4" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-light.svg?v=2b0a13b4" alt="Live GitHub telemetry" width="100%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-dark.svg?v=e82e2fc5" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-light.svg?v=e82e2fc5" alt="Live GitHub telemetry" width="100%" /></picture></a>
 </p>
 <!-- PULSE:END -->
 
 <!-- CITY:START -->
 <p align="center">
-<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-dark.svg?v=e7d1b655" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-light.svg?v=e7d1b655" alt="A year of contributions as a 3D city of columns, with an activity radar and language mix" width="100%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-dark.svg?v=e4e58ab2" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-light.svg?v=e4e58ab2" alt="A year of contributions as a 3D city of columns, with an activity radar and language mix" width="100%" /></picture></a>
 </p>
 <!-- CITY:END -->
 
@@ -215,7 +215,7 @@ mindmap
 
 <p align="center">
 <a href="https://github.com/AkilanManivannanak/stock-forecasting-aapl-LSTM-RAG"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-stock-forecasting-aapl-lstm-rag-dark.svg?v=519eb926" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-stock-forecasting-aapl-lstm-rag-light.svg?v=519eb926" alt="AAPL Forecast + RAG: AAPL forecasting with LSTM and baselines, plus a strictly grounded RAG copilot. MAPE 3.34%, 0% hallucination." width="32%" /></picture></a>
-<a href="https://github.com/AkilanManivannanak/ATLAS"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-atlas-dark.svg?v=57d87c86" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-atlas-light.svg?v=57d87c86" alt="ATLAS-Σ: Research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions." width="32%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak/ATLAS"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-atlas-dark.svg?v=0de8ff49" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-atlas-light.svg?v=0de8ff49" alt="ATLAS-Σ: Research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions." width="32%" /></picture></a>
 <a href="https://github.com/AkilanManivannanak/Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-forecasting-and-predicting-of-stock-using-lstm-algorithm-usi-dark.svg?v=b92d4361" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-forecasting-and-predicting-of-stock-using-lstm-algorithm-usi-light.svg?v=b92d4361" alt="Stock LSTM Forecaster: Stock-price forecasting with an LSTM network." width="32%" /></picture></a>
 </p>
 
@@ -246,7 +246,7 @@ mindmap
 <a href="https://github.com/AkilanManivannanak/light-show"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-light-show-dark.svg?v=ee759264" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-light-show-light.svg?v=ee759264" alt="Tesla Light Show: Fork of Tesla&#x27;s light-show guide for custom xLights shows on Tesla vehicles." width="32%" /></picture></a>
 </p>
 
-<p align="center"><sub>Every card opens its repository. Sorted automatically from each repo's topics, description and README; new repositories appear here within six hours. Recomputed 16 Nov 2026, 07:17 UTC.</sub></p>
+<p align="center"><sub>Every card opens its repository. Sorted automatically from each repo's topics, description and README; new repositories appear here within six hours. Recomputed 16 Nov 2026, 22:33 UTC.</sub></p>
 <!-- CATALOG:END -->
 
 <br/>
@@ -271,12 +271,12 @@ mindmap
 |---|---|
 | Public repositories | 36  ·  31 original, 5 forks |
 | Stars earned | 34 |
-| Contributions, rolling 365 days | 1,204 |
+| Contributions, rolling 365 days | 1,213 |
 | Pull requests authored | 76 |
 | Repos carrying a description | 34 / 36 |
 | Primary languages | Python (22), Jupyter Notebook (2), HTML (1), Vue (1), Java (1) |
 
-<sub>Recomputed 16 Nov 2026, 07:17 UTC from the GitHub API.</sub>
+<sub>Recomputed 16 Nov 2026, 22:33 UTC from the GitHub API.</sub>
 <!-- STATS:END -->
 
 <br/>
