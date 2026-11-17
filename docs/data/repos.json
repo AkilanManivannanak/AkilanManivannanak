@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-16T22:33:29+00:00",
+ "generated": "2026-11-17T08:31:41+00:00",
  "count": 33,
  "domains": [
   {
@@ -594,10 +594,10 @@
    "domain": "finance",
    "size": 3.1,
    "stars": 0,
-   "kb": 13918,
+   "kb": 21406,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-11-16",
+   "pushed": "2026-11-17",
    "note": "ATLAS-Σ: research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions.",
    "url": "https://github.com/AkilanManivannanak/ATLAS",
    "title": "ATLAS-Σ",
@@ -655,7 +655,7 @@
     0,
     7,
     20,
-    14
+    15
    ]
   },
   {
