@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-18T20:55:47+00:00",
+ "generated": "2026-11-19T07:56:44+00:00",
  "count": 34,
  "domains": [
   {
@@ -594,10 +594,10 @@
    "domain": "agentic",
    "size": 3.1,
    "stars": 0,
-   "kb": 6220,
+   "kb": 7291,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-11-17",
+   "pushed": "2026-11-19",
    "note": "Live app: add your Streamlit URL here after deploying · start at Join the study to test it.",
    "url": "https://github.com/AkilanManivannanak/AuthOps",
    "title": "AuthOps",
@@ -655,7 +655,7 @@
     0,
     0,
     0,
-    3
+    5
    ]
   },
   {
@@ -663,10 +663,10 @@
    "domain": "finance",
    "size": 3.1,
    "stars": 0,
-   "kb": 21406,
+   "kb": 21494,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-11-17",
+   "pushed": "2026-11-19",
    "note": "ATLAS-Σ: research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions.",
    "url": "https://github.com/AkilanManivannanak/ATLAS",
    "title": "ATLAS-Σ",
@@ -724,7 +724,7 @@
     0,
     7,
     20,
-    15
+    25
    ]
   },
   {
