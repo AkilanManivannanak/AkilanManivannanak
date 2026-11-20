@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-20T07:45:38+00:00",
+ "generated": "2026-11-20T20:45:10+00:00",
  "count": 34,
  "domains": [
   {
@@ -594,11 +594,11 @@
    "domain": "agentic",
    "size": 3.1,
    "stars": 0,
-   "kb": 7291,
+   "kb": 7301,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-11-19",
-   "note": "Live app: add your Streamlit URL here after deploying · start at Join the study to test it.",
+   "pushed": "2026-11-20",
+   "note": "Independent portfolio project by Akilan Manivannan for the Silna Health AI Deployment Analyst application.",
    "url": "https://github.com/AkilanManivannanak/AuthOps",
    "title": "AuthOps",
    "stack": "Python · Claude · Supabase",
@@ -655,7 +655,7 @@
     0,
     0,
     0,
-    5
+    7
    ]
   },
   {
