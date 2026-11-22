@@ -12,7 +12,7 @@
 <!-- HEADER:START -->
 <p align="center">
 <a href="https://akilanmanivannanak.github.io/AkilanManivannanak/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/headline-dark.svg?v=f6617134" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/headline-light.svg?v=f6617134" alt="Camera-only BEV perception. Safety-critical autonomy. Agentic AI systems." width="760" /></picture></a><br/>
-<a href="https://github.com/AkilanManivannanak?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-dark.svg?v=81b666e2" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-light.svg?v=81b666e2" alt="Live account statistics" width="620" /></picture></a>
+<a href="https://github.com/AkilanManivannanak?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-dark.svg?v=74378c97" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-light.svg?v=74378c97" alt="Live account statistics" width="620" /></picture></a>
 </p>
 <!-- HEADER:END -->
 
@@ -71,7 +71,7 @@
 
 <!-- LATEST:START -->
 <p align="center">
-<a href="https://github.com/AkilanManivannanak/AuthOps"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/latest-1-dark.svg?v=15daa406" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/latest-1-light.svg?v=15daa406" alt="New repository AuthOps" width="32%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak/AuthOps"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/latest-1-dark.svg?v=39cfe846" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/latest-1-light.svg?v=39cfe846" alt="New repository AuthOps" width="32%" /></picture></a>
 <a href="https://github.com/AkilanManivannanak/ATLAS"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/latest-2-dark.svg?v=0901f7d3" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/latest-2-light.svg?v=0901f7d3" alt="New repository ATLAS" width="32%" /></picture></a>
 <a href="https://github.com/AkilanManivannanak/Esophageal-Cancer-Detection"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/latest-3-dark.svg?v=faaf1496" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/latest-3-light.svg?v=faaf1496" alt="New repository Esophageal-Cancer-Detection" width="32%" /></picture></a>
 </p>
@@ -147,13 +147,13 @@ mindmap
 
 <!-- PULSE:START -->
 <p align="center">
-<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-dark.svg?v=ea2a0751" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-light.svg?v=ea2a0751" alt="Live GitHub telemetry" width="100%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-dark.svg?v=d6c6a124" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-light.svg?v=d6c6a124" alt="Live GitHub telemetry" width="100%" /></picture></a>
 </p>
 <!-- PULSE:END -->
 
 <!-- CITY:START -->
 <p align="center">
-<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-dark.svg?v=bd748dd8" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-light.svg?v=bd748dd8" alt="A year of contributions as a 3D city of columns, with an activity radar and language mix" width="100%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-dark.svg?v=1ac2fc4a" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-light.svg?v=1ac2fc4a" alt="A year of contributions as a 3D city of columns, with an activity radar and language mix" width="100%" /></picture></a>
 </p>
 <!-- CITY:END -->
 
@@ -185,7 +185,7 @@ mindmap
 <a href="https://github.com/AkilanManivannanak/talentra_copilot"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-talentra-copilot-dark.svg?v=07cef64c" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-talentra-copilot-light.svg?v=07cef64c" alt="Talentra Copilot: Compound AI hiring platform: five LangGraph agents with semantic retrieval, PII redaction and fallbacks. p95 4.81 ms." width="32%" /></picture></a>
 <a href="https://github.com/AkilanManivannanak/attentive-flow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-attentive-flow-dark.svg?v=4ac60b58" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-attentive-flow-light.svg?v=4ac60b58" alt="AttentiveFlow: Agentic lifecycle marketing, from brief to audience, messages, compliance checks, scoring and auto-repair." width="32%" /></picture></a>
 <a href="https://github.com/AkilanManivannanak/phamilyops"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-phamilyops-dark.svg?v=381905a5" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-phamilyops-light.svg?v=381905a5" alt="PhamilyOps: AI-native care operations platform: HR workflow automation plus a RAG copilot over Supabase and pgvector." width="32%" /></picture></a>
-<a href="https://github.com/AkilanManivannanak/AuthOps"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-authops-dark.svg?v=ada929ca" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-authops-light.svg?v=ada929ca" alt="AuthOps: Independent portfolio project by Akilan Manivannan for the Silna Health AI Deployment Analyst application." width="32%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak/AuthOps"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-authops-dark.svg?v=e32dc9ba" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-authops-light.svg?v=e32dc9ba" alt="AuthOps: Prior-authorization operations, end to end: read the documents, catch denials before they happen, submit through any channel, and keep rules and…" width="32%" /></picture></a>
 </p>
 
 <p align="center"><a href="https://akilanmanivannanak.github.io/AkilanManivannanak/repos.html#cat=rank"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/section-rank-dark.svg?v=0701dd3b" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/section-rank-light.svg?v=0701dd3b" alt="Search, retrieval &amp; ranking: 2 repos" width="100%" /></picture></a></p>
@@ -217,7 +217,7 @@ mindmap
 
 <p align="center">
 <a href="https://github.com/AkilanManivannanak/stock-forecasting-aapl-LSTM-RAG"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-stock-forecasting-aapl-lstm-rag-dark.svg?v=6b609df8" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-stock-forecasting-aapl-lstm-rag-light.svg?v=6b609df8" alt="AAPL Forecast + RAG: AAPL forecasting with LSTM and baselines, plus a strictly grounded RAG copilot. MAPE 3.34%, 0% hallucination." width="32%" /></picture></a>
-<a href="https://github.com/AkilanManivannanak/ATLAS"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-atlas-dark.svg?v=c4210b6a" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-atlas-light.svg?v=c4210b6a" alt="ATLAS-Σ: Research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions." width="32%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak/ATLAS"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-atlas-dark.svg?v=4de0f59a" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-atlas-light.svg?v=4de0f59a" alt="ATLAS-Σ: Research simulator for financial infrastructure, modelling institutions, payment obligations, settlement and disruptions." width="32%" /></picture></a>
 <a href="https://github.com/AkilanManivannanak/Forecasting-and-Predicting-of-stock-using-LSTM-algorithm-using-Machine-Learning-"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-forecasting-and-predicting-of-stock-using-lstm-algorithm-usi-dark.svg?v=2eff10d9" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-forecasting-and-predicting-of-stock-using-lstm-algorithm-usi-light.svg?v=2eff10d9" alt="Stock LSTM Forecaster: Stock-price forecasting with an LSTM network." width="32%" /></picture></a>
 </p>
 
@@ -248,7 +248,7 @@ mindmap
 <a href="https://github.com/AkilanManivannanak/light-show"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-light-show-dark.svg?v=516330b7" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-light-show-light.svg?v=516330b7" alt="Tesla Light Show: Fork of Tesla&#x27;s light-show guide for custom xLights shows on Tesla vehicles." width="32%" /></picture></a>
 </p>
 
-<p align="center"><sub>Every card opens its repository. Sorted automatically from each repo's topics, description and README; new repositories appear here within six hours. Recomputed 21 Nov 2026, 19:49 UTC.</sub></p>
+<p align="center"><sub>Every card opens its repository. Sorted automatically from each repo's topics, description and README; new repositories appear here within six hours. Recomputed 22 Nov 2026, 07:27 UTC.</sub></p>
 <!-- CATALOG:END -->
 
 <br/>
@@ -273,12 +273,12 @@ mindmap
 |---|---|
 | Public repositories | 37  ·  32 original, 5 forks |
 | Stars earned | 34 |
-| Contributions, rolling 365 days | 1,230 |
+| Contributions, rolling 365 days | 1,242 |
 | Pull requests authored | 76 |
 | Repos carrying a description | 34 / 37 |
 | Primary languages | Python (23), Jupyter Notebook (2), HTML (1), Vue (1), Java (1) |
 
-<sub>Recomputed 21 Nov 2026, 19:49 UTC from the GitHub API.</sub>
+<sub>Recomputed 22 Nov 2026, 07:27 UTC from the GitHub API.</sub>
 <!-- STATS:END -->
 
 <br/>
