@@ -12,7 +12,7 @@
 <!-- HEADER:START -->
 <p align="center">
 <a href="https://akilanmanivannanak.github.io/AkilanManivannanak/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/headline-dark.svg?v=f6617134" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/headline-light.svg?v=f6617134" alt="Camera-only BEV perception. Safety-critical autonomy. Agentic AI systems." width="760" /></picture></a><br/>
-<a href="https://github.com/AkilanManivannanak?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-dark.svg?v=74378c97" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-light.svg?v=74378c97" alt="Live account statistics" width="620" /></picture></a>
+<a href="https://github.com/AkilanManivannanak?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-dark.svg?v=adc9b7b2" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/stats-light.svg?v=adc9b7b2" alt="Live account statistics" width="620" /></picture></a>
 </p>
 <!-- HEADER:END -->
 
@@ -147,13 +147,13 @@ mindmap
 
 <!-- PULSE:START -->
 <p align="center">
-<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-dark.svg?v=d6c6a124" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-light.svg?v=d6c6a124" alt="Live GitHub telemetry" width="100%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-dark.svg?v=bf1d3d6a" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-light.svg?v=bf1d3d6a" alt="Live GitHub telemetry" width="100%" /></picture></a>
 </p>
 <!-- PULSE:END -->
 
 <!-- CITY:START -->
 <p align="center">
-<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-dark.svg?v=1ac2fc4a" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-light.svg?v=1ac2fc4a" alt="A year of contributions as a 3D city of columns, with an activity radar and language mix" width="100%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-dark.svg?v=9bc857c6" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-light.svg?v=9bc857c6" alt="A year of contributions as a 3D city of columns, with an activity radar and language mix" width="100%" /></picture></a>
 </p>
 <!-- CITY:END -->
 
@@ -248,7 +248,7 @@ mindmap
 <a href="https://github.com/AkilanManivannanak/light-show"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-light-show-dark.svg?v=516330b7" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-light-show-light.svg?v=516330b7" alt="Tesla Light Show: Fork of Tesla&#x27;s light-show guide for custom xLights shows on Tesla vehicles." width="32%" /></picture></a>
 </p>
 
-<p align="center"><sub>Every card opens its repository. Sorted automatically from each repo's topics, description and README; new repositories appear here within six hours. Recomputed 22 Nov 2026, 20:00 UTC.</sub></p>
+<p align="center"><sub>Every card opens its repository. Sorted automatically from each repo's topics, description and README; new repositories appear here within six hours. Recomputed 23 Nov 2026, 08:18 UTC.</sub></p>
 <!-- CATALOG:END -->
 
 <br/>
@@ -273,12 +273,12 @@ mindmap
 |---|---|
 | Public repositories | 37  ·  32 original, 5 forks |
 | Stars earned | 34 |
-| Contributions, rolling 365 days | 1,242 |
+| Contributions, rolling 365 days | 1,244 |
 | Pull requests authored | 76 |
 | Repos carrying a description | 34 / 37 |
 | Primary languages | Python (23), Jupyter Notebook (2), HTML (1), Vue (1), Java (1) |
 
-<sub>Recomputed 22 Nov 2026, 20:00 UTC from the GitHub API.</sub>
+<sub>Recomputed 23 Nov 2026, 08:18 UTC from the GitHub API.</sub>
 <!-- STATS:END -->
 
 <br/>
