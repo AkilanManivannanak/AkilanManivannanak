@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-24T00:22:23+00:00",
+ "generated": "2026-11-24T10:27:45+00:00",
  "count": 34,
  "domains": [
   {
@@ -594,10 +594,10 @@
    "domain": "agentic",
    "size": 3.1,
    "stars": 0,
-   "kb": 31976,
+   "kb": 32210,
    "lang": "Python",
    "fork": false,
-   "pushed": "2026-11-23",
+   "pushed": "2026-11-24",
    "note": "Prior-authorization operations, end to end: read the documents, catch denials before they happen, submit through any channel, and keep rules and…",
    "url": "https://github.com/AkilanManivannanak/AuthOps",
    "title": "AuthOps",
@@ -655,7 +655,7 @@
     0,
     0,
     9,
-    10
+    12
    ]
   },
   {
