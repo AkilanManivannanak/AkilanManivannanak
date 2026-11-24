@@ -147,13 +147,13 @@ mindmap
 
 <!-- PULSE:START -->
 <p align="center">
-<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-dark.svg?v=bf1d3d6a" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-light.svg?v=bf1d3d6a" alt="Live GitHub telemetry" width="100%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-dark.svg?v=2e0c8c27" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/pulse-light.svg?v=2e0c8c27" alt="Live GitHub telemetry" width="100%" /></picture></a>
 </p>
 <!-- PULSE:END -->
 
 <!-- CITY:START -->
 <p align="center">
-<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-dark.svg?v=9bc857c6" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-light.svg?v=9bc857c6" alt="A year of contributions as a 3D city of columns, with an activity radar and language mix" width="100%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-dark.svg?v=78c441ee" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/contrib-city-light.svg?v=78c441ee" alt="A year of contributions as a 3D city of columns, with an activity radar and language mix" width="100%" /></picture></a>
 </p>
 <!-- CITY:END -->
 
@@ -185,7 +185,7 @@ mindmap
 <a href="https://github.com/AkilanManivannanak/talentra_copilot"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-talentra-copilot-dark.svg?v=443ca1ef" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-talentra-copilot-light.svg?v=443ca1ef" alt="Talentra Copilot: Compound AI hiring platform: five LangGraph agents with semantic retrieval, PII redaction and fallbacks. p95 4.81 ms." width="32%" /></picture></a>
 <a href="https://github.com/AkilanManivannanak/attentive-flow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-attentive-flow-dark.svg?v=86cc1759" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-attentive-flow-light.svg?v=86cc1759" alt="AttentiveFlow: Agentic lifecycle marketing, from brief to audience, messages, compliance checks, scoring and auto-repair." width="32%" /></picture></a>
 <a href="https://github.com/AkilanManivannanak/phamilyops"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-phamilyops-dark.svg?v=5b12ce63" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-phamilyops-light.svg?v=5b12ce63" alt="PhamilyOps: AI-native care operations platform: HR workflow automation plus a RAG copilot over Supabase and pgvector." width="32%" /></picture></a>
-<a href="https://github.com/AkilanManivannanak/AuthOps"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-authops-dark.svg?v=e32dc9ba" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-authops-light.svg?v=e32dc9ba" alt="AuthOps: Prior-authorization operations, end to end: read the documents, catch denials before they happen, submit through any channel, and keep rules and…" width="32%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak/AuthOps"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-authops-dark.svg?v=5ec869ea" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-authops-light.svg?v=5ec869ea" alt="AuthOps: Prior-authorization operations, end to end: read the documents, catch denials before they happen, submit through any channel, and keep rules and…" width="32%" /></picture></a>
 </p>
 
 <p align="center"><a href="https://akilanmanivannanak.github.io/AkilanManivannanak/repos.html#cat=rank"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/section-rank-dark.svg?v=0701dd3b" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/section-rank-light.svg?v=0701dd3b" alt="Search, retrieval &amp; ranking: 2 repos" width="100%" /></picture></a></p>
@@ -234,7 +234,7 @@ mindmap
 <p align="center">
 <a href="https://github.com/AkilanManivannanak/AkilanPortfolio"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-akilanportfolio-dark.svg?v=2c194600" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-akilanportfolio-light.svg?v=2c194600" alt="AkilanFlix: Netflix-style AI/ML portfolio site with live search, carousels and a built-in chatbot." width="32%" /></picture></a>
 <a href="https://github.com/AkilanManivannanak/Library-Management-System-in-Python"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-library-management-system-in-python-dark.svg?v=8a4d754e" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-library-management-system-in-python-light.svg?v=8a4d754e" alt="Library Manager: Library management CLI with multi-copy inventory, borrowers and loans." width="32%" /></picture></a>
-<a href="https://github.com/AkilanManivannanak/Pharmacy-management-system"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-pharmacy-management-system-dark.svg?v=6c9e1e3c" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-pharmacy-management-system-light.svg?v=6c9e1e3c" alt="Pharmacy Manager: Pharmacy operations system: inventory, suppliers, sales and prescriptions through a CLI and a FastAPI REST API." width="32%" /></picture></a>
+<a href="https://github.com/AkilanManivannanak/Pharmacy-management-system"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-pharmacy-management-system-dark.svg?v=a83f12b2" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-pharmacy-management-system-light.svg?v=a83f12b2" alt="Pharmacy Manager: Pharmacy operations system: inventory, suppliers, sales and prescriptions through a CLI and a FastAPI REST API." width="32%" /></picture></a>
 <a href="https://github.com/AkilanManivannanak/Android-App-for-Recycling-and-Donation-app"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-android-app-for-recycling-and-donation-app-dark.svg?v=8e45f05a" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-android-app-for-recycling-and-donation-app-light.svg?v=8e45f05a" alt="Recycle &amp; Donate: Android app that connects people with recycling centres and donation drives." width="32%" /></picture></a>
 </p>
 
@@ -248,7 +248,7 @@ mindmap
 <a href="https://github.com/AkilanManivannanak/light-show"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-light-show-dark.svg?v=516330b7" /><img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/repo-light-show-light.svg?v=516330b7" alt="Tesla Light Show: Fork of Tesla&#x27;s light-show guide for custom xLights shows on Tesla vehicles." width="32%" /></picture></a>
 </p>
 
-<p align="center"><sub>Every card opens its repository. Sorted automatically from each repo's topics, description and README; new repositories appear here within six hours. Recomputed 23 Nov 2026, 08:18 UTC.</sub></p>
+<p align="center"><sub>Every card opens its repository. Sorted automatically from each repo's topics, description and README; new repositories appear here within six hours. Recomputed 24 Nov 2026, 00:22 UTC.</sub></p>
 <!-- CATALOG:END -->
 
 <br/>
@@ -278,7 +278,7 @@ mindmap
 | Repos carrying a description | 34 / 37 |
 | Primary languages | Python (23), Jupyter Notebook (2), HTML (1), Vue (1), Java (1) |
 
-<sub>Recomputed 23 Nov 2026, 08:18 UTC from the GitHub API.</sub>
+<sub>Recomputed 24 Nov 2026, 00:22 UTC from the GitHub API.</sub>
 <!-- STATS:END -->
 
 <br/>
