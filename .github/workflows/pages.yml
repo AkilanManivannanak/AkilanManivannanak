@@ -1,7 +1,12 @@
 name: Deploy perception deck
 
-# Publishes docs/ (the interactive 3D deck) to GitHub Pages. Runs when the deck or its
-# data changes, including the README bot's own data refresh.
+# Publishes docs/ (the 3D deck and the repository explorer) to GitHub Pages.
+#
+# GitHub's deploy step sometimes cannot find the artifact it was just handed ("No
+# artifacts named github-pages were found" / "Fetching artifact metadata failed"). That
+# is a timing problem on GitHub's side, so the deploy is retried: first against the same
+# artifact after a pause, then against a freshly uploaded copy under a new name.
+
 on:
   push:
     branches: [main]
@@ -18,22 +23,66 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false   # never cancel a deployment half way
 
 jobs:
   deploy:
+    # After a README rebuild, deploy only when that rebuild succeeded.
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.final.outputs.url }}
     steps:
       - uses: actions/checkout@v5
         with:
           ref: main
-      - run: touch docs/.nojekyll
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+
+      - uses: actions/configure-pages@v6.0.0
+
+      - name: Package the site
+        uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: docs
-      - id: deployment
-        uses: actions/deploy-pages@v4
+
+      - name: Deploy
+        id: try1
+        continue-on-error: true
+        uses: actions/deploy-pages@v5.0.1
+
+      - name: Wait before retrying
+        if: steps.try1.outcome != 'success'
+        run: sleep 45
+
+      - name: Deploy, second try
+        id: try2
+        if: steps.try1.outcome != 'success'
+        continue-on-error: true
+        uses: actions/deploy-pages@v5.0.1
+
+      - name: Package the site again under a new name
+        if: steps.try1.outcome != 'success' && steps.try2.outcome != 'success'
+        uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: docs
+          name: github-pages-retry
+
+      - name: Deploy, third try
+        id: try3
+        if: steps.try1.outcome != 'success' && steps.try2.outcome != 'success'
+        continue-on-error: true
+        uses: actions/deploy-pages@v5.0.1
+        with:
+          artifact_name: github-pages-retry
+
+      - name: Result
+        id: final
+        run: |
+          url="${{ steps.try1.outputs.page_url || steps.try2.outputs.page_url || steps.try3.outputs.page_url }}"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          if [ -n "$url" ]; then
+            echo "Deployed to $url"
+          else
+            echo "::warning title=Deck not redeployed::GitHub Pages refused all three deploy attempts. The site keeps its previous version; the next README rebuild deploys again."
+          fi

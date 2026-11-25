@@ -1,22 +1,23 @@
 name: Rebuild README
 
+# Rebuilds every generated part of the profile: README blocks, cards, the contribution
+# city, the snake, and the data the 3D deck and explorer read. Built so that one flaky
+# API call, an outside action or a racing push never turns the run red: each risky step
+# retries, and anything optional is skipped with a warning instead of failing the job.
+
 on:
   schedule:
-    # Every six hours, so a newly created repository is categorised and listed on the
-    # profile the same day. GitHub has no "repository created" event for a user
-    # account, so polling is the only fully automatic option.
+    # Every six hours, so a new repository is categorised and listed the same day.
+    # GitHub has no "repository created" event for a user account, so polling is the
+    # only fully automatic option.
     - cron: "40 */6 * * *"
   workflow_dispatch:
   push:
-    # Rebuild immediately when the generator itself changes. The job's own commit only
-    # touches README.md and docs/data, so it cannot retrigger this.
+    # Rebuild at once when the generator itself changes. The job's own commit only
+    # touches generated files, so it cannot retrigger this.
     branches: [main]
     paths:
-      - "scripts/update_readme.py"
-      - "scripts/visuals.py"
-      - "scripts/portfolio.py"
-      - "scripts/showcase.py"
-      - "scripts/ai_classify.py"
+      - "scripts/**"
       - ".github/workflows/readme.yml"
 
 permissions:
@@ -25,48 +26,106 @@ permissions:
 
 concurrency:
   group: readme
-  cancel-in-progress: true
+  cancel-in-progress: false   # queue instead of cancelling, so no run ends as "cancelled"
 
 jobs:
   build:
     runs-on: ubuntu-24.04
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 50   # enough history to rebase if someone pushes mid-run
 
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
-      - name: Regenerate marker blocks and endpoint payloads
+      - name: Regenerate README, cards and deck data
+        id: generate
         env:
-          # Needs read:user + repo scope for the contributions GraphQL query.
-          # Falls back to the default token, which cannot read the calendar.
+          # read:user + repo scope reads the private-inclusive contribution calendar;
+          # without it the default token is used and only public data is drawn.
           GITHUB_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
           GH_USER: AkilanManivannanak
           # The workflow token can call GitHub Models; a personal token usually cannot.
           MODELS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python scripts/update_readme.py
+        run: |
+          for attempt in 1 2 3; do
+            if python scripts/update_readme.py; then
+              echo "ok=true" >> "$GITHUB_OUTPUT"; exit 0
+            fi
+            echo "Generator failed (attempt $attempt), resetting generated files and retrying."
+            git checkout -- README.md docs assets 2>/dev/null || true
+            git clean -fdq docs/data assets/live output 2>/dev/null || true
+            sleep $((attempt * 30))
+          done
+          echo "ok=false" >> "$GITHUB_OUTPUT"
+          echo "::warning title=README not rebuilt::The generator failed three times. The profile keeps its last good version; the next scheduled run will try again."
 
-      - name: Commit README if it changed
+      # Third-party action, so it may never fail the job. When it errors, the last
+      # committed snake stays on the profile.
+      - name: Contribution snake
+        id: snake
+        continue-on-error: true
+        uses: Platane/snk@v3.5.0
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-snake.svg?palette=github-light&color_snake=#b4531a&color_dots=#ebe7df,#cfe8e2,#8fcfc2,#3fb8a6,#1f8878
+            dist/github-snake-dark.svg?palette=github-dark&color_snake=#e0873a&color_dots=#11171d,#123a35,#1c5f55,#2c8f80,#3fb8a6
+
+      - name: Keep the new snake
+        if: steps.snake.outcome == 'success'
+        run: |
+          mkdir -p assets/live
+          for f in github-snake.svg github-snake-dark.svg; do
+            if [ -s "dist/$f" ]; then cat "dist/$f" > "assets/live/$f"; fi
+          done
+          sudo rm -rf dist || rm -rf dist || true
+
+      - name: Snake unavailable this run
+        if: steps.snake.outcome != 'success'
+        run: echo "::warning title=Snake skipped::The snake action failed this run; the previous snake stays on the profile."
+
+      - name: Commit and push
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain README.md docs/data assets/live)" ]; then
-            git add README.md docs/data assets/live
-            git commit -m "chore: rebuild README and deck data from the GitHub API"
-            git push
-          else
-            echo "Nothing changed."
-          fi
+          git add README.md docs/data assets/live 2>/dev/null || true
+          if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
+          git commit -qm "chore: rebuild README and deck data from the GitHub API"
+          # Someone may push while this runs: rebase onto it and try again.
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Push rejected (attempt $attempt), rebasing on the latest main."
+            git fetch -q --depth 50 origin main
+            if ! git rebase -q origin/main; then
+              # Only generated files can collide. In a rebase "theirs" is this run's
+              # commit, so keep the freshly generated version of them.
+              git checkout --theirs -- README.md docs/data assets/live 2>/dev/null || true
+              git add README.md docs/data assets/live 2>/dev/null || true
+              if ! GIT_EDITOR=true git rebase --continue; then
+                git rebase --abort || true
+                echo "::warning title=Push skipped::Could not merge with a newer commit; the next run will regenerate on top of it."
+                exit 0
+              fi
+            fi
+            sleep $((attempt * 10))
+          done
+          echo "::warning title=Push skipped::Could not push after five tries; the next run will publish these changes."
 
       - name: Publish shields.io endpoints to the output branch
+        continue-on-error: true
         run: |
           test -d output || exit 0
-          cp -r output /tmp/endpoints
-          git fetch origin output || true
-          git checkout -B output
-          rm -rf ./* 2>/dev/null || true
-          cp /tmp/endpoints/*.json .
-          git add -A
-          git commit -m "chore: refresh badge endpoints" || echo "no endpoint changes"
-          git push -f origin output
+          tmp="$RUNNER_TEMP/endpoints"
+          rm -rf "$tmp" && mkdir -p "$tmp" && cp output/*.json "$tmp"/
+          cd "$tmp"
+          git init -q -b output
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A && git commit -qm "chore: refresh badge endpoints"
+          url="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+          for attempt in 1 2 3; do git push -qf "$url" output && exit 0; sleep $((attempt * 10)); done
+          echo "::warning title=Badges not refreshed::Could not update the output branch this run."

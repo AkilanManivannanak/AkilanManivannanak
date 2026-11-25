@@ -158,8 +158,8 @@ mindmap
 <!-- CITY:END -->
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/snake/github-snake-dark.svg" />
-  <img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/snake/github-snake.svg" alt="Contribution grid being eaten by a snake, animated" width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/github-snake-dark.svg" />
+  <img src="https://raw.githubusercontent.com/AkilanManivannanak/AkilanManivannanak/main/assets/live/github-snake.svg" alt="Contribution grid being eaten by a snake, animated" width="100%" />
 </picture>
 
 <br/>

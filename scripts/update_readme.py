@@ -44,17 +44,34 @@ if TOKEN:
     HEAD["Authorization"] = f"Bearer {TOKEN}"
 
 
+def _request(req, attempts=5):
+    """GitHub answers 5xx, 429 or a secondary rate limit now and then. Retry with backoff
+    instead of failing the whole run; a 404 or 401 is real and is raised at once."""
+    import urllib.error
+    for i in range(attempts):
+        try:
+            with urllib.request.urlopen(req, timeout=40) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:
+            retry_after = e.headers.get("Retry-After") if e.headers else None
+            if e.code in (401, 404, 410, 422) or i == attempts - 1:
+                raise
+            wait = int(retry_after) if (retry_after or "").isdigit() else 4 * (2 ** i)
+        except (urllib.error.URLError, TimeoutError, ConnectionError, json.JSONDecodeError):
+            if i == attempts - 1:
+                raise
+            wait = 4 * (2 ** i)
+        print(f"  ! GitHub API hiccup on {req.full_url[:80]}, retrying in {wait}s")
+        time.sleep(min(wait, 60))
+
+
 def get(url):
-    req = urllib.request.Request(url, headers=HEAD)
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return json.load(r)
+    return _request(urllib.request.Request(url, headers=HEAD))
 
 
 def gql(query, variables):
     body = json.dumps({"query": query, "variables": variables}).encode()
-    req = urllib.request.Request(GRAPHQL, data=body, headers={**HEAD, "Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return json.load(r)
+    return _request(urllib.request.Request(GRAPHQL, data=body, headers={**HEAD, "Content-Type": "application/json"}))
 
 
 # ----------------------------------------------------------------- collection
@@ -102,7 +119,11 @@ def contribution_windows():
     for i, (_, _, frm, to) in enumerate(wins):
         variables[f"f{i}"] = frm.isoformat()
         variables[f"t{i}"] = to.isoformat()
-    data = gql(q, variables)
+    try:
+        data = gql(q, variables)
+    except Exception as e:  # an expired token or an API outage must not sink the run
+        print(f"::warning::Contribution calendar unavailable ({e}); keeping the last saved one.")
+        return None
     user = (data.get("data") or {}).get("user") or {}
     if not user:
         return None
@@ -124,7 +145,7 @@ def pull_requests():
     try:
         mine = get(f"{API}/search/issues?q=author:{USER}+type:pr&per_page=100")
         items = mine.get("items", [])
-    except urllib.error.HTTPError:
+    except Exception:
         return {"total": 0, "external": [], "open_external": []}
     external, open_external = [], []
     for it in items:

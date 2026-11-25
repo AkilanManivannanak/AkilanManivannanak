@@ -135,9 +135,9 @@ GitHub's image cache refreshes as soon as a card changes.
 To change a flagship card, edit `FLAGSHIPS` in `scripts/visuals.py`; to change the ledger,
 edit `LEDGER`. Push, and the README workflow rebuilds within a minute.
 
-The 3D contribution chart and the snake under "Live telemetry" come from
-`.github/workflows/snake.yml` (yoshi389111/github-profile-3d-contrib and Platane/snk). Both are
-published to the `snake` branch twice a day with a plain retrying `git push`.
+The snake under "Live telemetry" is made by Platane/snk inside the README job and saved to
+`assets/live/github-snake*.svg` on `main`. The step is allowed to fail: if it does, the last
+snake stays on the profile and the run still succeeds.
 
 ## Repository cards
 
@@ -194,3 +194,13 @@ give it a clear README first paragraph and a couple of GitHub topics.
 system works (camera rig, monitor wall, trajectories, agent pipeline, ranking funnel, noisy
 waveform), and the 3D contribution city from the same calendar data as the rest of the page.
 No third-party action is involved, so the chart cannot go blank when an outside service fails.
+
+## Why the workflows do not fail
+
+* **Rebuild README** retries every GitHub API call with backoff, reruns the generator up to
+  three times, treats the snake as optional, and rebases and retries its push if someone
+  pushed meanwhile. If something still cannot be done it leaves a yellow warning on the run
+  and keeps the last good profile, instead of a red failure.
+* **Deploy perception deck** runs only after a successful rebuild, never cancels a deploy
+  half way, and retries the deploy three times, the last time with a freshly packaged
+  site, because GitHub Pages occasionally loses the artifact it was just given.
