@@ -12,11 +12,11 @@
   </rect>
 </g>
 <g opacity="0"><animate attributeName="opacity" values="0;1" begin="0.2s" dur=".5s" fill="freeze"/>
-  <text x="182" y="112" fill="#14171c" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="36" font-weight="750">34</text>
+  <text x="182" y="112" fill="#14171c" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="36" font-weight="750">35</text>
   <text x="182" y="138" fill="#5b626b" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5">stars earned</text>
   <rect x="182" y="152" width="120" height="3" rx="1.5" fill="#d8d3c9"/>
   <rect x="182" y="152" width="0" height="3" rx="1.5" fill="#1f8878">
-    <animate attributeName="width" values="0;82" begin="0.4s" dur="1s" fill="freeze"/>
+    <animate attributeName="width" values="0;84" begin="0.4s" dur="1s" fill="freeze"/>
   </rect>
 </g>
 <g opacity="0"><animate attributeName="opacity" values="0;1" begin="0.4s" dur=".5s" fill="freeze"/>
